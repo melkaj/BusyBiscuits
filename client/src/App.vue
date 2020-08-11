@@ -1,12 +1,33 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <v-app>
+      
+      <!-- TOOLBAR AT THE HOP OF EVERY PAGE -->
+      <PageHeader />
+
+      <!-- CONTENT OF THE PAGE (THE MIDDLE, INBETWEEN THE TOOLBAR AND THE FOOTER) -->
+      <v-content>
+        <router-view/>
+      </v-content>
+
+      <!-- THE FOOTER -->
+      <PageFooter /> 
+         
+    </v-app>
   </div>
 </template>
+
+<script>
+import PageHeader from './components/MandatoryComponents/Header';
+import PageFooter from './components/MandatoryComponents/Footer';
+
+export default {
+  components: {
+    PageHeader,
+    PageFooter
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -17,16 +38,16 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+// #nav {
+//   padding: 30px;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+//   a {
+//     font-weight: bold;
+//     color: #2c3e50;
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+//     &.router-link-exact-active {
+//       color: #42b983;
+//     }
+//   }
+// }
 </style>
