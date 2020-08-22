@@ -8,7 +8,7 @@ async function login(email) {
 
     }
     finally {
-
+        conn.release();
     }
 
 }

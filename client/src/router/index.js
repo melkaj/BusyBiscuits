@@ -1,16 +1,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HelloWorld from '../components/HelloWorld.vue';
+import Dashboard from '../views/Dashboard.vue';
 import Login from '../components/Login.vue';
 import Register from '../components/Register.vue';
+import FormTimeSpent from '../components/Forms/FormTimeSpent.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
     {
-      path: '/',
-      name: 'home',
-      component: HelloWorld
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard
     },
     {
       path: '/register',
@@ -21,6 +22,11 @@ const routes = [
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/timeentry',
+      name: 'timeentry',
+      component: FormTimeSpent
     }
     // {
     //   path: '/about',

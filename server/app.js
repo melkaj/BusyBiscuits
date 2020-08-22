@@ -25,5 +25,22 @@ app.get('/alive', function (req, res) {
     res.send("Ok");
 });
 
+app.use('/timespent', require('./src/api/timespent/api'));
+
+app.use('/dashboard', require('./src/api/dashboard/api'));
+
+
+/**
+ * ERROR HANDLING
+ */
+app.use((req,res, next) => {
+    next(createError(404));
+});
+  
+app.use((err,req,res,next) => {
+    console.log(`From error handling:\n ${err.message}`);
+    res.status(err.status || 500).json('Something went wrong');
+})
+
 
 module.exports = app;

@@ -3,25 +3,37 @@
 
         <!-- THE TOOLBAR ITSELF -->
         <v-app-bar dense color="#116466" app dark>
+            <!-- The side bar -->
             <v-app-bar-nav-icon @click="drawer = !drawer">B</v-app-bar-nav-icon>
-            <v-toolbar-title>
+            
+            <v-divider vertical inset />
+            
+            <!-- Main Logo Button -->
+            <v-toolbar-title>        
                 <v-btn 
                 text
                 depressed
-                to="home">
-                    FullStackApp
+                to="dashboard">
+                    BusyBiscuits
                 </v-btn>
             </v-toolbar-title>
-
+            
+            <v-divider vertical inset />
             <v-spacer></v-spacer>
 
+            <!-- End of bar buttons -->
             <v-toolbar-items>
+                <v-divider vertical inset />
+
                 <v-btn
                 color="#116466" 
                 depressed  
                 to="register">
                     Sign Up
                 </v-btn>
+
+                <v-divider vertical inset />
+
                 <v-btn 
                 color="#116466" 
                 depressed 

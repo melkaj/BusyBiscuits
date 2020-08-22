@@ -3,10 +3,16 @@ import Api from '@/services/Api'
 
 export default {
     login (credentials) {
-        return Api().post('/login', credentials)
+        return Api().post('/login', credentials);
     },
     register (credentials) {
-        return Api().post('/register', credentials)
+        return Api().post('/register', credentials);
+    },
+    sendTimeSpentForm (form) {
+        return Api().post('/timespent', form);
+    },
+    getTodaysData () {
+        return Api().get('/dashboard');
     }
 }
 

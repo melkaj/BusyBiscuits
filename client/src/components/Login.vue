@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Services from '../services/services'
+import Services from '../services/services';
 
 export default {
   // data is the stuff you can bind (2 ways or 1 way) to the template above
