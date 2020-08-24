@@ -134,13 +134,11 @@ export default {
 
             this.sendTimeSpentForm()
             .then( res => {
-                console.log(`inside the then: ${res}`);
                 this.message = res.data;
                 this.$router.push('dashboard')
             })
             .catch( error => {
                 this.message = error.response.data;
-                console.log(`inside the catch: ${error}`);
             });
         },
         async sendTimeSpentForm() {

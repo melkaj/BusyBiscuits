@@ -42,7 +42,6 @@ export default {
     CreateThisWeeksPieChart() {
         // The data for the last seven days will be an array of objects
         const thisWeeksData = store.getters.getDataFromLastSevenDays;
-        console.log(thisWeeksData);
 
         // Converts thisWeeksData to one object that can be used for the pie chart
         const data = convertDataToChartData(thisWeeksData);

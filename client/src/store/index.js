@@ -10,12 +10,8 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    // addTimeSpentOnDay(state, dataForTheDay) {
-    //   state.lastSevenDays.append(dataForTheDay);
-    // },
     setDataFromLastSevenDays(state, dataForLastSevenDays) {
       state.dataFromLastSevenDays = dataForLastSevenDays;
-      console.log(`from mutation: ${state.dataFromLastSevenDays}`);
     }
   },
 

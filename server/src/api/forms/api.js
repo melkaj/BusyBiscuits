@@ -22,7 +22,6 @@ router.post('/', (req, res, next) => {
         })
         .catch( (error) => {
             console.log(error);
-            console.log(`inside the api:the catch: Just some stuff`);
             next(error);
         });
 

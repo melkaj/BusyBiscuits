@@ -96,12 +96,11 @@ export default {
         // }
     },
     async mounted() {
-
-        await this.$store.dispatch('setDataFromLastSevenDays');
-        console.log(`From mounted: ${this.$store.getters.getDataFromLastSevenDays}`);
-
+        // Getting the chart data needed to create the pie chart
         const todaysPieChartData = await PieChartStuff.CreateTodaysPieChart(); 
         const thisWeeksPieChartData = PieChartStuff.CreateThisWeeksPieChart();
+
+        // Accessing the DOM, and placing a pie chart at a specific location
         this.createPieChart('dashboard-main-chart', thisWeeksPieChartData);
         this.createPieChart('dashboard-second-chart', todaysPieChartData);
         this.createPieChart('dashboard-third-chart', PieChartStuff.mockPieChartData());
