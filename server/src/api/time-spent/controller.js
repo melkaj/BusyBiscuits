@@ -12,7 +12,7 @@ const db = require('../../db/db');
     
     try {
 
-        const q = "SELECT sleep,travel,exercise,on_phone,on_computer,games,somethingelse FROM time_spent ORDER BY id DESC LIMIT 7"
+        const q = "SELECT date_created,sleep,travel,exercise,on_phone,on_computer,games,somethingelse FROM time_spent ORDER BY id DESC LIMIT 7"
         return await db.runQuery(conn, q, []);
 
     }

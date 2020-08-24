@@ -96,6 +96,9 @@ export default {
         // }
     },
     async mounted() {
+
+        await this.$store.dispatch('setDataFromLastSevenDays');
+
         // Getting the chart data needed to create the pie chart
         const todaysPieChartData = await PieChartStuff.CreateTodaysPieChart(); 
         const thisWeeksPieChartData = PieChartStuff.CreateThisWeeksPieChart();

@@ -135,7 +135,9 @@ export default {
             this.sendTimeSpentForm()
             .then( res => {
                 this.message = res.data;
-                this.$router.push('dashboard')
+                
+                // Redirect back to dashboard
+                this.$router.push('dashboard');
             })
             .catch( error => {
                 this.message = error.response.data;
@@ -153,9 +155,12 @@ export default {
                 somethingelse: this.somethingelse
             }
 
+            // Adding the form to the store
+            var date = new Date().toISOString().slice(0, 10);
+            this.$store.dispatch('addTimeEntryToFront', { date: date, data: form });
+
             // Pushing the form data to the database
             return await Services.sendTimeSpentForm(form);
-
         },
     },
 }

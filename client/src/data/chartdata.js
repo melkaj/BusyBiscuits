@@ -37,7 +37,7 @@ export default {
     },
 
     /**
-     * Returns an object that can used to create a pi chart 
+     * Returns an object that can used to create a pie chart 
      */
     CreateThisWeeksPieChart() {
         // The data for the last seven days will be an array of objects

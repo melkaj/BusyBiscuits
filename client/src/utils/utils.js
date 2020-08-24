@@ -48,6 +48,30 @@ function convertDataToChartData(data) {
 
 
 /**
+ * Returning an object that holds two arrays
+ *      First is an array holding dates
+ *      Second is array of objects that will hold the rest of the data
+ * @param {Array} data - array of objects
+ */
+function extractDatesAndData(arrayOfObjects) {
+    var dates = [];
+    var dataColumns = [];
+
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+        // Getting the date and placing it in its own array
+        //      Then deleting it from the original object
+        dates.push(arrayOfObjects[i].date_created);
+        delete arrayOfObjects[i].date_created;
+
+        // Placing the rest of the data into its own array as well
+        dataColumns.push(arrayOfObjects[i]);
+    }
+
+    return { dates: dates, data: dataColumns };
+}
+
+
+/**
  * Returning an object that holds the various colors of categories
  */
 function getBackgroundColors() {
@@ -81,5 +105,6 @@ module.exports = {
     getBackgroundColors,
     getBorderColors,
     // startUp,
+    extractDatesAndData,
     convertDataToChartData,
 }
