@@ -1,4 +1,55 @@
 
+
+// async function startUp() {
+//     // await this.$store.dispatch('addTimeSpentForLastSevenDays');
+//     await store.dispatch('addTimeSpentForLastSevenDays');
+// }
+
+
+/**
+ * Converts this array of objects into one object that can be used to create a chart
+ * @param {Array} data - Array of Objects. Each object is a time-spent-entry 
+ */
+function convertDataToChartData(data) {
+    // Maybe turn this chart data object to an array
+    var chartDataObject = {
+        sleep: 0,
+        travel: 0,
+        exercise: 0,
+        on_phone: 0,
+        on_computer: 0,
+        games: 0,
+        somethingelse: 0
+    }
+
+    const numberOfRows = data.length;
+
+    for (let i = 0; i < data.length; i++) {
+        chartDataObject.sleep += data[i].sleep;
+        chartDataObject.travel += data[i].travel;
+        chartDataObject.exercise += data[i].exercise;
+        chartDataObject.on_phone += data[i].on_phone;
+        chartDataObject.on_computer += data[i].on_computer;
+        chartDataObject.games += data[i].games;
+        chartDataObject.somethingelse += data[i].somethingelse;
+    }
+
+    chartDataObject.sleep = (chartDataObject.sleep / numberOfRows).toFixed(1); 
+    chartDataObject.travel = (chartDataObject.travel / numberOfRows).toFixed(1); 
+    chartDataObject.exercise = (chartDataObject.exercise / numberOfRows).toFixed(1); 
+    chartDataObject.on_phone = (chartDataObject.on_phone / numberOfRows).toFixed(1); 
+    chartDataObject.on_computer = (chartDataObject.on_computer / numberOfRows).toFixed(1); 
+    chartDataObject.games = (chartDataObject.games / numberOfRows).toFixed(1); 
+    chartDataObject.somethingelse = (chartDataObject.somethingelse / numberOfRows).toFixed(1); 
+
+
+    return chartDataObject;
+}
+
+
+/**
+ * Returning an object that holds the various colors of categories
+ */
 function getBackgroundColors() {
     return {
         sleep: 'rgba(214,82,47,0.80)',
@@ -11,6 +62,9 @@ function getBackgroundColors() {
     }
 }
 
+/**
+ * Returning an object that holds the various colors of categories
+ */
 function getBorderColors() {
     return {
         sleep: 'rgba(214,82,47,1)',
@@ -26,4 +80,6 @@ function getBorderColors() {
 module.exports = {
     getBackgroundColors,
     getBorderColors,
+    // startUp,
+    convertDataToChartData,
 }

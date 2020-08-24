@@ -25,9 +25,9 @@ app.get('/alive', function (req, res) {
     res.send("Ok");
 });
 
-app.use('/timespent', require('./src/api/timespent/api'));
+app.use('/time-spent', require('./src/api/time-spent/api'));
 
-app.use('/dashboard', require('./src/api/dashboard/api'));
+app.use('/forms', require('./src/api/forms/api'));
 
 
 /**

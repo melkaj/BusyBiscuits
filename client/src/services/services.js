@@ -2,23 +2,22 @@
 import Api from '@/services/Api'
 
 export default {
-    login (credentials) {
+    login(credentials) {
         return Api().post('/login', credentials);
     },
-    register (credentials) {
+    register(credentials) {
         return Api().post('/register', credentials);
     },
-    sendTimeSpentForm (form) {
-        return Api().post('/timespent', form);
+    sendTimeSpentForm(form) {
+        return Api().post('/forms', form);
     },
-    getTodaysData () {
-        return Api().get('/dashboard');
+    getTodaysData() {
+        return Api().get('/time-spent/today');
+    },
+    getLastSevenDays() {
+        return Api().get('/time-spent/last-seven-days');
     }
 }
-
-
-
-
 
 
 

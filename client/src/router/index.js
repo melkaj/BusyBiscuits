@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Dashboard from '../views/Dashboard.vue';
-import Login from '../components/Login.vue';
-import Register from '../components/Register.vue';
-import FormTimeSpent from '../components/Forms/FormTimeSpent.vue';
+import Dashboard from '../views/dashboard/Dashboard.vue';
+import Login from '../views/login/Login.vue';
+import Register from '../views/register/Register.vue';
+import FormTimeSpent from '../views/Forms/FormTimeSpent.vue';
 
 Vue.use(VueRouter);
 
@@ -24,8 +24,8 @@ const routes = [
       component: Login
     },
     {
-      path: '/timeentry',
-      name: 'timeentry',
+      path: '/time-spent-entry',
+      name: 'timespententry',
       component: FormTimeSpent
     }
     // {

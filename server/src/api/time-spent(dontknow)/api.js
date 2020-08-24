@@ -16,11 +16,11 @@ router.post('/', (req, res, next) => {
     controller.submitForm(form)
         .then( (response) => {
             console.log(response);
-            res.status(201).json("Form was successfully submitted");
+            res.status(201).json("");
         })
         .catch( (error) => {
             console.log(error);
-            console.log(`inside the api:the catch: Just some stuff`);
+            console.log(``);
             next(error);
         });
 

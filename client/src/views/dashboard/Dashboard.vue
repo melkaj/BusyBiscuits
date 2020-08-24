@@ -25,7 +25,7 @@
                 color="white"
                 style="background:#116466;"
                 class="ma-5"
-                to="timeentry">
+                to="time-spent-entry">
                     Track Time
                 </v-btn>
             </v-col>
@@ -34,14 +34,33 @@
 
         <!-- Second Row - Secondary charts (Going to be line charts with some filters) -->
         <v-row no-gutters>
-            <v-col sm="5" class="ma-auto py-3" v-for="(title, i) in titles" :key="i">
+            <v-col sm="5" class="ma-auto py-3">
+                <v-card flat>
+                    <v-card-title class="justify-center chart-title">
+                        {{titles[0].title}}
+                    </v-card-title>
+                    <canvas class="dashboard-second-chart"></canvas>
+                </v-card>
+            </v-col>
+
+            <v-col sm="5" class="ma-auto py-3">
+                <v-card flat>
+                    <v-card-title class="justify-center chart-title">
+                        {{titles[1].title}}
+                    </v-card-title>
+                    <canvas class="dashboard-third-chart"></canvas>
+                </v-card>
+            </v-col>
+
+
+            <!-- <v-col sm="5" class="ma-auto py-3" v-for="(title, i) in titles" :key="i">
                 <v-card flat>
                     <v-card-title class="justify-center chart-title">
                         {{title.title}}
                     </v-card-title>
                     <canvas class="dashboard-secondary-chart"></canvas>
                 </v-card>
-            </v-col>
+            </v-col> -->
         </v-row>
     </v-container>
 </template>
@@ -49,7 +68,8 @@
 <script>
 // @ is an alias to /src
 import Chart from 'chart.js';
-import PieChartStuff from '../data/chartdata.js';
+import PieChartStuff from '../../data/chartdata.js';
+// const { startUp } = require('../../utils/utils');
 
 export default {
     name: 'Home',
@@ -70,12 +90,21 @@ export default {
                 data: chartData.data,
                 options: chartData.options
             });
-        }
+        },
+        // createThisWeeksPieChart() {
+        //     this.$store.getters.getLastSevenDays
+        // }
     },
     async mounted() {
-        const mainPieChartData = await PieChartStuff.CreateTodaysPieChart(); 
-        this.createPieChart('dashboard-main-chart', mainPieChartData);
-        this.createPieChart('dashboard-secondary-chart', PieChartStuff.mockPieChartData());
+
+        await this.$store.dispatch('setDataFromLastSevenDays');
+        console.log(`From mounted: ${this.$store.getters.getDataFromLastSevenDays}`);
+
+        const todaysPieChartData = await PieChartStuff.CreateTodaysPieChart(); 
+        const thisWeeksPieChartData = PieChartStuff.CreateThisWeeksPieChart();
+        this.createPieChart('dashboard-main-chart', thisWeeksPieChartData);
+        this.createPieChart('dashboard-second-chart', todaysPieChartData);
+        this.createPieChart('dashboard-third-chart', PieChartStuff.mockPieChartData());
     }
 }
 </script>

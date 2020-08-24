@@ -1,8 +1,14 @@
 
+import store from '../store/index.js'
 import Services from '../services/services';
-const { getBackgroundColors, getBorderColors } = require('../utils/utils');
+const { getBackgroundColors, getBorderColors, convertDataToChartData } = require('../utils/utils');
+
+const chartLabels = ['Sleep', 'Travel', 'Exercise', 'On the phone', 'On the computer', 'Playing games', 'Doing something else']
 
 export default {
+    /**
+     * Returns an object that contains mock data
+     */
     mockPieChartData() {
         return {
             type: 'pie',
@@ -29,18 +35,73 @@ export default {
             }
         }
     },
-    async CreateTodaysPieChart() {
-        const requestedData = await Services.getTodaysData();
-        const data = requestedData.data;
 
-        console.log(data);
+    /**
+     * Returns an object that can used to create a pi chart 
+     */
+    CreateThisWeeksPieChart() {
+        // The data for the last seven days will be an array of objects
+        const thisWeeksData = store.getters.getDataFromLastSevenDays;
+        console.log(thisWeeksData);
+
+        // Converts thisWeeksData to one object that can be used for the pie chart
+        const data = convertDataToChartData(thisWeeksData);
+
+        // Colors used for the pie chart
         const backgroundColors = getBackgroundColors();
         const borderColors = getBorderColors();
 
         return {
             type: 'pie',
             data: {
-                labels: ['Sleep', 'Travel', 'Exercise', 'On the phone', 'On the computer', 'Playing games', 'Doing something else'],
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Just some numbers',
+                    data: [data.sleep, data.travel, data.exercise, data.on_phone, data.on_computer, data.games, data.somethingelse],
+                    backgroundColor: [
+                        backgroundColors.sleep,
+                        backgroundColors.travel,
+                        backgroundColors.exercise,
+                        backgroundColors.onPhone,
+                        backgroundColors.onComputer,
+                        backgroundColors.games,
+                        backgroundColors.somethingelse
+                    ],
+                    borderColor: [
+                        borderColors.sleep,
+                        borderColors.travel,
+                        borderColors.exercise,
+                        borderColors.onPhone,
+                        borderColors.onComputer,
+                        borderColors.games,
+                        borderColors.somethingelse
+                    ], 
+                    borderWidth: 2
+                }],
+            },
+            options: {
+                responsive: true,
+            }
+        }
+
+    },
+
+    /**
+     * Returns object with todays data 
+     */
+    async CreateTodaysPieChart() {
+        // Axios call to receive todays time-spent entry
+        const requestedData = await Services.getTodaysData();
+        const data = requestedData.data;
+
+        // Colors used for the pie chart
+        const backgroundColors = getBackgroundColors();
+        const borderColors = getBorderColors();
+
+        return {
+            type: 'pie',
+            data: {
+                labels: chartLabels,
                 datasets: [{
                     label: 'Just some numbers',
                     data: [data.sleep, data.travel, data.exercise, data.on_phone, data.on_computer, data.games, data.somethingelse],
