@@ -44,11 +44,18 @@
             </v-col>
 
             <v-col sm="5" class="ma-auto py-3">
+                <!-- <LineGraph cavasName="line-graph"/> -->
+                <!-- <LineGraph /> -->
+
                 <v-card flat>
-                    <v-card-title class="justify-center chart-title">
-                        {{titles[1].title}}
+                    <v-card-title class="justify-center chart-title mb-2">
+                        {{lineGraphTitle}}
                     </v-card-title>
-                    <canvas class="dashboard-third-chart"></canvas>
+                    <v-card-subtitle>
+                        {{lineGraphSubTitle}}
+                    </v-card-subtitle>
+                    <!-- <canvas class="line-graph"></canvas> -->
+                    <canvas class="line-graph"></canvas>
                 </v-card>
             </v-col>
 
@@ -69,19 +76,25 @@
 // @ is an alias to /src
 import Chart from 'chart.js';
 import PieChartStuff from '../../data/chartdata.js';
+// import LineGraph from '../../components/linegraphs/LineGraphSection';
 // const { startUp } = require('../../utils/utils');
 
 export default {
     name: 'Home',
     data () {
         return {
-            mainPieChartTitle: "Time Spent in the Past Week",
+            mainPieChartTitle: "Busy Chart From Past Week",
+            lineGraphTitle: "Line Graph",
+            lineGraphSubTitle: "Choose a category to visualize",
             titles: [
-                { title: "Secondary Graph (1)", id: 0},
+                { title: "Today's Pie Chart", id: 0},
                 { title: "Secondary Graph (2)", id: 1 },
             ],
         }
     },
+    // components: {
+    //     LineGraph,
+    // },
     methods: {
         createPieChart(canvasId, chartData) {
             var ctx = document.getElementsByClassName(canvasId);
@@ -102,11 +115,13 @@ export default {
         // Getting the chart data needed to create the pie chart
         const todaysPieChartData = await PieChartStuff.CreateTodaysPieChart(); 
         const thisWeeksPieChartData = PieChartStuff.CreateThisWeeksPieChart();
+        const lineChartData = PieChartStuff.CreateLineGraphData("on_phone");
 
         // Accessing the DOM, and placing a pie chart at a specific location
         this.createPieChart('dashboard-main-chart', thisWeeksPieChartData);
         this.createPieChart('dashboard-second-chart', todaysPieChartData);
-        this.createPieChart('dashboard-third-chart', PieChartStuff.mockPieChartData());
+        this.createPieChart('line-graph', lineChartData);
+        // this.createPieChart('line-graph', PieChartStuff.CreateLineGraphData("sleep"));
     }
 }
 </script>
@@ -121,5 +136,6 @@ export default {
 .chart-sub-title {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: lighter;
+    font-size: 28px;
 }
 </style>

@@ -157,7 +157,7 @@ export default {
 
             // Adding the form to the store
             var date = new Date().toISOString().slice(0, 10);
-            this.$store.dispatch('addTimeEntryToFront', { date: date, data: form });
+            this.$store.dispatch('addNewTimeSpentEntryToFront', { date: date, data: form });
 
             // Pushing the form data to the database
             return await Services.sendTimeSpentForm(form);

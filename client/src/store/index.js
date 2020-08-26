@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Services from '../services/services';
-import { extractDatesAndData } from '../utils/utils';
+const { extractDatesAndData, extractLineChartData } = require('../utils/utils');
 
 Vue.use(Vuex);
 
@@ -14,8 +14,9 @@ export default new Vuex.Store({
     // the index in 'datafromlastsevendays
     dates: [],
 
-    // // Object that will hold data from 
-    // dataFromToday: {}
+    // Object that will hold line chart data for all categories 
+    // TODO: Find better name
+    weekOfData: {},
   },
 
   mutations: {
@@ -33,6 +34,10 @@ export default new Vuex.Store({
 
     addDateToFrontOfDates(state, newDate) {
       state.dates.unshift(newDate);
+    },
+
+    setLineChartData(state, data) {
+      state.weekOfData = data;
     }
   },
 
@@ -47,6 +52,12 @@ export default new Vuex.Store({
       // First will be array of dates and second will be array of objects with data
       const data = extractDatesAndData(responseData);
 
+      // Manipulating the data received from the database to be used for linecharts
+      const lineCartData = extractLineChartData(data.data);
+      
+      // Commiting a mutation to change 'weekOfData'
+      context.commit('setLineChartData', lineCartData);
+      
       // Commiting a mutation to change 'dates' state
       context.commit('setDates', data.dates);
 
@@ -58,6 +69,13 @@ export default new Vuex.Store({
     addNewTimeSpentEntryToFront(context, payload) {
       context.commit('addDataToFront', payload.data);
       context.commit('addDateToFrontOfDates', payload.date);
+    },
+
+    //Getting line chart data for week of each category
+    setLineChartData(context) {
+      const data = extractLineChartData(context.getters.getDataFromLastSevenDays);
+
+      context.commit('setLineChartData', data);
     }
   },
 
@@ -67,6 +85,9 @@ export default new Vuex.Store({
     },
     getDates: state => {
       return state.dates;
+    },
+    getWeekOfData: state => {
+      return state.weekOfData;
     }
   },
 

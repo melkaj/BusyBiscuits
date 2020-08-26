@@ -48,6 +48,35 @@ function convertDataToChartData(data) {
 
 
 /**
+ * Returning an object that will holds all array for each category
+ * @param {Array} lastSevenDays - Array of objects
+ */
+function extractLineChartData(lastSevenDays) {
+    var weekOfData = {
+        sleep: [],
+        travel: [],
+        exercise: [],
+        on_phone: [],
+        on_computer: [],
+        games: [],
+        somethingelse: []
+    };
+
+    for (let i = 0; i < lastSevenDays.length; i++) {
+        weekOfData.sleep.push(lastSevenDays[i].sleep);
+        weekOfData.travel.push(lastSevenDays[i].travel);
+        weekOfData.exercise.push(lastSevenDays[i].exercise);
+        weekOfData.on_phone.push(lastSevenDays[i].on_phone);
+        weekOfData.on_computer.push(lastSevenDays[i].on_computer);
+        weekOfData.games.push(lastSevenDays[i].games);
+        weekOfData.somethingelse.push(lastSevenDays[i].somethingelse);
+    }
+
+    return weekOfData;
+}
+
+
+/**
  * Returning an object that holds two arrays
  *      First is an array holding dates
  *      Second is array of objects that will hold the rest of the data
@@ -72,6 +101,35 @@ function extractDatesAndData(arrayOfObjects) {
 
 
 /**
+ * When labeling the line-graph, it should say 'Hours of' followed by the category
+ *  However 'Hours of on_phone' does not seem correct
+ *  Returns the correct ending to this label
+ *  ex: category='on_phone'         returns 'phone time'
+ * @param {String} category 
+ */
+function getCorrectPhrasingOfCategory(category) {
+    switch(category) {
+        case "sleep":
+            return "sleep";
+        case "travel":
+            return "travel";
+        case "exercise":
+            return "exercise";
+        case "on_phone":
+            return "phone time";
+        case "on_computer":
+            return "computer time";
+        case "games":
+            return "gaming";
+        case "somethingelse":
+            return "doing something else";
+        default:
+            return "nothing";
+    }
+}
+
+
+/**
  * Returning an object that holds the various colors of categories
  */
 function getBackgroundColors() {
@@ -79,8 +137,8 @@ function getBackgroundColors() {
         sleep: 'rgba(214,82,47,0.80)',
         travel: 'rgba(166,49,224,0.80)',
         exercise: 'rgba(54,140,201,0.8)',
-        onPhone: 'rgba(43,224,66,0.8)',
-        onComputer: 'rgba(214,190,42,0.8)',
+        on_phone: 'rgba(43,224,66,0.8)',
+        on_computer: 'rgba(214,190,42,0.8)',
         games: 'rgba(30,61,227,0.8)',
         somethingelse: 'rgba(201,227,27,0.8)'
     }
@@ -94,8 +152,8 @@ function getBorderColors() {
         sleep: 'rgba(214,82,47,1)',
         travel: 'rgba(166,49,224,1)',
         exercise: 'rgba(54,140,201,1)',
-        onPhone: 'rgba(43,224,66,1)',
-        onComputer: 'rgba(214,190,42,1)',
+        on_phone: 'rgba(43,224,66,1)',
+        on_computer: 'rgba(214,190,42,1)',
         games: 'rgba(30,61,227,1)',
         somethingelse: 'rgba(201,227,27,1)'
     }
@@ -105,6 +163,8 @@ module.exports = {
     getBackgroundColors,
     getBorderColors,
     // startUp,
+    getCorrectPhrasingOfCategory,
     extractDatesAndData,
+    extractLineChartData,
     convertDataToChartData,
 }

@@ -1,7 +1,7 @@
 
 import store from '../store/index.js'
 import Services from '../services/services';
-const { getBackgroundColors, getBorderColors, convertDataToChartData } = require('../utils/utils');
+const { getBackgroundColors, getBorderColors, convertDataToChartData, getCorrectPhrasingOfCategory } = require('../utils/utils');
 
 const chartLabels = ['Sleep', 'Travel', 'Exercise', 'On the phone', 'On the computer', 'Playing games', 'Doing something else']
 
@@ -61,8 +61,8 @@ export default {
                         backgroundColors.sleep,
                         backgroundColors.travel,
                         backgroundColors.exercise,
-                        backgroundColors.onPhone,
-                        backgroundColors.onComputer,
+                        backgroundColors.on_phone,
+                        backgroundColors.on_computer,
                         backgroundColors.games,
                         backgroundColors.somethingelse
                     ],
@@ -70,8 +70,8 @@ export default {
                         borderColors.sleep,
                         borderColors.travel,
                         borderColors.exercise,
-                        borderColors.onPhone,
-                        borderColors.onComputer,
+                        borderColors.on_phone,
+                        borderColors.on_computer,
                         borderColors.games,
                         borderColors.somethingelse
                     ], 
@@ -108,8 +108,8 @@ export default {
                         backgroundColors.sleep,
                         backgroundColors.travel,
                         backgroundColors.exercise,
-                        backgroundColors.onPhone,
-                        backgroundColors.onComputer,
+                        backgroundColors.on_phone,
+                        backgroundColors.on_computer,
                         backgroundColors.games,
                         backgroundColors.somethingelse
                     ],
@@ -117,10 +117,65 @@ export default {
                         borderColors.sleep,
                         borderColors.travel,
                         borderColors.exercise,
-                        borderColors.onPhone,
-                        borderColors.onComputer,
+                        borderColors.on_phone,
+                        borderColors.on_computer,
                         borderColors.games,
                         borderColors.somethingelse
+                    ], 
+                    borderWidth: 2
+                }],
+            },
+            options: {
+                responsive: true,
+            }
+        }
+    },
+    CreateLineGraphData(category) {
+        // Getting the data for the line charts
+        // Data will be an object of arrays
+        //      Each element in the object will hold an array of data for the week
+        const allTheData = store.getters.getWeekOfData;
+        
+        // Specifically getting the category needed
+        const dataFromCategory = (allTheData[category]).reverse();
+
+        // Getting the right phrasing for the labels
+        //      ex: category is 'on_phone', so the label should be "Hours of 'phone time'"
+        const categoryPhrasing = getCorrectPhrasingOfCategory(category);
+
+        // Getting the dates for the past week to be the labels for the x-axis
+        const lineChartLabels = (store.getters.getDates).reverse();
+
+        // Colors used for the pie chart
+        const backgroundColors = getBackgroundColors();
+        const borderColors = getBorderColors();
+
+        return {
+            type: 'line',
+            data: {
+                labels: lineChartLabels,
+                datasets: [{
+                    label: `Hours of ${categoryPhrasing}`,
+                    data: dataFromCategory,
+                    backgroundColor: [
+                        backgroundColors[category]
+                        // backgroundColors.sleep,
+                        // backgroundColors.travel,
+                        // backgroundColors.exercise,
+                        // backgroundColors.onPhone,
+                        // backgroundColors.onComputer,
+                        // backgroundColors.games,
+                        // backgroundColors.somethingelse
+                    ],
+                    borderColor: [
+                        borderColors[category]
+                        // borderColors.sleep,
+                        // borderColors.travel,
+                        // borderColors.exercise,
+                        // borderColors.onPhone,
+                        // borderColors.onComputer,
+                        // borderColors.games,
+                        // borderColors.somethingelse
                     ], 
                     borderWidth: 2
                 }],
