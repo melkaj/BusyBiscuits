@@ -32,9 +32,9 @@
         </v-row>
 
 
-        <!-- Second Row - Secondary charts (Going to be line charts with some filters) -->
+        <!-- Second Row - Another pie chart -->
         <v-row no-gutters>
-            <v-col sm="5" class="ma-auto py-3">
+            <v-col sm="7" class="ma-auto py-3">
                 <v-card flat>
                     <v-card-title class="justify-center chart-title">
                         {{titles[0].title}}
@@ -43,32 +43,35 @@
                 </v-card>
             </v-col>
 
-            <v-col sm="5" class="ma-auto py-3">
-                <!-- <LineGraph cavasName="line-graph"/> -->
-                <LineGraph graphName="line-graph"/>
+            <v-divider inset vertical></v-divider>
 
-                <!-- <v-card flat>
-                    <v-card-title class="justify-center chart-title mb-2">
-                        {{lineGraphTitle}}
-                    </v-card-title>
-                    <v-card-subtitle>
-                        {{lineGraphSubTitle}}
-                    </v-card-subtitle>
-                    <canvas class="line-graph"></canvas>
-                    <canvas canvasName="line-graph"></canvas>
-                </v-card> -->
+            <!-- Column two - Dropdown to change the data in the pie chart -->
+            <v-col sm="3" class="ma-auto">
+                <h1 class="chart-title">Put dropdown here</h1>
+            </v-col>
+        </v-row>
+
+
+        <!-- Row Three - Line Graph -->
+        <v-row no-gutters>
+
+            <!-- Column one - The Line Graph -->
+            <v-col sm="7" class="ma-auto py-3">
+                <LineGraph graphName="line-graph"/>
             </v-col>
 
+            <v-divider inset vertical></v-divider>
 
-            <!-- <v-col sm="5" class="ma-auto py-3" v-for="(title, i) in titles" :key="i">
-                <v-card flat>
-                    <v-card-title class="justify-center chart-title">
-                        {{title.title}}
-                    </v-card-title>
-                    <canvas class="dashboard-secondary-chart"></canvas>
-                </v-card>
-            </v-col> -->
+            <!-- Column two - Drop down to change the linegraph -->
+            <v-col sm="3" class="ma-auto">
+                <v-select
+                :items="lineGraphItems"
+                label="Choose Category"
+                chips
+                ></v-select>
+            </v-col>
         </v-row>
+
     </v-container>
 </template>
 
@@ -90,7 +93,8 @@ export default {
                 { title: "Today's Pie Chart", id: 0},
                 { title: "Secondary Graph (2)", id: 1 },
             ],
-            graphName: "line-graph"
+            graphName: "line-graph",
+            lineGraphItems: this.$store.getters.getCategories,
         }
     },
     components: {
@@ -122,7 +126,6 @@ export default {
         this.createPieChart('dashboard-main-chart', thisWeeksPieChartData);
         this.createPieChart('dashboard-second-chart', todaysPieChartData);
         this.createPieChart('line-graph', lineChartData);
-        // this.createPieChart('line-graph', PieChartStuff.CreateLineGraphData("sleep"));
     }
 }
 </script>

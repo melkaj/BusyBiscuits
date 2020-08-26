@@ -3,7 +3,7 @@ import store from '../store/index.js'
 import Services from '../services/services';
 const { getBackgroundColors, getBorderColors, convertDataToChartData, getCorrectPhrasingOfCategory } = require('../utils/utils');
 
-const chartLabels = ['Sleep', 'Travel', 'Exercise', 'On the phone', 'On the computer', 'Playing games', 'Doing something else']
+const chartLabels = store.getters.getCategories;
 
 export default {
     /**
@@ -157,7 +157,8 @@ export default {
                 datasets: [{
                     label: `Hours of ${categoryPhrasing}`,
                     data: dataFromCategory,
-                    backgroundColor: [
+                    fill: false,
+                    backgroundColor: 
                         backgroundColors[category]
                         // backgroundColors.sleep,
                         // backgroundColors.travel,
@@ -166,7 +167,7 @@ export default {
                         // backgroundColors.onComputer,
                         // backgroundColors.games,
                         // backgroundColors.somethingelse
-                    ],
+                        ,
                     borderColor: [
                         borderColors[category]
                         // borderColors.sleep,

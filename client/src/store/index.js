@@ -17,6 +17,9 @@ export default new Vuex.Store({
     // Object that will hold line chart data for all categories 
     // TODO: Find better name
     weekOfData: {},
+
+    // Array of categories
+    categories: ['Sleep', 'Travel', 'Exercise', 'On the phone', 'On the computer', 'Playing games', 'Doing something else'],
   },
 
   mutations: {
@@ -88,6 +91,9 @@ export default new Vuex.Store({
     },
     getWeekOfData: state => {
       return state.weekOfData;
+    },
+    getCategories: state => {
+      return state.categories;
     }
   },
 
