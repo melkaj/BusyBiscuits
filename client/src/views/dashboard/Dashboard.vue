@@ -45,18 +45,18 @@
 
             <v-col sm="5" class="ma-auto py-3">
                 <!-- <LineGraph cavasName="line-graph"/> -->
-                <!-- <LineGraph /> -->
+                <LineGraph graphName="line-graph"/>
 
-                <v-card flat>
+                <!-- <v-card flat>
                     <v-card-title class="justify-center chart-title mb-2">
                         {{lineGraphTitle}}
                     </v-card-title>
                     <v-card-subtitle>
                         {{lineGraphSubTitle}}
                     </v-card-subtitle>
-                    <!-- <canvas class="line-graph"></canvas> -->
                     <canvas class="line-graph"></canvas>
-                </v-card>
+                    <canvas canvasName="line-graph"></canvas>
+                </v-card> -->
             </v-col>
 
 
@@ -76,7 +76,7 @@
 // @ is an alias to /src
 import Chart from 'chart.js';
 import PieChartStuff from '../../data/chartdata.js';
-// import LineGraph from '../../components/linegraphs/LineGraphSection';
+import LineGraph from '../../components/linegraphs/LineGraphSection';
 // const { startUp } = require('../../utils/utils');
 
 export default {
@@ -90,11 +90,12 @@ export default {
                 { title: "Today's Pie Chart", id: 0},
                 { title: "Secondary Graph (2)", id: 1 },
             ],
+            graphName: "line-graph"
         }
     },
-    // components: {
-    //     LineGraph,
-    // },
+    components: {
+        LineGraph,
+    },
     methods: {
         createPieChart(canvasId, chartData) {
             var ctx = document.getElementsByClassName(canvasId);

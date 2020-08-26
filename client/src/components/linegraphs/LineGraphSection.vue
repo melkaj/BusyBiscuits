@@ -2,16 +2,15 @@
     <v-container> 
         <v-row>
             <v-col sm="12">
-                <h1>Hello from the component</h1>
                 <v-card flat>
-                    <v-card-title class="justify-center chart-title">
+                    <v-card-title class="justify-center chart-title mb-2">
                         {{title}}
                     </v-card-title>
                     <v-card-subtitle>
                         {{subTitle}}
                     </v-card-subtitle>
                     <!-- <canvas class="line-graph"></canvas> -->
-                    <canvas :class='canvasName'></canvas>
+                    <canvas :class='graphName'></canvas>
                 </v-card>
             </v-col>
         </v-row>
@@ -20,17 +19,18 @@
 
 <script>
 import Chart from 'chart.js';
-import ChartStuff from '../../data/chartdata';
+// import ChartStuff from '../../data/chartdata';
 
 export default {
     data() {
         return {
             title: "Line Graph",
-            subTitle: "Choose a category to visualize"
+            subTitle: "Choose a category to visualize",
+            // graphType: '',
         }
     },
     props: {
-        canvasName: {
+        graphName: {
             type: String
         }
     },
@@ -44,11 +44,10 @@ export default {
             });
         },
     },
-    mounted() {
-        // this.$store.dispatch('setLineChartData');
-        console.log(`MOUNTED: ${this.$store.getters.getDataFromLastSevenDays}`);
-        this.createPieChart('line-graph', ChartStuff.CreateLineGraphData("on_phone"));
-    },  
+    // mounted() {
+    //     // this.$store.dispatch('setLineChartData');
+    //     this.createPieChart(this.graphName, ChartStuff.CreateLineGraphData("on_phone"));
+    // },  
 }
 </script>
 
