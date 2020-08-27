@@ -37,7 +37,7 @@
             <v-col sm="7" class="ma-auto py-3">
                 <v-card flat>
                     <v-card-title class="justify-center chart-title">
-                        {{titles[0].title}}
+                        {{title}}
                     </v-card-title>
                     <canvas class="dashboard-second-chart"></canvas>
                 </v-card>
@@ -66,8 +66,11 @@
             <v-col sm="3" class="ma-auto">
                 <v-select
                 :items="lineGraphItems"
+                item-value="id"
+                item-text="category"
                 label="Choose Category"
                 chips
+                @input='changeLineGraphBasedOnCategory'
                 ></v-select>
             </v-col>
         </v-row>
@@ -78,9 +81,9 @@
 <script>
 // @ is an alias to /src
 import Chart from 'chart.js';
-import PieChartStuff from '../../data/chartdata.js';
+import ChartManager from '../../data/chartdata.js';
 import LineGraph from '../../components/linegraphs/LineGraphSection';
-// const { startUp } = require('../../utils/utils');
+const { createLineGraphItems } = require('../../utils/utils');
 
 export default {
     name: 'Home',
@@ -89,12 +92,12 @@ export default {
             mainPieChartTitle: "Busy Chart From Past Week",
             lineGraphTitle: "Line Graph",
             lineGraphSubTitle: "Choose a category to visualize",
-            titles: [
-                { title: "Today's Pie Chart", id: 0},
-                { title: "Secondary Graph (2)", id: 1 },
-            ],
+            title: "Today's Pie Chart",
             graphName: "line-graph",
-            lineGraphItems: this.$store.getters.getCategories,
+            lineGraphItems: this.getLineGraphItems(),
+            lineGraph: null,
+            // lineChartData: ChartManager.CreateLineGraphData("sleep")
+
         }
     },
     components: {
@@ -109,23 +112,32 @@ export default {
                 options: chartData.options
             });
         },
-        // createThisWeeksPieChart() {
-        //     this.$store.getters.getLastSevenDays
-        // }
+        getLineGraphItems(){
+            // Getting the categories for the line graph
+            return createLineGraphItems(this.$store.getters.getCategories);
+        },
+        changeLineGraphBasedOnCategory(newCategory) {
+            // Destroys the already created linechart as to avoid hover issues
+            this.lineGraph.destroy();
+
+            // Creating new Line Graph
+            const newLineChartData = ChartManager.CreateLineGraphData(newCategory);
+            this.lineGraph = this.createPieChart('line-graph', newLineChartData);
+        }
     },
     async mounted() {
-
+        // Getting the data from the database and caching it to the store
         await this.$store.dispatch('setDataFromLastSevenDays');
 
         // Getting the chart data needed to create the pie chart
-        const todaysPieChartData = await PieChartStuff.CreateTodaysPieChart(); 
-        const thisWeeksPieChartData = PieChartStuff.CreateThisWeeksPieChart();
-        const lineChartData = PieChartStuff.CreateLineGraphData("on_phone");
+        const todaysPieChartData = await ChartManager.CreateTodaysPieChart(); 
+        const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
+        const lineChartData = ChartManager.CreateLineGraphData("on_phone");
 
         // Accessing the DOM, and placing a pie chart at a specific location
         this.createPieChart('dashboard-main-chart', thisWeeksPieChartData);
         this.createPieChart('dashboard-second-chart', todaysPieChartData);
-        this.createPieChart('line-graph', lineChartData);
+        this.lineGraph = this.createPieChart('line-graph', lineChartData);
     }
 }
 </script>

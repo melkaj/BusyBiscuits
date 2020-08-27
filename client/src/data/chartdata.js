@@ -134,17 +134,23 @@ export default {
         // Getting the data for the line charts
         // Data will be an object of arrays
         //      Each element in the object will hold an array of data for the week
-        const allTheData = store.getters.getWeekOfData;
-        
+        const allTheData = (store.getters.getWeekOfData);
+
         // Specifically getting the category needed
-        const dataFromCategory = (allTheData[category]).reverse();
+        //      The labels come from most recent to oldest, so we make a deepcopy and
+        //      then reverse it to get it into chronological order
+        const dataFromCategory = [...(allTheData[category])];
+        const reversedData = dataFromCategory.reverse();
 
         // Getting the right phrasing for the labels
         //      ex: category is 'on_phone', so the label should be "Hours of 'phone time'"
         const categoryPhrasing = getCorrectPhrasingOfCategory(category);
 
         // Getting the dates for the past week to be the labels for the x-axis
-        const lineChartLabels = (store.getters.getDates).reverse();
+        //      The labels come from most recent to oldest, so we make a deepcopy and
+        //      then reverse it to get it into chronological order
+        const lineChartLabelsReverseOrder = [...(store.getters.getDates)];
+        const lineChartLabels = lineChartLabelsReverseOrder.reverse();
 
         // Colors used for the pie chart
         const backgroundColors = getBackgroundColors();
@@ -156,27 +162,13 @@ export default {
                 labels: lineChartLabels,
                 datasets: [{
                     label: `Hours of ${categoryPhrasing}`,
-                    data: dataFromCategory,
+                    data: reversedData,
                     fill: false,
                     backgroundColor: 
                         backgroundColors[category]
-                        // backgroundColors.sleep,
-                        // backgroundColors.travel,
-                        // backgroundColors.exercise,
-                        // backgroundColors.onPhone,
-                        // backgroundColors.onComputer,
-                        // backgroundColors.games,
-                        // backgroundColors.somethingelse
                         ,
                     borderColor: [
                         borderColors[category]
-                        // borderColors.sleep,
-                        // borderColors.travel,
-                        // borderColors.exercise,
-                        // borderColors.onPhone,
-                        // borderColors.onComputer,
-                        // borderColors.games,
-                        // borderColors.somethingelse
                     ], 
                     borderWidth: 2
                 }],

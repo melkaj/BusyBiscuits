@@ -130,6 +130,27 @@ function getCorrectPhrasingOfCategory(category) {
 
 
 /**
+ * Returns an array of objects. One element in the object will have the wording that the users sees
+ *      And the other element will hold the wording that the program will understand
+ * @param {Array} items - The linegraph labels in the v-select dropdown
+ */
+function createLineGraphItems(items) {
+    var ids = ['sleep', 'travel', 'exercise', 'on_phone', 'on_computer', 'games', 'somethingelse'];
+    var lineGraphItems = [];
+    for (let i = 0; i < items.length; i++) {
+        let itemEntry = {};
+
+        itemEntry["id"] = ids[i];
+        itemEntry["category"] = items[i];
+
+        lineGraphItems.push(itemEntry);
+    }
+
+    return lineGraphItems;
+}
+
+
+/**
  * Returning an object that holds the various colors of categories
  */
 function getBackgroundColors() {
@@ -167,4 +188,5 @@ module.exports = {
     extractDatesAndData,
     extractLineChartData,
     convertDataToChartData,
+    createLineGraphItems,
 }
