@@ -46,13 +46,9 @@ router.get('/today', (req, res, next) => {
  */
 router.post('/date', (req, res, next) => {
     
-    console.log(`timespent/data: ${req.body.date}`);
-    console.log(`timespent/data keys: ${Object.keys(req.body)}`);
-    
-    const date = [req.body];
-    console.log(`date: ${date}`);
+    const { date } = req.body;
 
-    controller.getDataByDate(date)
+    controller.getDataByDate( [date] )
         .then( (response) => {
             res.status(200).send(response[0]);
         })

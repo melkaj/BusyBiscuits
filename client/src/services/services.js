@@ -19,8 +19,6 @@ export default {
     },
     getDataFromDate(date) {
         // Maybe make this a param in the url
-        // SOMETHING FROM HERE. ISSUE WITH THE BODY
-        console.log(`date from services: ${date}`);
         return Api().post('/time-spent/date', { date: date });
     }
 }

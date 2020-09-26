@@ -137,11 +137,8 @@ export default {
      */
     async CreatePieChartDataByDate(date) {
         // Axios call to receive todays time-spent entry
-        console.log(`inside chartdate: ${date}`);
         const requestedData = await Services.getDataFromDate(date);
         const data = requestedData.data;
-
-        // console.log(`inside chartdate: ${data}`);
         
         // Colors used for the pie chart
         const backgroundColors = getBackgroundColors();
