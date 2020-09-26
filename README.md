@@ -40,3 +40,6 @@ However, there is always things to add. The following are some of the main featu
 
 - Dashboard - Line Graph - Shows data from past 7 days based on chosen category
 ![3](./screenshots/dashboard-pt3.PNG) 
+
+- Date entry form
+![3](./screenshots/data-entry-form.PNG) 

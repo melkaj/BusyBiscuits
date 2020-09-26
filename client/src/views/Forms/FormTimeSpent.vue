@@ -1,7 +1,7 @@
 <template>
     <v-container class="fill-height justify-center" fluid>
 
-        <v-card style="background: white;" flat>
+        <v-card style="background: white;">
             <v-card-title class="form-card-heading">
                 How much time was spent...
             </v-card-title>
@@ -11,7 +11,7 @@
 
             <v-divider></v-divider>
 
-            <v-form ref="form" class="form-border">
+            <v-form ref="form">
                 <v-row align="center" justify="center">
 
                     
