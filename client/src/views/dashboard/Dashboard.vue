@@ -46,12 +46,12 @@
             <v-divider inset vertical></v-divider>
 
             <!-- Column two - Dropdown to change the data in the pie chart -->
-            <!-- Column two - Drop down to change the linegraph -->
             <v-col sm="3" class="ma-auto">
                 <v-select
                 :items="pieGraphItems"
                 item-value="id"
                 item-text="date"
+                v-model="defaultItems.pieItem"
                 label="Choose Date"
                 chips
                 @input='changePieChartBasedOnDate'
@@ -105,8 +105,8 @@ export default {
             lineGraphItems: this.getLineGraphItems(),
             lineGraph: null,
             pieGraphItems: null,
-            secondaryPieChart: null
-            // lineChartData: ChartManager.CreateLineGraphData("sleep"
+            secondaryPieChart: null,
+            defaultItems: { pieItem: null }
         }
     },
     components: {
@@ -126,7 +126,12 @@ export default {
             return createLineGraphItems(this.$store.getters.getCategories);
         },
         getDateItems() {
-            return createPieGraphItems(this.$store.getters.getDates); 
+            // Getting the items
+            const items = createPieGraphItems(this.$store.getters.getDates); 
+            // Setting the default item
+            this.defaultItems.pieItem = items[0].id
+            // Returning the full array of items
+            return items;
         },
         changeLineGraphBasedOnCategory(newCategory) {
             // Destroys the already created linechart as to avoid hover issues
@@ -153,7 +158,7 @@ export default {
         // Getting the chart data needed to create the pie chart
         const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
         const mostRecentPieChartData = await ChartManager.CreatePieChartDataByDate(this.pieGraphItems[0].id); 
-        const lineChartData = ChartManager.CreateLineGraphData("on_phone");
+        const lineChartData = ChartManager.CreateLineGraphData("sleep");
 
         // Accessing the DOM, and placing a pie chart at a specific location
         this.createPieChart('dashboard-main-chart', thisWeeksPieChartData);
