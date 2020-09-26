@@ -32,11 +32,11 @@ However, there is always things to add. The following are some of the main featu
 
 ## A few screenshots of the application <a name="screenshots"></a>
 
-- Dashboard - Main Pie Chart - Shows data from the last seven days
+- Dashboard - Main Pie Chart - Shows data from the last past days (All the following graphs are all on one page)
 ![1](./screenshots/dashboard-pt1.PNG)
 
-- Property Sale Averages from 2006
-![2006](./screenshots/2006.PNG) 
+- Dashboard - Second Pie Chart - Shows data from a chosen date
+![2](./screenshots/dashboard-pt2.PNG) 
 
-- Property Sale Averages from 2007
-![2007](./screenshots/2007.PNG) 
+- Dashboard - Line Graph - Shows data from past 7 days based on chosen category
+![3](./screenshots/dashboard-pt3.PNG) 
