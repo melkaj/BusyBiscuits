@@ -1,7 +1,7 @@
 <template>
     <v-container class="fill-height justify-center" fluid>
 
-        <v-card style="background: #aabffa;" flat>
+        <v-card style="background: white;" flat>
             <v-card-title class="form-card-heading">
                 How much time was spent...
             </v-card-title>
@@ -11,7 +11,7 @@
 
             <v-divider></v-divider>
 
-            <v-form ref="form">
+            <v-form ref="form" class="form-border">
                 <v-row align="center" justify="center">
 
                     
@@ -168,8 +168,12 @@ export default {
 
 <style scoped>
 .form-card-heading {
-    background: #749CCC;
-    /* background: #116466; */
+    background: #116466;
     color:white !IMPORTANT;
+}
+.form-border {
+    border-left: 2px solid #116466; 
+    border-bottom: 2px solid #116466; 
+    border-right: 2px solid #116466;
 }
 </style>
