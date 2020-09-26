@@ -42,4 +42,6 @@ However, there is always things to add. The following are some of the main featu
 ![3](./screenshots/dashboard-pt3.PNG) 
 
 - Date entry form
-![3](./screenshots/data-entry-form.PNG) 
+![4](./screenshots/data-entry-form.PNG) 
+
+- Because the login and signin forms are not tied to the data in the app and not implemented, I will not include the screenshot of them. However, it does look similar to the 'Data entry form' above
