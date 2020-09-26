@@ -100,7 +100,7 @@ export default {
             mainPieChartTitle: "Busy Chart From Past Week",
             lineGraphTitle: "Line Graph",
             lineGraphSubTitle: "Choose a category to visualize",
-            title: "Today's Pie Chart",
+            title: "Pie Chart by Date",
             graphName: "line-graph",
             lineGraphItems: this.getLineGraphItems(),
             lineGraph: null,
@@ -137,28 +137,27 @@ export default {
             this.lineGraph = this.createPieChart('line-graph', newLineChartData);
         },
         async changePieChartBasedOnDate(newDate) {
-            // Maybe delete the pie chart like we did with the line graph?
+            // Destroys the already created linechart as to avoid hover issues            
             this.secondaryPieChart.destroy();
 
             // Generating new pie chart data based on the selected date
             const PieChartDataByDate = await ChartManager.CreatePieChartDataByDate(newDate);
-            console.log(PieChartDataByDate);
-            this.createPieChart('dashboard-second-chart', PieChartDataByDate);
+            this.secondaryPieChart = this.createPieChart('dashboard-second-chart', PieChartDataByDate);
         }
     },
     async mounted() {
         // Getting the data from the database and caching it to the store
         await this.$store.dispatch('setDataFromLastSevenDays'); 
         this.pieGraphItems = this.getDateItems();
-
+        console.log(`mounted: ${this.pieGraphItems[0].id}`);
         // Getting the chart data needed to create the pie chart
-        const todaysPieChartData = await ChartManager.CreateTodaysPieChart(); 
         const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
+        const mostRecentPieChartData = await ChartManager.CreatePieChartDataByDate(this.pieGraphItems[0].id); 
         const lineChartData = ChartManager.CreateLineGraphData("on_phone");
 
         // Accessing the DOM, and placing a pie chart at a specific location
         this.createPieChart('dashboard-main-chart', thisWeeksPieChartData);
-        this.secondaryPieChart = this.createPieChart('dashboard-second-chart', todaysPieChartData);
+        this.secondaryPieChart = this.createPieChart('dashboard-second-chart', mostRecentPieChartData);
         this.lineGraph = this.createPieChart('line-graph', lineChartData);
     }
 }
