@@ -32,8 +32,8 @@ However, there is always things to add. The following are some of the main featu
 
 ## A few screenshots of the application <a name="screenshots"></a>
 
-- Property Sale Averages from 2005
-![2005](./screenshots/dashboard-pt1.PNG)
+- Dashboard - Main Pie Chart - Shows data from the last seven days
+![1](./screenshots/dashboard-pt1.PNG)
 
 - Property Sale Averages from 2006
 ![2006](./screenshots/2006.PNG) 
