@@ -27,14 +27,14 @@ const db = require('../../db/db');
  * @param {String} todaysDate - ex: "2020-08-22"
  * Returns an array of objects
  */
-async function getDataFromToday(todaysDate) {
+async function getDataByDate(date) {
 
     const conn = await db.getConnection();
     
     try {
 
         const q = "SELECT sleep,travel,exercise,on_phone,on_computer,games,somethingelse FROM time_spent WHERE (date_created = ?)"
-        return await db.runQuery(conn, q, todaysDate);
+        return await db.runQuery(conn, q, date);
 
     }
     finally {
@@ -43,7 +43,24 @@ async function getDataFromToday(todaysDate) {
 
 }
 
+// async function getDataFromToday(todaysDate) {
+
+//     const conn = await db.getConnection();
+    
+//     try {
+
+//         const q = "SELECT sleep,travel,exercise,on_phone,on_computer,games,somethingelse FROM time_spent WHERE (date_created = ?)"
+//         return await db.runQuery(conn, q, todaysDate);
+
+//     }
+//     finally {
+//         conn.release();
+//     }
+
+// }
+
+
 module.exports = {
-    getDataFromToday,
+    getDataByDate,
     getDataFromLastSevenDays,
 }

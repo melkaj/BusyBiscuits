@@ -16,17 +16,12 @@ export default {
     },
     getLastSevenDays() {
         return Api().get('/time-spent/last-seven-days');
+    },
+    getDataFromDate(date) {
+        // Maybe make this a param in the url
+        // SOMETHING FROM HERE. ISSUE WITH THE BODY
+        console.log(`date from services: ${date}`);
+        return Api().post('/time-spent/date', { date: date });
     }
 }
 
-
-
-// This will make use the POST request from the axios module,
-// then it creates a post request to the 'register' endpoint on 
-// our express server and it will use these credentials
-
-// This is how this function would be used
-// AuthenticationService.register({
-//     email: 'test@email.com',
-//     password: '123456'
-// })

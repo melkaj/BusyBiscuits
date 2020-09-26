@@ -46,8 +46,16 @@
             <v-divider inset vertical></v-divider>
 
             <!-- Column two - Dropdown to change the data in the pie chart -->
+            <!-- Column two - Drop down to change the linegraph -->
             <v-col sm="3" class="ma-auto">
-                <h1 class="chart-title">Put dropdown here</h1>
+                <v-select
+                :items="pieGraphItems"
+                item-value="id"
+                item-text="date"
+                label="Choose Date"
+                chips
+                @input='changePieChartBasedOnDate'
+                ></v-select>
             </v-col>
         </v-row>
 
@@ -83,7 +91,7 @@
 import Chart from 'chart.js';
 import ChartManager from '../../data/chartdata.js';
 import LineGraph from '../../components/linegraphs/LineGraphSection';
-const { createLineGraphItems } = require('../../utils/utils');
+const { createLineGraphItems, createPieGraphItems } = require('../../utils/utils');
 
 export default {
     name: 'Home',
@@ -96,8 +104,9 @@ export default {
             graphName: "line-graph",
             lineGraphItems: this.getLineGraphItems(),
             lineGraph: null,
-            // lineChartData: ChartManager.CreateLineGraphData("sleep")
-
+            pieGraphItems: null,
+            secondaryPieChart: null
+            // lineChartData: ChartManager.CreateLineGraphData("sleep"
         }
     },
     components: {
@@ -112,9 +121,12 @@ export default {
                 options: chartData.options
             });
         },
-        getLineGraphItems(){
+        getLineGraphItems() {
             // Getting the categories for the line graph
             return createLineGraphItems(this.$store.getters.getCategories);
+        },
+        getDateItems() {
+            return createPieGraphItems(this.$store.getters.getDates); 
         },
         changeLineGraphBasedOnCategory(newCategory) {
             // Destroys the already created linechart as to avoid hover issues
@@ -123,11 +135,21 @@ export default {
             // Creating new Line Graph
             const newLineChartData = ChartManager.CreateLineGraphData(newCategory);
             this.lineGraph = this.createPieChart('line-graph', newLineChartData);
+        },
+        async changePieChartBasedOnDate(newDate) {
+            // Maybe delete the pie chart like we did with the line graph?
+            this.secondaryPieChart.destroy();
+
+            // Generating new pie chart data based on the selected date
+            const PieChartDataByDate = await ChartManager.CreatePieChartDataByDate(newDate);
+            console.log(PieChartDataByDate);
+            this.createPieChart('dashboard-second-chart', PieChartDataByDate);
         }
     },
     async mounted() {
         // Getting the data from the database and caching it to the store
-        await this.$store.dispatch('setDataFromLastSevenDays');
+        await this.$store.dispatch('setDataFromLastSevenDays'); 
+        this.pieGraphItems = this.getDateItems();
 
         // Getting the chart data needed to create the pie chart
         const todaysPieChartData = await ChartManager.CreateTodaysPieChart(); 
@@ -136,7 +158,7 @@ export default {
 
         // Accessing the DOM, and placing a pie chart at a specific location
         this.createPieChart('dashboard-main-chart', thisWeeksPieChartData);
-        this.createPieChart('dashboard-second-chart', todaysPieChartData);
+        this.secondaryPieChart = this.createPieChart('dashboard-second-chart', todaysPieChartData);
         this.lineGraph = this.createPieChart('line-graph', lineChartData);
     }
 }

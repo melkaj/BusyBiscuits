@@ -23,7 +23,6 @@ router.get('/last-seven-days', (req, res, next) => {
 
 });
 
-
 /**
  * Gets TODAYS time-spent entry
  */
@@ -31,7 +30,7 @@ router.get('/today', (req, res, next) => {
 
     const today = [utils.GetTodaysDate()];
 
-    controller.getDataFromToday(today)
+    controller.getDataByDate(today)
         .then( (response) => {
             res.status(200).send(response[0]);
         })
@@ -41,5 +40,27 @@ router.get('/today', (req, res, next) => {
         });
 
 });
+
+/**
+ * Get data by date
+ */
+router.post('/date', (req, res, next) => {
+    
+    console.log(`timespent/data: ${req.body.date}`);
+    console.log(`timespent/data keys: ${Object.keys(req.body)}`);
+    
+    const date = [req.body];
+    console.log(`date: ${date}`);
+
+    controller.getDataByDate(date)
+        .then( (response) => {
+            res.status(200).send(response[0]);
+        })
+        .catch( (error) => {
+            console.log(error);
+            next(error);
+        });
+
+})
 
 module.exports = router;

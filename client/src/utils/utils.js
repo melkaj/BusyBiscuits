@@ -151,6 +151,27 @@ function createLineGraphItems(items) {
 
 
 /**
+ * Returns an array of objects. One element in the object will have the wording that the users sees
+ *      And the other element will hold the wording that the program will understand
+ * @param {Array} items - The piegraph labels in the v-select dropdown
+ *              This function might be redundant because of the function right above ^^^
+ */
+function createPieGraphItems(items) {
+    var lineGraphItems = [];
+    for (let i = 0; i < items.length; i++) {
+        let itemEntry = {};
+
+        itemEntry["id"] = items[i];
+        itemEntry["date"] = items[i];
+
+        lineGraphItems.push(itemEntry);
+    }
+
+    return lineGraphItems;
+}
+
+
+/**
  * Returning an object that holds the various colors of categories
  */
 function getBackgroundColors() {
@@ -189,4 +210,5 @@ module.exports = {
     extractLineChartData,
     convertDataToChartData,
     createLineGraphItems,
+    createPieGraphItems
 }

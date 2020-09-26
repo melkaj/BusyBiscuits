@@ -130,6 +130,62 @@ export default {
             }
         }
     },
+    /**
+     * Returns pie chart data based on the date passed in the argument
+     * 
+     * @param {String} date     (maybe its a string, double check) 
+     */
+    async CreatePieChartDataByDate(date) {
+        // Axios call to receive todays time-spent entry
+        console.log(`inside chartdate: ${date}`);
+        const requestedData = await Services.getDataFromDate(date);
+        const data = requestedData.data;
+
+        // console.log(`inside chartdate: ${data}`);
+        
+        // Colors used for the pie chart
+        const backgroundColors = getBackgroundColors();
+        const borderColors = getBorderColors();
+
+        return {
+            type: 'pie',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Just some numbers',
+                    data: [data.sleep, data.travel, data.exercise, data.on_phone, data.on_computer, data.games, data.somethingelse],
+                    backgroundColor: [
+                        backgroundColors.sleep,
+                        backgroundColors.travel,
+                        backgroundColors.exercise,
+                        backgroundColors.on_phone,
+                        backgroundColors.on_computer,
+                        backgroundColors.games,
+                        backgroundColors.somethingelse
+                    ],
+                    borderColor: [
+                        borderColors.sleep,
+                        borderColors.travel,
+                        borderColors.exercise,
+                        borderColors.on_phone,
+                        borderColors.on_computer,
+                        borderColors.games,
+                        borderColors.somethingelse
+                    ], 
+                    borderWidth: 2
+                }],
+            },
+            options: {
+                responsive: true,
+            }
+        }
+    },    
+
+    /**
+     * Returns the data needed to create a line graph based on the argument
+     * The argument is the selection made from the dropdown
+     * @param {Sting} category  
+     */
     CreateLineGraphData(category) {
         // Getting the data for the line charts
         // Data will be an object of arrays
