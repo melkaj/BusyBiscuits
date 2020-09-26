@@ -3,9 +3,9 @@
 ## Table of contents
 1. [Techstack](#stack)
 2. [What am I looking at?](#description)
-3. [Inspiration?](#inspiration)
-5. [Possible future additions](#future)
-6. [Screenshots of the plots](#screenshots)
+3. [Inspiration](#inspiration)
+4. [Possible future additions](#future)
+5. [Screenshots of the application](#screenshots)
 
 ## Techstack <a name="stack"></a>
 - Vuejs (Vuetify & Vuex)
