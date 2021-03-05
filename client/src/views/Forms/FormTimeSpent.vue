@@ -82,7 +82,7 @@
                         color="primary"
                         style="background: white;"
                         class="mx-5 my-2"
-                        @click="isTotalHoursValid">
+                        @click="canPostToday">
                             Submit
                         </v-btn>
                     </v-col>
@@ -119,6 +119,16 @@ export default {
         }
     },
     methods: {
+        async canPostToday() {
+            var latest_entry_date = this.$store.getters.getDates[0];
+            var todays_date = new Date().toISOString().slice(0, 10);
+
+            console.log(`latest date: ${latest_entry_date}`);
+            console.log(`todays date: ${todays_date}`);
+
+            if (latest_entry_date !== todays_date)  await this.isTotalHoursValid(); 
+            else                                    this.message = "Already posted for today, wait until tomorrow";
+        },
         async isTotalHoursValid() {
             this.total = Number(this.sleep) + Number(this.travelTime) + Number(this.exercise) 
                         + Number(this.onPhone) + Number(this.onComputer) + Number(this.games);

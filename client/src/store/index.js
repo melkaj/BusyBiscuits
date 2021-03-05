@@ -41,7 +41,7 @@ export default new Vuex.Store({
 
     setLineChartData(state, data) {
       state.weekOfData = data;
-    }
+    },
   },
 
   actions: {

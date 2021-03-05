@@ -155,6 +155,7 @@ export default {
         await this.$store.dispatch('setDataFromLastSevenDays'); 
         this.pieGraphItems = this.getDateItems();
         console.log(`mounted: ${this.pieGraphItems[0].id}`);
+
         // Getting the chart data needed to create the pie chart
         const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
         const mostRecentPieChartData = await ChartManager.CreatePieChartDataByDate(this.pieGraphItems[0].id); 
