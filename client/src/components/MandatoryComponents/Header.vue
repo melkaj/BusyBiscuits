@@ -4,7 +4,7 @@
         <!-- THE TOOLBAR ITSELF -->
         <v-app-bar dense color="#116466" app dark>
             <!-- The side bar -->
-            <v-app-bar-nav-icon @click="drawer = !drawer">B</v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click="drawer = !drawer">BB</v-app-bar-nav-icon>
             
             <v-divider vertical inset />
             
@@ -54,10 +54,10 @@
             <v-list-item>
                 <v-list-item-content>
                     <v-list-item-title class="title">
-                        Sidebar
+                        BusyBiscuits
                     </v-list-item-title>
                     <v-list-item-subtitle>
-                        Sidebar-Subtext
+                        Track your day!
                     </v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
@@ -72,11 +72,11 @@
                 link
                 >
                     <v-list-item-icon>
-                        <v-icon>{{ item.title }}</v-icon>
+                        <v-icon>{{ item.name }}</v-icon>
                     </v-list-item-icon>
 
-                    <v-list-item-content>
-                        <v-list-item-title>{{ item.name }}</v-list-item-title>
+                    <v-list-item-content @click="goto">
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -92,14 +92,19 @@ export default {
             drawer: false,
             items: [
                 {
-                    title:"ONE",
+                    title:"Submit Entry",
                     name:"Beep"
                 },
                 {
-                    title:"TWO",
+                    title:"Update/Remove Entry",
                     name:"Bop"
                 }
             ]
+        }
+    },
+    methods: {
+        goto() {
+            this.$router.push({name:"home"});
         }
     }
 }

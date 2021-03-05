@@ -6,9 +6,12 @@
       <PageHeader />
 
       <!-- CONTENT OF THE PAGE (THE MIDDLE, INBETWEEN THE TOOLBAR AND THE FOOTER) -->
-      <v-content>
+      <v-main>
         <router-view/>
-      </v-content>
+      </v-main>
+      <!-- <v-content>
+        <router-view/>
+      </v-content> -->
 
       <!-- THE FOOTER -->
       <PageFooter /> 

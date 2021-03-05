@@ -94,7 +94,7 @@ import LineGraph from '../../components/linegraphs/LineGraphSection';
 const { createLineGraphItems, createPieGraphItems } = require('../../utils/utils');
 
 export default {
-    name: 'Home',
+    name: 'Dashboard',
     data () {
         return {
             mainPieChartTitle: "Busy Chart From Past Week",

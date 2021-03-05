@@ -4,6 +4,7 @@ import Dashboard from '../views/dashboard/Dashboard.vue';
 import Login from '../views/login/Login.vue';
 import Register from '../views/register/Register.vue';
 import FormTimeSpent from '../views/Forms/FormTimeSpent.vue';
+import HomePage from '../views/Home/Home.vue';
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes = [
       path: '/time-spent-entry',
       name: 'timespententry',
       component: FormTimeSpent
+    },
+    {
+      path: '/home',
+      name: 'home',
+      component: HomePage
     }
     // {
     //   path: '/about',
