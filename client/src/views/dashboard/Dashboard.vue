@@ -104,7 +104,7 @@ export default {
             graphName: "line-graph",
             lineGraphItems: this.getLineGraphItems(),
             lineGraph: null,
-            pieGraphItems: null,
+            pieGraphItems: [],
             secondaryPieChart: null,
             defaultItems: { pieItem: null }
         }

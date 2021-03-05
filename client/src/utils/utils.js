@@ -137,7 +137,7 @@ function getCorrectPhrasingOfCategory(category) {
 function createLineGraphItems(items) {
     var ids = ['sleep', 'travel', 'exercise', 'on_phone', 'on_computer', 'games', 'somethingelse'];
     var lineGraphItems = [];
-    console.log(`items from CREATELINEGRAPHITEMS: ${items}`);
+
     for (let i = 0; i < items.length; i++) {
         let itemEntry = {};
 
@@ -159,7 +159,7 @@ function createLineGraphItems(items) {
  */
 function createPieGraphItems(items) {
     var lineGraphItems = [];
-    console.log(`items from CREATEPIRGRAPHITEMS: ${items}`);
+
     for (let i = 0; i < items.length; i++) {
         let itemEntry = {};
 
