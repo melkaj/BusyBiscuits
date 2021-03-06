@@ -28,16 +28,28 @@
                     </v-tabs>
 
                     <v-tabs-items v-model="tab">
-                        <v-tab-item
-                            v-for="(item, index) in items"
-                            :key="item"
+                        <v-tab-item>
+                            <v-card flat>
+                                <PieChart graphName="0" title="Weekly"/>
+                            </v-card>
+                        </v-tab-item>                            
+
+                        <v-tab-item>
+                            <v-card flat>
+                                <PieChart graphName="1" title="Daily"/>
+                            </v-card>
+                        </v-tab-item>                            
+
+                        <!-- <v-tab-item
+                            v-for="item in tabs"
+                            :key="item.tab_name"
                         >
                             <v-card
                                 flat
                             >
-                                <PieChart v-bind:graphName="index.toString()"/>
+                                <PieChart v-bind:graphName="index.toString()" v-bind:title="item"/>
                             </v-card>
-                        </v-tab-item>
+                        </v-tab-item> -->
                     </v-tabs-items>
 
                 </v-card>
@@ -55,16 +67,7 @@ export default {
     name: 'FormTimeSpent',
     data () {
         return {
-            sleep: 2,
-            travelTime: 2,
-            exercise: 2,
-            onPhone: 2,
-            onComputer: 2,
-            games: 2,
-            somethingelse: 0,
-            total: 0,
-            message: '',
-            items: ["Pie Chart", "Pie Chart 2"], 
+            items: ["Weekly", "Daily"], 
             tab: null,           
             isDataLoaded: false,
             cur_index: 100,
@@ -76,7 +79,10 @@ export default {
     async created() {
         await this.$store.dispatch('setDataFromLastSevenDays'); 
         this.isDataLoaded = true;
-    }    
+    }, 
+    mounted() {
+        // call function
+    },
 }
 </script>
 
@@ -91,6 +97,6 @@ export default {
     border-right: 2px solid #116466;
 }
 .tab-font {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 </style>

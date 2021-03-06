@@ -32,25 +32,22 @@
 </template>
 
 <script>
-import Chart from 'chart.js';
-import ChartManager from '../../data/chartdata.js';
+import Chart                  from 'chart.js';
+import ChartManager           from '../../data/chartdata.js';
 const { createPieGraphItems } = require('../../utils/utils');
 
 export default {
     data() {
         return {
-            title: "Pie Graph",
-            subTitle: "Choose a date",
+            subTitle:       "Choose a date",
             pieGraphItems: [],
-            defaultItems: { pieItem: null },
-            pieChart: null,
-            // graphType: '',
+            defaultItems:  { pieItem: null },
+            pieChart:      null,
         }
     },
     props: {
-        graphName: {
-            type: String
-        }
+        graphName: { type: String },
+        title:     { type: String },
     },
     methods: {
         createPieChart(canvasId, chartData) {
@@ -74,7 +71,7 @@ export default {
             const items = createPieGraphItems(this.$store.getters.getDates); 
             // Setting the default item
             this.defaultItems.pieItem = items[0].id;
-            console.log(`items: ${items}`);
+
             // Returning the full array of items
             return items;
         },
@@ -97,7 +94,8 @@ export default {
 
 <style scoped>
 .chart-title {
-    font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif;
+    /* font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif; */
+    font-family: "Montserrat-SemiBold", Arial, Helvetica, sans-serif;
     font-weight: Bold;
     font-size: 36px;
 }

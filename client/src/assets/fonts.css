@@ -1,0 +1,18 @@
+/* Importing fonts from folder */
+@font-face {
+    font-family: "FjallaOne";
+    src: url("../../public/fonts/FjallaOne/FjallaOne-Regular.ttf");
+};
+
+@font-face {
+    font-family: "Montserrat-Light";
+    src: url("../../public/fonts/Montserrat/Montserrat-Light.ttf")
+};
+@font-face {
+    font-family: "Montserrat-SemiBold";
+    src: url("../../public/fonts/Montserrat/Montserrat-SemiBold.ttf")
+};
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("../../public/fonts/Montserrat/Montserrat-Bold.ttf")
+};

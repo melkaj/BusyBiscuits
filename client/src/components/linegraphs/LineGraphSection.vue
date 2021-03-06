@@ -9,7 +9,6 @@
                     <v-card-subtitle>
                         {{subTitle}}
                     </v-card-subtitle>
-                    <!-- <canvas class="line-graph"></canvas> -->
                     <canvas :class='graphName'></canvas>
                 </v-card>
             </v-col>
