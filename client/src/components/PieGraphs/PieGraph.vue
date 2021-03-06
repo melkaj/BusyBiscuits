@@ -35,7 +35,6 @@
 import Chart from 'chart.js';
 import ChartManager from '../../data/chartdata.js';
 const { createPieGraphItems } = require('../../utils/utils');
-// import ChartStuff from '../../data/chartdata';
 
 export default {
     data() {
@@ -82,10 +81,9 @@ export default {
     },
     async mounted() {
         // Getting the data from the database and caching it to the store
-        // await this.$store.dispatch('setDataFromLastSevenDays'); 
-        console.log(`hellp from piegraph:`);
         this.pieGraphItems = this.getDateItems();
-        console.log(`mounted: ${this.pieGraphItems[0].id}`);
+
+        console.log(`graphname: ${this.graphName}`);
 
         // Getting the chart data needed to create the pie chart
         // const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();

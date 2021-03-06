@@ -14,7 +14,7 @@
                     <v-divider></v-divider>
 
                     <v-tabs
-                        v-model="sleep"
+                        v-model="tab"
                         backgroud-color="transparent"
                         grow
                     >      
@@ -27,15 +27,15 @@
                         </v-tab>
                     </v-tabs>
 
-                    <v-tabs-items v-model="sleep">
+                    <v-tabs-items v-model="tab">
                         <v-tab-item
-                            v-for="item in items"
+                            v-for="(item, index) in items"
                             :key="item"
                         >
                             <v-card
                                 flat
                             >
-                                <PieChart graphName="pie-chart"/>
+                                <PieChart v-bind:graphName="index.toString()"/>
                             </v-card>
                         </v-tab-item>
                     </v-tabs-items>
@@ -64,18 +64,18 @@ export default {
             somethingelse: 0,
             total: 0,
             message: '',
-            items: ["tebsss", "second tebbs"],
+            items: ["Pie Chart", "Pie Chart 2"], 
+            tab: null,           
             isDataLoaded: false,
+            cur_index: 100,
         }
     },
     components: {
         PieChart,
     },
     async created() {
-        console.log("Hello from the HOME1:")
         await this.$store.dispatch('setDataFromLastSevenDays'); 
         this.isDataLoaded = true;
-        console.log("Hello from the HOME:2")
     }    
 }
 </script>
