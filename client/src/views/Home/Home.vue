@@ -1,5 +1,5 @@
 <template>
-    <v-container class="fill-height justify-center" fluid>
+    <v-container v-if='isDataLoaded' class="fill-height justify-center" fluid>
 
         <v-row align="center" justify="center">
             <v-col sm=12>
@@ -35,7 +35,7 @@
                             <v-card
                                 flat
                             >
-                                <v-card-text>{{ item }}</v-card-text>
+                                <PieChart graphName="pie-chart"/>
                             </v-card>
                         </v-tab-item>
                     </v-tabs-items>
@@ -49,6 +49,7 @@
 
 <script>
 // @ is an alias to /src
+import PieChart from '../../components/PieGraphs/PieGraph.vue';
 
 export default {
     name: 'FormTimeSpent',
@@ -63,9 +64,19 @@ export default {
             somethingelse: 0,
             total: 0,
             message: '',
-            items: ["tebsss", "second tebbs"]
+            items: ["tebsss", "second tebbs"],
+            isDataLoaded: false,
         }
     },
+    components: {
+        PieChart,
+    },
+    async created() {
+        console.log("Hello from the HOME1:")
+        await this.$store.dispatch('setDataFromLastSevenDays'); 
+        this.isDataLoaded = true;
+        console.log("Hello from the HOME:2")
+    }    
 }
 </script>
 

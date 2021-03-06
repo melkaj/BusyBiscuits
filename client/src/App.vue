@@ -9,9 +9,6 @@
       <v-main>
         <router-view/>
       </v-main>
-      <!-- <v-content>
-        <router-view/>
-      </v-content> -->
 
       <!-- THE FOOTER -->
       <PageFooter /> 
@@ -29,6 +26,11 @@ export default {
     PageHeader,
     PageFooter
   },
+  // async beforeCreated() {
+  //   console.log("Hello from APP1");
+  //   await this.$store.dispatch('setDataFromLastSevenDays'); 
+  //   console.log("Hello from APP2");
+  // }
 }
 </script>
 
