@@ -1,6 +1,7 @@
 
 /**
  * Converts this array of objects into one object that can be used to create a chart
+ *      by taking the average of all the elements
  * @param {Array} data - Array of Objects. Each object is a time-spent-entry 
  */
 function convertDataToChartData(data) {

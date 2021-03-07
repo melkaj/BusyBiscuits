@@ -73,7 +73,7 @@ export default {
             else
             {
                 // Generating new pie chart data based on the selected date
-                const PieChartDataByDate = await ChartManager.CreatePieChartDataByDate(newDate);
+                const PieChartDataByDate = await ChartManager.GetPieChartDataByDate(newDate);
                 this.pieChart = this.createPieChart(this.graphName, PieChartDataByDate);
             }
         },
@@ -97,7 +97,7 @@ export default {
         this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
 
         // // Getting the chart data needed to create the pie chart
-        // const mostRecentPieChartData = await ChartManager.CreatePieChartDataByDate(this.pieGraphItems[0].id); 
+        // const mostRecentPieChartData = await ChartManager.GetPieChartDataByDate(this.pieGraphItems[0].id); 
         // // Accessing the DOM, and placing a pie chart at a specific location
         // this.pieChart = this.createPieChart(this.graphName, mostRecentPieChartData);
     },  

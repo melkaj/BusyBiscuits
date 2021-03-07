@@ -11,13 +11,13 @@ export default {
     sendTimeSpentForm(form) {
         return Api().post('/forms', form);
     },
-    getTodaysData() {
+    getTodaysEntry() {
         return Api().get('/time-spent/today');
     },
     getLastSevenDays() {
         return Api().get('/time-spent/last-seven-days');
     },
-    getDataFromDate(date) {
+    getEntryBasedOnDate(date) {
         // Maybe make this a param in the url
         return Api().post('/time-spent/date', { date: date });
     }

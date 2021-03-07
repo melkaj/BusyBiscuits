@@ -7,40 +7,11 @@ const chartLabels = store.getters.getCategories;
 
 export default {
     /**
-     * Returns an object that contains mock data
-     */
-    mockPieChartData() {
-        return {
-            type: 'doughnut',
-            data: {
-                labels: ['One', 'Two', 'Three'],
-                datasets: [{
-                    label: 'Just some numbers',
-                    data: ['100', '200', '300'],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)'
-                    ], 
-                    borderWidth: 2
-                }],
-            },
-            options: {
-                responsive: true,
-            }
-        }
-    },
-
-    /**
      * Returns an object that can used to create a pie chart 
+     * @param {String}
      */
-    GetThisWeeksPieChartOptions() {
-        // The data for the last seven days will be an array of objects
+    GetThisWeeksPieChartOptions(flag) {
+        // The data for the last seven days will be an ARRAY OF OBJECTS
         const thisWeeksData = store.getters.getDataFromLastSevenDays;
 
         // Converts thisWeeksData to one object that can be used for the pie chart
@@ -87,58 +58,13 @@ export default {
     },
 
     /**
-     * Returns object with todays data 
-     */
-    async CreateTodaysPieChart() {
-        // Axios call to receive todays time-spent entry
-        const requestedData = await Services.getTodaysData();
-        const data = requestedData.data;
-
-        // Colors used for the pie chart
-        const backgroundColors = getBackgroundColors();
-        const borderColors = getBorderColors("pie");
-
-        return {
-            type: 'doughnut',
-            data: {
-                labels: chartLabels,
-                datasets: [{
-                    label: 'Just some numbers',
-                    data: [data.sleep, data.travel, data.exercise, data.on_phone, data.on_computer, data.games, data.somethingelse],
-                    backgroundColor: [
-                        backgroundColors.sleep,
-                        backgroundColors.travel,
-                        backgroundColors.exercise,
-                        backgroundColors.on_phone,
-                        backgroundColors.on_computer,
-                        backgroundColors.games,
-                        backgroundColors.somethingelse
-                    ],
-                    borderColor: [
-                        borderColors.sleep,
-                        borderColors.travel,
-                        borderColors.exercise,
-                        borderColors.on_phone,
-                        borderColors.on_computer,
-                        borderColors.games,
-                        borderColors.somethingelse
-                    ], 
-                    borderWidth: 2
-                }],
-            },
-            options: {
-                responsive: true,
-            }
-        }
-    },
-    /**
      * Returns pie chart data based on the date passed in the argument
      * 
      * @param {String} date     (maybe its a string, double check) 
      */
-    async CreatePieChartDataByDate(date) {
+    async GetPieChartDataByDate(date) {
         // Axios call to receive todays time-spent entry
-        const requestedData = await Services.getDataFromDate(date);
+        const requestedData = await Services.getEntryBasedOnDate(date);
         const data = requestedData.data;
         
         // Colors used for the pie chart
