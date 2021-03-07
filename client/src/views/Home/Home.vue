@@ -1,10 +1,5 @@
-<template>
-    <v-container v-if='isDataLoaded' class="fill-height justify-center" fluid>
-
-        <v-row align="center" justify="center">
-            <v-col sm=12>
-        
-                <v-card style="background: #116466;" flat>
+<template>        
+                <v-card v-if='isDataLoaded' style="background:red;" flat class= "fill-height">
 
                     <v-divider></v-divider>
 
@@ -24,35 +19,32 @@
 
                     <v-tabs-items v-model="tab">
                         <v-tab-item>
-                            <v-card flat>
-                                <PieChart graphName="0" title="WEEKLY"/>
+                            <v-card style="background:blue;" flat>
+                                <PieChart graphName="Pie-Chart" title="Wheres the pie going?"/>
                             </v-card>
                         </v-tab-item>                            
 
                         <v-tab-item>
                             <v-card flat>
-                                <PieChart graphName="1" title="DAILY"/>
+                                <LineGraph graphName="Line-Graph" title="See the trends"/>
                             </v-card>
                         </v-tab-item>                            
 
                     </v-tabs-items>
 
                 </v-card>
-            </v-col>
-        </v-row>
-
-    </v-container>
 </template>
 
 <script>
 // @ is an alias to /src
 import PieChart from '../../components/PieGraphs/PieGraph.vue';
+import LineGraph from '../../components/linegraphs/LineGraph.vue';
 
 export default {
     name: 'FormTimeSpent',
     data () {
         return {
-            items: ["WEEKLY", "DAILY", "FORMS"], 
+            items: ["Pie Chart", "Line Graph", "FORMS"], 
             tab: null,           
             isDataLoaded: false,
             cur_index: 100,
@@ -60,6 +52,7 @@ export default {
     },
     components: {
         PieChart,
+        LineGraph,
     },
     async created() {
         await this.$store.dispatch('setDataFromLastSevenDays'); 

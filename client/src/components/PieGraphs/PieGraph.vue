@@ -1,13 +1,16 @@
 <template>
     <v-container> 
 
-        <!-- Second Row - Another pie chart -->
+        <!-- Pie Chart -->
         <v-row no-gutters>
             <v-col sm="7" class="ma-auto py-3">
                 <v-card flat>
-                    <v-card-title class="justify-center chart-title">
+                    <v-card-title class="justify-center chart-title mb-2">
                         {{ title }}
                     </v-card-title>
+                    <v-card-subtitle>
+                        {{ subTitle }}
+                    </v-card-subtitle>
                     <canvas :class='graphName'></canvas>
                 </v-card>
             </v-col>
@@ -25,15 +28,6 @@
                 chips
                 @input='changePieChartBasedOnDate'
                 ></v-select>
-                <!-- <v-btn 
-                text
-                depressed
-                color="white"
-                style="background:#116466;"
-                class="ma-5"
-                to="time-spent-entry">
-                    Average of last seven days
-                </v-btn> -->
             </v-col>
         </v-row>
 
@@ -48,7 +42,7 @@ const { createPieGraphItems } = require('../../utils/utils');
 export default {
     data() {
         return {
-            subTitle:       "Choose a date",
+            subTitle:       "Choose a date or see the average over the past week",
             pieGraphItems: [],
             defaultItems:  { pieItem: null },
             pieChart:      null,
