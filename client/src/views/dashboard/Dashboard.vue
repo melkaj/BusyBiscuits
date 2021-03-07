@@ -90,7 +90,7 @@
 // @ is an alias to /src
 import Chart from 'chart.js';
 import ChartManager from '../../data/chartdata.js';
-import LineGraph from '../../components/linegraphs/LineGraphSection';
+import LineGraph from '../../components/LineGraphs/LineGraphSection';
 const { createLineGraphItems, createPieGraphItems } = require('../../utils/utils');
 
 export default {
@@ -157,7 +157,7 @@ export default {
         console.log(`mounted: ${this.pieGraphItems[0].id}`);
 
         // Getting the chart data needed to create the pie chart
-        const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
+        const thisWeeksPieChartData = ChartManager.GetThisWeeksPieChartOptions();
         const mostRecentPieChartData = await ChartManager.CreatePieChartDataByDate(this.pieGraphItems[0].id); 
         const lineChartData = ChartManager.CreateLineGraphData("sleep");
 

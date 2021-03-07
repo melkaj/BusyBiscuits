@@ -33,6 +33,7 @@ export default {
 @import url('./assets/fonts.css');
 #app {
   // font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

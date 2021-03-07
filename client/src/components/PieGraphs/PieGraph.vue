@@ -67,7 +67,7 @@ export default {
 
             if (newDate == "7-Day Average")
             {
-                const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
+                const thisWeeksPieChartData = ChartManager.GetThisWeeksPieChartOptions();
                 this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
             }
             else
@@ -93,7 +93,7 @@ export default {
         // Getting the data from the database and caching it to the store
         this.pieGraphItems = this.getDateItems();
 
-        const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
+        const thisWeeksPieChartData = ChartManager.GetThisWeeksPieChartOptions();
         this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
 
         // // Getting the chart data needed to create the pie chart

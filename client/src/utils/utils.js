@@ -1,17 +1,10 @@
 
-
-// async function startUp() {
-//     // await this.$store.dispatch('addTimeSpentForLastSevenDays');
-//     await store.dispatch('addTimeSpentForLastSevenDays');
-// }
-
-
 /**
  * Converts this array of objects into one object that can be used to create a chart
  * @param {Array} data - Array of Objects. Each object is a time-spent-entry 
  */
 function convertDataToChartData(data) {
-    // Maybe turn this chart data object to an array
+    // TODO: Maybe turn this chart data object to an array
     var chartDataObject = {
         sleep: 0,
         travel: 0,
@@ -178,28 +171,40 @@ function createPieGraphItems(items) {
  */
 function getBackgroundColors() {
     return {
-        sleep: 'rgba(214,82,47,0.80)',
-        travel: 'rgba(166,49,224,0.80)',
-        exercise: 'rgba(54,140,201,0.8)',
-        on_phone: 'rgba(43,224,66,0.8)',
-        on_computer: 'rgba(214,190,42,0.8)',
-        games: 'rgba(30,61,227,0.8)',
-        somethingelse: 'rgba(201,227,27,0.8)'
+        sleep: 'rgba(255, 123, 0,1)',
+        travel: 'rgba(166,49,224,1)',
+        exercise: 'rgba(255, 247, 13,1)',
+        on_phone: 'rgba(43,224,66,1)',
+        on_computer: 'rgba(227, 57, 125,1)',
+        games: 'rgba(30,61,227,1)',
+        somethingelse: 'rgba(117, 223, 224,1)'
     }
 }
 
 /**
  * Returning an object that holds the various colors of categories
+ * @param {String} chartType - Return colors based on what chart is calling it
  */
-function getBorderColors() {
+function getBorderColors(chartType) {
+    if (chartType == "pie") {
+        return {
+            sleep: 'rgba(255, 255, 255,1)',
+            travel: 'rgba(255, 255, 255,1)',
+            exercise: 'rgba(255, 255, 255,1)',
+            on_phone: 'rgba(255, 255, 255,1)',
+            on_computer: 'rgba(255, 255, 255,1)',
+            games: 'rgba(255, 255, 255,1)',
+            somethingelse: 'rgba(255, 255, 255,1)',    
+        }
+    }
     return {
-        sleep: 'rgba(214,82,47,1)',
+        sleep: 'rgba(255, 123, 0,1)',
         travel: 'rgba(166,49,224,1)',
-        exercise: 'rgba(54,140,201,1)',
+        exercise: 'rgba(255, 247, 13,1)',
         on_phone: 'rgba(43,224,66,1)',
-        on_computer: 'rgba(214,190,42,1)',
+        on_computer: 'rgba(227, 57, 125,1)',
         games: 'rgba(30,61,227,1)',
-        somethingelse: 'rgba(201,227,27,1)'
+        somethingelse: 'rgba(117, 223, 224,1)'    
     }
 }
 

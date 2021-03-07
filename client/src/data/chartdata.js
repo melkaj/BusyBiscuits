@@ -11,7 +11,7 @@ export default {
      */
     mockPieChartData() {
         return {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: ['One', 'Two', 'Three'],
                 datasets: [{
@@ -39,7 +39,7 @@ export default {
     /**
      * Returns an object that can used to create a pie chart 
      */
-    CreateThisWeeksPieChart() {
+    GetThisWeeksPieChartOptions() {
         // The data for the last seven days will be an array of objects
         const thisWeeksData = store.getters.getDataFromLastSevenDays;
 
@@ -48,10 +48,10 @@ export default {
 
         // Colors used for the pie chart
         const backgroundColors = getBackgroundColors();
-        const borderColors = getBorderColors();
+        const borderColors = getBorderColors("pie");
 
         return {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: chartLabels,
                 datasets: [{
@@ -80,6 +80,7 @@ export default {
             },
             options: {
                 responsive: true,
+                legend: { display: false },
             }
         }
 
@@ -95,10 +96,10 @@ export default {
 
         // Colors used for the pie chart
         const backgroundColors = getBackgroundColors();
-        const borderColors = getBorderColors();
+        const borderColors = getBorderColors("pie");
 
         return {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: chartLabels,
                 datasets: [{
@@ -142,10 +143,10 @@ export default {
         
         // Colors used for the pie chart
         const backgroundColors = getBackgroundColors();
-        const borderColors = getBorderColors();
+        const borderColors = getBorderColors("pie");
 
         return {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: chartLabels,
                 datasets: [{
@@ -174,6 +175,7 @@ export default {
             },
             options: {
                 responsive: true,
+                legend: { display: false },
             }
         }
     },    
@@ -192,8 +194,8 @@ export default {
         // Specifically getting the category needed
         //      The labels come from most recent to oldest, so we make a deepcopy and
         //      then reverse it to get it into chronological order
-        const dataFromCategory = [...(allTheData[category])];
-        const reversedData = dataFromCategory.reverse();
+        const dataBasedOnCategory = [...(allTheData[category])];
+        const reversedData = dataBasedOnCategory.reverse();
 
         // Getting the right phrasing for the labels
         //      ex: category is 'on_phone', so the label should be "Hours of 'phone time'"
