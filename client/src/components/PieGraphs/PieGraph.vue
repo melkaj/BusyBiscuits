@@ -25,6 +25,15 @@
                 chips
                 @input='changePieChartBasedOnDate'
                 ></v-select>
+                <!-- <v-btn 
+                text
+                depressed
+                color="white"
+                style="background:#116466;"
+                class="ma-5"
+                to="time-spent-entry">
+                    Average of last seven days
+                </v-btn> -->
             </v-col>
         </v-row>
 
@@ -62,13 +71,23 @@ export default {
             // Destroys the already created linechart as to avoid hover issues            
             this.pieChart.destroy();
 
-            // Generating new pie chart data based on the selected date
-            const PieChartDataByDate = await ChartManager.CreatePieChartDataByDate(newDate);
-            this.pieChart = this.createPieChart(this.graphName, PieChartDataByDate);
+            if (newDate == "7-Day Average")
+            {
+                const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
+                this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
+            }
+            else
+            {
+                // Generating new pie chart data based on the selected date
+                const PieChartDataByDate = await ChartManager.CreatePieChartDataByDate(newDate);
+                this.pieChart = this.createPieChart(this.graphName, PieChartDataByDate);
+            }
         },
         getDateItems() {
             // Getting the items
-            const items = createPieGraphItems(this.$store.getters.getDates); 
+            var items = createPieGraphItems(this.$store.getters.getDates); 
+            items.unshift({ id: "7-Day Average", date: "7-Day Average" });            
+            
             // Setting the default item
             this.defaultItems.pieItem = items[0].id;
 
@@ -80,14 +99,13 @@ export default {
         // Getting the data from the database and caching it to the store
         this.pieGraphItems = this.getDateItems();
 
-        console.log(`graphname: ${this.graphName}`);
+        const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
+        this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
 
-        // Getting the chart data needed to create the pie chart
-        // const thisWeeksPieChartData = ChartManager.CreateThisWeeksPieChart();
-        const mostRecentPieChartData = await ChartManager.CreatePieChartDataByDate(this.pieGraphItems[0].id); 
-
-        // Accessing the DOM, and placing a pie chart at a specific location
-        this.pieChart = this.createPieChart(this.graphName, mostRecentPieChartData);
+        // // Getting the chart data needed to create the pie chart
+        // const mostRecentPieChartData = await ChartManager.CreatePieChartDataByDate(this.pieGraphItems[0].id); 
+        // // Accessing the DOM, and placing a pie chart at a specific location
+        // this.pieChart = this.createPieChart(this.graphName, mostRecentPieChartData);
     },  
 }
 </script>
@@ -95,8 +113,7 @@ export default {
 <style scoped>
 .chart-title {
     /* font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif; */
-    font-family: "Montserrat-SemiBold", Arial, Helvetica, sans-serif;
-    font-weight: Bold;
+    font-family: "Montserrat-SemiBold";
     font-size: 36px;
 }
 .chart-sub-title {

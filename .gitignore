@@ -4,4 +4,7 @@ client/.env
 server/node_modules
 server/.env
 
+client-start.sh
+server-start.sh
+
 TODO.txt

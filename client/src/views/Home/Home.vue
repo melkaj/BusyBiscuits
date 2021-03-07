@@ -4,12 +4,7 @@
         <v-row align="center" justify="center">
             <v-col sm=12>
         
-                <v-card style="background: #FFFBE6;" flat>
-                    <v-card-title class="text-center justify-center ">
-                        <h1>
-                            BusyBiscuits
-                        </h1>
-                    </v-card-title>
+                <v-card style="background: #116466;" flat>
 
                     <v-divider></v-divider>
 
@@ -30,26 +25,16 @@
                     <v-tabs-items v-model="tab">
                         <v-tab-item>
                             <v-card flat>
-                                <PieChart graphName="0" title="Weekly"/>
+                                <PieChart graphName="0" title="WEEKLY"/>
                             </v-card>
                         </v-tab-item>                            
 
                         <v-tab-item>
                             <v-card flat>
-                                <PieChart graphName="1" title="Daily"/>
+                                <PieChart graphName="1" title="DAILY"/>
                             </v-card>
                         </v-tab-item>                            
 
-                        <!-- <v-tab-item
-                            v-for="item in tabs"
-                            :key="item.tab_name"
-                        >
-                            <v-card
-                                flat
-                            >
-                                <PieChart v-bind:graphName="index.toString()" v-bind:title="item"/>
-                            </v-card>
-                        </v-tab-item> -->
                     </v-tabs-items>
 
                 </v-card>
@@ -67,7 +52,7 @@ export default {
     name: 'FormTimeSpent',
     data () {
         return {
-            items: ["Weekly", "Daily"], 
+            items: ["WEEKLY", "DAILY", "FORMS"], 
             tab: null,           
             isDataLoaded: false,
             cur_index: 100,
