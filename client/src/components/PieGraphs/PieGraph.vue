@@ -106,8 +106,7 @@ export default {
 
 <style scoped>
 .chart-title {
-    /* font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif; */
-    font-family: "Montserrat-SemiBold";
+    font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 36px;
 }
 .chart-sub-title {

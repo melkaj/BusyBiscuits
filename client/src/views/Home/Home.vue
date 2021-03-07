@@ -1,38 +1,40 @@
 <template>        
-                <v-card v-if='isDataLoaded' style="background:red;" flat class= "fill-height">
+    <v-card v-if='isDataLoaded' flat class="fill-height">
 
-                    <v-divider></v-divider>
+        <!-- <v-divider></v-divider> -->
 
-                    <v-tabs
-                        v-model="tab"
-                        backgroud-color="transparent"
-                        grow
-                    >      
-                        <v-tab
-                            v-for="item in items"
-                            :key="item"
-                            class="tab-font"
-                        >
-                            {{ item }}
-                        </v-tab>
-                    </v-tabs>
+        <v-tabs
+            v-model="tab"
+            backgroud-color="transparent"
+            grow
+        >      
+            <v-tab
+                v-for="item in items"
+                :key="item"
+                class="tab-font"
+            >
+                {{ item }}
+            </v-tab>
+        </v-tabs>
 
-                    <v-tabs-items v-model="tab">
-                        <v-tab-item>
-                            <v-card style="background:blue;" flat>
-                                <PieChart graphName="Pie-Chart" title="Wheres the pie going?"/>
-                            </v-card>
-                        </v-tab-item>                            
-
-                        <v-tab-item>
-                            <v-card flat>
-                                <LineGraph graphName="Line-Graph" title="See the trends"/>
-                            </v-card>
-                        </v-tab-item>                            
-
-                    </v-tabs-items>
-
+        <v-tabs-items v-model="tab">
+            <!-- Charts and data -->
+            <v-tab-item>
+                <v-card flat>
+                    <PieChart graphName="Pie-Chart" title="Wheres the time going?"/>
+                    <LineGraph graphName="Line-Graph" title="See the trends"/>
                 </v-card>
+            </v-tab-item>                            
+
+            <!-- Forms to perform CRUD operations on the data -->
+            <v-tab-item>
+                <v-card flat>
+                </v-card>
+            </v-tab-item>                            
+
+        </v-tabs-items>
+
+    </v-card>
 </template>
 
 <script>
@@ -44,7 +46,7 @@ export default {
     name: 'FormTimeSpent',
     data () {
         return {
-            items: ["Pie Chart", "Line Graph", "FORMS"], 
+            items: ["Pie Chart", "FORMS"], 
             tab: null,           
             isDataLoaded: false,
             cur_index: 100,
@@ -75,6 +77,10 @@ export default {
     border-right: 2px solid #116466;
 }
 .tab-font {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: lighter;
+}
+.test-back{
+    height: 100%;
 }
 </style>
