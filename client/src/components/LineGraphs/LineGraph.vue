@@ -22,7 +22,8 @@
                 :items="lineGraphItems"
                 item-value="id"
                 item-text="category"
-                label="Choose Category"
+                v-model="defaultDropdownSelection"
+                label="Choose Category"                
                 chips
                 @input='changeLineGraphBasedOnCategory'
                 ></v-select>
@@ -36,14 +37,14 @@
 import Chart                   from 'chart.js';
 import ChartManager            from '../../data/chartdata.js';
 const { createLineGraphItems } = require('../../utils/utils');
-// import ChartStuff from '../../data/chartdata';
 
 export default {
     data() {
         return {
             subTitle: "Choose a category to visualize",
-            lineGraphItems: this.getLineGraphItems(),
+            lineGraphItems: [],
             lineGraph: null,
+            defaultDropdownSelection: null,
         }
     },
     props: {
@@ -73,11 +74,11 @@ export default {
         },
     },
     mounted() {
+        this.lineGraphItems = this.getLineGraphItems();
+        this.defaultDropdownSelection = this.lineGraphItems[0].id;
+
         const lineChartData = ChartManager.CreateLineGraphData("sleep");
         this.lineGraph = this.createPieChart(this.graphName, lineChartData);
-
-        // this.$store.dispatch('setLineChartData');
-        // this.createPieChart(this.graphName, ChartStuff.CreateLineGraphData("on_phone"));
     },  
 }
 </script>

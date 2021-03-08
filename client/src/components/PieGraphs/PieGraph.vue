@@ -23,7 +23,7 @@
                 :items="pieGraphItems"
                 item-value="id"
                 item-text="date"
-                v-model="defaultItems.pieItem"
+                v-model="defaultDropdownSelection"
                 label="Choose Date"
                 chips
                 @input='changePieChartBasedOnDate'
@@ -44,7 +44,7 @@ export default {
         return {
             subTitle:       "Choose a date or see the average over the past week",
             pieGraphItems: [],
-            defaultItems:  { pieItem: null },
+            defaultDropdownSelection: null,
             pieChart:      null,
         }
     },
@@ -83,7 +83,7 @@ export default {
             items.unshift({ id: "7-Day Average", date: "7-Day Average" });            
             
             // Setting the default item
-            this.defaultItems.pieItem = items[0].id;
+            this.defaultDropdownSelection = items[0].id;
 
             // Returning the full array of items
             return items;
