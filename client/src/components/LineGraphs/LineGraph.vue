@@ -36,7 +36,7 @@
 <script>
 import Chart                   from 'chart.js';
 import ChartManager            from '../../data/chartdata.js';
-const { createLineGraphItems } = require('../../utils/utils');
+const { getLineGraphDropDownSelections } = require('../../utils/utils');
 
 export default {
     data() {
@@ -62,7 +62,7 @@ export default {
         },
         getLineGraphItems() {
             // Getting the categories for the line graph
-            return createLineGraphItems(this.$store.getters.getCategories);
+            return getLineGraphDropDownSelections(this.$store.getters.getCategories);
         },
         changeLineGraphBasedOnCategory(newCategory) {
             // Destroys the already created linechart as to avoid hover issues

@@ -40,6 +40,7 @@ function convertDataToChartData(data) {
 }
 
 
+
 /**
  * Returning an object that will holds all array for each category
  * @param {Array} lastSevenDays - Array of objects
@@ -69,6 +70,7 @@ function extractLineChartData(lastSevenDays) {
 }
 
 
+
 /**
  * Returning an object that holds two arrays
  *      First is an array holding dates
@@ -91,6 +93,7 @@ function extractDatesAndData(arrayOfObjects) {
 
     return { dates: dates, data: dataColumns };
 }
+
 
 
 /**
@@ -122,14 +125,15 @@ function getCorrectPhrasingOfCategory(category) {
 }
 
 
+
 /**
  * Returns an array of objects. One element in the object will have the wording that the users sees
  *      And the other element will hold the wording that the program will understand
  * @param {Array} items - The linegraph labels in the v-select dropdown
  */
-function createLineGraphItems(items) {
+function getLineGraphDropDownSelections(items) {
     var ids = ['sleep', 'travel', 'exercise', 'on_phone', 'on_computer', 'games', 'somethingelse'];
-    var lineGraphItems = [];
+    var dropDownSelections = [];
 
     for (let i = 0; i < items.length; i++) {
         let itemEntry = {};
@@ -137,10 +141,10 @@ function createLineGraphItems(items) {
         itemEntry["id"] = ids[i];
         itemEntry["category"] = items[i];
 
-        lineGraphItems.push(itemEntry);
+        dropDownSelections.push(itemEntry);
     }
 
-    return lineGraphItems;
+    return dropDownSelections;
 }
 
 
@@ -148,10 +152,9 @@ function createLineGraphItems(items) {
  * Returns an array of objects. One element in the object will have the wording that the users sees
  *      And the other element will hold the wording that the program will understand
  * @param {Array} items - The piegraph labels in the v-select dropdown
- *              This function might be redundant because of the function right above ^^^
  */
-function createPieGraphItems(items) {
-    var lineGraphItems = [];
+function getPieChartDropDownSelections(items) {
+    var dropDownSelections = [];
 
     for (let i = 0; i < items.length; i++) {
         let itemEntry = {};
@@ -159,11 +162,12 @@ function createPieGraphItems(items) {
         itemEntry["id"] = items[i];
         itemEntry["date"] = items[i];
 
-        lineGraphItems.push(itemEntry);
+        dropDownSelections.push(itemEntry);
     }
 
-    return lineGraphItems;
+    return dropDownSelections;
 }
+
 
 
 /**
@@ -180,6 +184,8 @@ function getBackgroundColors() {
         somethingelse: 'rgba(117, 223, 224,1)'
     }
 }
+
+
 
 /**
  * Returning an object that holds the various colors of categories
@@ -208,14 +214,15 @@ function getBorderColors(chartType) {
     }
 }
 
+
+
 module.exports = {
     getBackgroundColors,
     getBorderColors,
-    // startUp,
     getCorrectPhrasingOfCategory,
     extractDatesAndData,
     extractLineChartData,
     convertDataToChartData,
-    createLineGraphItems,
-    createPieGraphItems
+    getLineGraphDropDownSelections,
+    getPieChartDropDownSelections
 }

@@ -37,7 +37,7 @@
 <script>
 import Chart                  from 'chart.js';
 import ChartManager           from '../../data/chartdata.js';
-const { createPieGraphItems } = require('../../utils/utils');
+const { getPieChartDropDownSelections } = require('../../utils/utils');
 
 export default {
     data() {
@@ -79,7 +79,7 @@ export default {
         },
         getDateItems() {
             // Getting the items
-            var items = createPieGraphItems(this.$store.getters.getDates); 
+            var items = getPieChartDropDownSelections(this.$store.getters.getDates, "pie"); 
             items.unshift({ id: "7-Day Average", date: "7-Day Average" });            
             
             // Setting the default item
