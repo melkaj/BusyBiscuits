@@ -67,13 +67,13 @@ export default {
 
             if (newDate == "7-Day Average")
             {
-                const thisWeeksPieChartData = ChartManager.GetThisWeeksPieChartOptions();
+                const thisWeeksPieChartData = await ChartManager.GetThisWeeksPieChartOptions("Average");
                 this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
             }
             else
             {
                 // Generating new pie chart data based on the selected date
-                const PieChartDataByDate = await ChartManager.GetPieChartDataByDate(newDate);
+                const PieChartDataByDate = await ChartManager.GetThisWeeksPieChartOptions(newDate);
                 this.pieChart = this.createPieChart(this.graphName, PieChartDataByDate);
             }
         },
@@ -93,13 +93,8 @@ export default {
         // Getting the data from the database and caching it to the store
         this.pieGraphItems = this.getDateItems();
 
-        const thisWeeksPieChartData = ChartManager.GetThisWeeksPieChartOptions();
+        const thisWeeksPieChartData = await ChartManager.GetThisWeeksPieChartOptions("Average");
         this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
-
-        // // Getting the chart data needed to create the pie chart
-        // const mostRecentPieChartData = await ChartManager.GetPieChartDataByDate(this.pieGraphItems[0].id); 
-        // // Accessing the DOM, and placing a pie chart at a specific location
-        // this.pieChart = this.createPieChart(this.graphName, mostRecentPieChartData);
     },  
 }
 </script>

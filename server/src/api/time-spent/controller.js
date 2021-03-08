@@ -24,7 +24,7 @@ const db = require('../../db/db');
 
 /**
  * Executes a MySql query and returns its results 
- * @param {String} todaysDate - ex: "2020-08-22"
+ * @param {String} date - ex: "2020-08-22"
  * Returns an array of objects
  */
 async function getDataByDate(date) {

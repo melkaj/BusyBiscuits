@@ -8,14 +8,34 @@ const chartLabels = store.getters.getCategories;
 export default {
     /**
      * Returns an object that can used to create a pie chart 
-     * @param {String}
+     * @param {String} flag
      */
-    GetThisWeeksPieChartOptions(flag) {
-        // The data for the last seven days will be an ARRAY OF OBJECTS
-        const thisWeeksData = store.getters.getDataFromLastSevenDays;
+    async GetThisWeeksPieChartOptions(flag) {
+        var data;
+        
+        console.log(`store.getters.getWeekOfData: ${store.getters.getWeekOfData}`);
 
-        // Converts thisWeeksData to one object that can be used for the pie chart
-        const data = convertDataToChartData(thisWeeksData);
+        // Gets averages of the past week of data 
+        if (flag == "Average")
+        {
+            // The data for the last seven days will be an ARRAY OF OBJECTS
+            const thisWeeksData = store.getters.getDataFromLastSevenDays;
+    
+            // Converts thisWeeksData to one object that can be used for the pie chart
+            data = convertDataToChartData(thisWeeksData);
+        }
+        // If the flag is a "date" that is in the cached array of dates
+        else if (store.getters.getDates.includes(flag))
+        {
+            const index = store.getters.getDates.indexOf(flag);
+            data = store.getters.getDataFromLastSevenDays[index];
+        }
+        // If the date is not cached, need to see if its in the database
+        else
+        {
+            const requestedData = await Services.getEntryBasedOnDate(flag);
+            data = requestedData.data;        
+        }
 
         // Colors used for the pie chart
         const backgroundColors = getBackgroundColors();
@@ -57,54 +77,7 @@ export default {
 
     },
 
-    /**
-     * Returns pie chart data based on the date passed in the argument
-     * 
-     * @param {String} date     (maybe its a string, double check) 
-     */
-    async GetPieChartDataByDate(date) {
-        // Axios call to receive todays time-spent entry
-        const requestedData = await Services.getEntryBasedOnDate(date);
-        const data = requestedData.data;
-        
-        // Colors used for the pie chart
-        const backgroundColors = getBackgroundColors();
-        const borderColors = getBorderColors("pie");
 
-        return {
-            type: 'doughnut',
-            data: {
-                labels: chartLabels,
-                datasets: [{
-                    label: 'Just some numbers',
-                    data: [data.sleep, data.travel, data.exercise, data.on_phone, data.on_computer, data.games, data.somethingelse],
-                    backgroundColor: [
-                        backgroundColors.sleep,
-                        backgroundColors.travel,
-                        backgroundColors.exercise,
-                        backgroundColors.on_phone,
-                        backgroundColors.on_computer,
-                        backgroundColors.games,
-                        backgroundColors.somethingelse
-                    ],
-                    borderColor: [
-                        borderColors.sleep,
-                        borderColors.travel,
-                        borderColors.exercise,
-                        borderColors.on_phone,
-                        borderColors.on_computer,
-                        borderColors.games,
-                        borderColors.somethingelse
-                    ], 
-                    borderWidth: 2
-                }],
-            },
-            options: {
-                responsive: true,
-                legend: { display: false },
-            }
-        }
-    },    
 
     /**
      * Returns the data needed to create a line graph based on the argument

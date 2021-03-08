@@ -45,7 +45,7 @@ export default new Vuex.Store({
   },
 
   actions: {
-    // Should be mounted somewhere (main App.vue)
+    // Function to get the 
     async setDataFromLastSevenDays(context) {
       // Getting the last seven days of time-spent entries
       const response = await Services.getLastSevenDays();
@@ -56,10 +56,10 @@ export default new Vuex.Store({
       const data = extractDatesAndData(responseData);
 
       // Manipulating the data received from the database to be used for linecharts
-      const lineCartData = extractLineChartData(data.data);
+      const lineChartData = extractLineChartData(data.data);
       
       // Commiting a mutation to change 'weekOfData'
-      context.commit('setLineChartData', lineCartData);
+      context.commit('setLineChartData', lineChartData);
       
       // Commiting a mutation to change 'dates' state
       context.commit('setDates', data.dates);
