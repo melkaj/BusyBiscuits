@@ -55,17 +55,6 @@ export default new Vuex.Store({
       // First will be array of dates and second will be array of objects with data
       const data = extractDatesAndData(responseData);
 
-      console.log("start")
-      console.log(typeof(data.data[0].sleep));
-      console.log(typeof(data.data[0].travel));
-      console.log(typeof(data.data[0].exercise));
-      console.log(typeof(data.data[0].on_phone));
-      console.log(typeof(data.data[0].on_computer));
-      console.log(typeof(data.data[0].games));
-      console.log(typeof(data.data[0].somethingelse));
-      console.log("end")
-
-
       // Manipulating the data received from the database to be used for linecharts
       const lineChartData = extractLineChartData(data.data);
       
