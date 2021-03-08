@@ -1,8 +1,6 @@
 <template>        
     <v-card v-if='isDataLoaded' flat class="fill-height">
 
-        <!-- <v-divider></v-divider> -->
-
         <v-tabs
             v-model="tab"
             backgroud-color="transparent"
@@ -40,7 +38,7 @@
 
 <script>
 // @ is an alias to /src
-import PieChart from '../../components/PieGraphs/PieGraph.vue';
+import PieChart  from '../../components/PieGraphs/PieGraph.vue';
 import LineGraph from '../../components/LineGraphs/LineGraph.vue';
 import EntryForm from '../../components/Forms/EntryForm.vue';
 

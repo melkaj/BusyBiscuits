@@ -6,8 +6,11 @@
                 Add an entry:
             </v-card-title>
             <v-card-subtitle class="form-card-subheading">
-                (Enter in the amount in hours, i.e. enter <strong>2</strong> for two hours)
+                (Enter in the amount in hours, i.e. enter 2 for two hours)<br/>(Also make sure you enter whole numbers)
             </v-card-subtitle>
+            <!-- <v-card-subtitle class="form-card-subheading">
+                (Also make sure you enter whole numbers)
+            </v-card-subtitle> -->
 
             <!-- <v-divider></v-divider> -->
 
@@ -17,7 +20,7 @@
                     
                     <v-col cols="8" md="5">
                         <v-text-field
-                            v-model="travelTime"
+                            v-model.number="travelTime"
                             label="traveling?"
                             :counter=2
                             type="number"
@@ -25,7 +28,7 @@
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="exercise"
+                            v-model.number="exercise"
                             label="exercising?"
                             :counter=2
                             type="number"
@@ -33,7 +36,7 @@
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="onPhone"
+                            v-model.number="onPhone"
                             label="on the phone?"
                             :counter=2     
                             type="number"                           
@@ -43,7 +46,7 @@
 
                     <v-col cols="8" md="5">
                         <v-text-field
-                            v-model="sleep"
+                            v-model.number="sleep"
                             label="sleeping?"
                             :counter=2   
                             type="number"                             
@@ -51,7 +54,7 @@
                         ></v-text-field>
                         
                         <v-text-field
-                            v-model="onComputer"
+                            v-model.number="onComputer"
                             label="on the computer?"
                             :counter=2    
                             type="number"                            
@@ -59,7 +62,7 @@
                         ></v-text-field>
 
                         <v-text-field
-                            v-model="games"
+                            v-model.number="games"
                             label="playing games?"
                             :counter=2    
                             type="number"                            
@@ -70,7 +73,7 @@
 
                 <v-row align="center" justify="center">
                     <v-col cols="12" sm="8">
-                        <v-card-text style="color:red;">
+                        <v-card-text :class="setMessageColor">
                             {{message}}
                         </v-card-text>
                     </v-col>
@@ -111,6 +114,7 @@ export default {
             games: null,
             somethingelse: 0,
             total: 0,
+            isSuccess: null,
             message: '',
             messageAboutHours: {
                 error: "The total number of hours must be between 0 and 24",
@@ -118,16 +122,18 @@ export default {
             }
         }
     },
+    computed: {
+        setMessageColor() {
+            return this.isSuccess ? 'form-success' : 'form-failed';
+        },
+    },
     methods: {
         async canPostToday() {
             var latest_entry_date = this.$store.getters.getDates[0];
-            var todays_date = new Date().toISOString().slice(0, 10);
-
-            console.log(`latest date: ${latest_entry_date}`);
-            console.log(`todays date: ${todays_date}`);
+            var todays_date =       new Date().toISOString().slice(0, 10);
 
             if (latest_entry_date !== todays_date)  await this.isTotalHoursValid(); 
-            else                                    this.message = "Already posted for today, wait until tomorrow";
+            else                                    this.isSuccess=false;  this.message = "Already posted for today, wait until tomorrow";
         },
         async isTotalHoursValid() {
             this.total = Number(this.sleep) + Number(this.travelTime) + Number(this.exercise) 
@@ -135,7 +141,8 @@ export default {
 
             // If the total number of hours is not between [0, 24]
             if (this.total > 24 || this.total < 0)  { 
-                this.message = this.messageAboutHours.error;
+                this.isSuccess = false;
+                this.message =   this.messageAboutHours.error;
                 throw new Error("Hours don't make sense");
             }
 
@@ -144,13 +151,15 @@ export default {
 
             this.sendTimeSpentForm()
             .then( res => {
-                this.message = res.data;
+                this.isSuccess = true;
+                this.message =   res.data;
                 
                 // Redirect back to dashboard
-                this.$router.push('dashboard');
+                // this.$router.push('home');
             })
             .catch( error => {
-                this.message = error.response.data;
+                this.isSuccess = false;
+                this.message =   error.response.data;
             });
         },
         async sendTimeSpentForm() {
@@ -159,12 +168,12 @@ export default {
                 sleep: this.sleep,
                 travel: this.travelTime,
                 exercise: this.exercise,
-                onPhone: this.onPhone,
-                onComputer: this.onComputer,
+                on_phone: this.onPhone,
+                on_computer: this.onComputer,
                 games: this.games,
                 somethingelse: this.somethingelse
             }
-
+            
             // Adding the form to the store
             var date = new Date().toISOString().slice(0, 10);
             this.$store.dispatch('addNewTimeSpentEntryToFront', { date: date, data: form });
@@ -177,6 +186,9 @@ export default {
 </script>
 
 <style scoped>
+.form-success { color: #116466; }
+.form-failed  { color: red;     }
+
 .form-card-heading {
     color:#116466; /* !IMPORTANT; */
     text-align: left;
@@ -188,7 +200,6 @@ export default {
     text-align: left;
     font-size: 1rem;
 }
-
 .form-border {
     border-left: 2px solid #116466; 
     border-bottom: 2px solid #116466; 

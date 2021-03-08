@@ -23,7 +23,7 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    setDataFromLastSevenDays(state, dataFromLastSevenDays) {
+    commitDataFromLastSevenDays(state, dataFromLastSevenDays) {
       state.dataFromLastSevenDays = dataFromLastSevenDays;
     },
 
@@ -55,6 +55,17 @@ export default new Vuex.Store({
       // First will be array of dates and second will be array of objects with data
       const data = extractDatesAndData(responseData);
 
+      console.log("start")
+      console.log(typeof(data.data[0].sleep));
+      console.log(typeof(data.data[0].travel));
+      console.log(typeof(data.data[0].exercise));
+      console.log(typeof(data.data[0].on_phone));
+      console.log(typeof(data.data[0].on_computer));
+      console.log(typeof(data.data[0].games));
+      console.log(typeof(data.data[0].somethingelse));
+      console.log("end")
+
+
       // Manipulating the data received from the database to be used for linecharts
       const lineChartData = extractLineChartData(data.data);
       
@@ -65,7 +76,7 @@ export default new Vuex.Store({
       context.commit('setDates', data.dates);
 
       // Commiting a mutation to change 'dataFromLastSevenDays' state
-      context.commit('setDataFromLastSevenDays', data.data);
+      context.commit('commitDataFromLastSevenDays', data.data);
     },
 
     // Adding data to front of the data and date states

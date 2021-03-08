@@ -13,14 +13,12 @@ export default {
     async GetThisWeeksPieChartOptions(flag) {
         var data;
         
-        console.log(`store.getters.getWeekOfData: ${store.getters.getWeekOfData}`);
-
         // Gets averages of the past week of data 
         if (flag == "Average")
         {
             // The data for the last seven days will be an ARRAY OF OBJECTS
-            const thisWeeksData = store.getters.getDataFromLastSevenDays;
-    
+            const thisWeeksData = store.getters.getDataFromLastSevenDays;        
+
             // Converts thisWeeksData to one object that can be used for the pie chart
             data = convertDataToChartData(thisWeeksData);
         }

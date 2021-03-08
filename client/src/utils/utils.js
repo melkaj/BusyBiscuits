@@ -36,7 +36,6 @@ function convertDataToChartData(data) {
     chartDataObject.games = (chartDataObject.games / numberOfRows).toFixed(1); 
     chartDataObject.somethingelse = (chartDataObject.somethingelse / numberOfRows).toFixed(1); 
 
-
     return chartDataObject;
 }
 

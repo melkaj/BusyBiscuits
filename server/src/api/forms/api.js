@@ -9,11 +9,11 @@ const router = express.Router();
  */
 router.post('/', (req, res, next) => {
 
-    const { sleep, travel, exercise, games, onPhone, onComputer, somethingelse } = req.body;
+    const { sleep, travel, exercise, games, on_phone, on_computer, somethingelse } = req.body;
 
     const today = utils.GetTodaysDate();
 
-    const form = [today, 1, sleep, travel, exercise, onPhone, onComputer, games, somethingelse, 0];
+    const form = [today, 1, sleep, travel, exercise, on_phone, on_computer, games, somethingelse, 0];
 
     controller.submitForm(form)
         .then( (response) => {
