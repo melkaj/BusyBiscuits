@@ -26,8 +26,9 @@
 
             <!-- Forms to perform CRUD operations on the data -->
             <v-tab-item>
-                <v-card flat>
+                <v-card flat class="mb-14">
                     <EntryForm />
+                    <UpdateForm />
                 </v-card>
             </v-tab-item>                            
 
@@ -38,9 +39,10 @@
 
 <script>
 // @ is an alias to /src
-import PieChart  from '../../components/PieGraphs/PieGraph.vue';
-import LineGraph from '../../components/LineGraphs/LineGraph.vue';
-import EntryForm from '../../components/Forms/EntryForm.vue';
+import PieChart   from '../../components/PieGraphs/PieGraph.vue';
+import LineGraph  from '../../components/LineGraphs/LineGraph.vue';
+import EntryForm  from '../../components/Forms/EntryForm.vue';
+import UpdateForm from '../../components/Forms/UpdateForm.vue';
 
 export default {
     name: 'FormTimeSpent',
@@ -56,6 +58,7 @@ export default {
         PieChart,
         LineGraph,
         EntryForm,
+        UpdateForm,
     },
     async created() {
         await this.$store.dispatch('setDataFromLastSevenDays'); 

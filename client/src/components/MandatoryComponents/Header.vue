@@ -13,7 +13,7 @@
                 <v-btn 
                 text
                 depressed
-                to="dashboard">
+                to="home">
                     BusyBiscuits
                 </v-btn>
             </v-toolbar-title>
@@ -92,11 +92,11 @@ export default {
             drawer: false,
             items: [
                 {
-                    title:"Submit Entry",
+                    title:"Overview",
                     name:"Beep"
                 },
                 {
-                    title:"Update/Remove Entry",
+                    title:"Forms",
                     name:"Bop"
                 }
             ]
@@ -104,7 +104,7 @@ export default {
     },
     methods: {
         goto() {
-            this.$router.push({name:"home"});
+            this.$router.push({name:"home"}).catch( err => { console.log(err); });
         }
     }
 }
