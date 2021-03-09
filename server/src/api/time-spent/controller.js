@@ -35,7 +35,6 @@ async function getDataByDate(date) {
 
         const q = "SELECT sleep,travel,exercise,on_phone,on_computer,games,somethingelse FROM time_spent WHERE (date_created = ?)"
         return await db.runQuery(conn, q, date);
-
     }
     finally {
         conn.release();

@@ -53,7 +53,7 @@
                         color="primary"
                         style="background: white;"
                         class="mx-5 my-2"
-                        @click="canPostToday">
+                        @click="getEntryFormBasedOnDate">
                             Find Entry
                         </v-btn>
 
@@ -98,7 +98,7 @@
                         style="background: white;"
                         class="mx-5 my-2"
                         @click="canPostToday">
-                            Submit
+                            Update Entry
                         </v-btn>
                     </v-col>
                 </v-row>
@@ -129,7 +129,8 @@ export default {
             messageAboutHours: {
                 error: "The total number of hours must be between 0 and 24",
                 success: "Form was submitted",
-                cannotFind: "Entry was not found. Double check your input"
+                cannotFind: "Entry was not found. Double check your input",
+                invaliddate: "Date entered was invalid",
             }
         }
     },
@@ -139,7 +140,41 @@ export default {
         },
     },
     methods: {
-        async canPostToday() {
+        async getEntryFormBasedOnDate() {
+            if (!this.validateDate())
+            {
+                this.isSuccess = false;
+                this.message = this.messageAboutHours.invaliddate;
+            }
+            else
+            {
+                this.isSuccess = true;  this.message = null;
+                const entryForm = await Services.getEntryBasedOnDate( this.date );
+                console.log(`entryFormtype: ${typeof(entryForm.data)}`);
+                console.log(`entryFormOBJ: ${Object.keys(entryForm.data)}`);
+    
+                this.sleep = entryForm.data.sleep;
+                this.travelTime = entryForm.data.travel;
+                this.exercise = entryForm.data.exercise;
+                this.onPhone = entryForm.data.on_phone;
+                this.onComputer = entryForm.data.on_computer;
+                this.games = entryForm.data.games;
+    
+                // console.log(`entryForm.sleep: ${entryForm.sleep}`);
+            }
+        },
+        validateDate() {
+            if (this.date.length > 10)  return false;
+
+            for (let i = 0; i < 4; i++)
+            {
+                console.log(this.date[i]);
+                console.log(this.date.charCodeAt(i));
+                if (this.date.charCodeAt(i) < 48 || this.date.charCodeAt(i) > 57)  return false;
+            }
+            return true;
+        },
+        async canPostToday() {  //DELETE THIS WILL NOT BE NEEDED HERE (i think)
             var latest_entry_date = this.$store.getters.getDates[0];
             var todays_date =       new Date().toISOString().slice(0, 10);
 
