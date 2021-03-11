@@ -110,7 +110,7 @@
 <script>
 // @ is an alias to /src
 import Services from '../../services/services';
-const { ValidateDate } = require('../../utils/utils');
+const { ValidateDate, GetSQLDateFormat } = require('../../utils/utils');
 
 export default {
     name: 'FormTimeSpent',
@@ -128,7 +128,7 @@ export default {
             formerEntry: {},
             isSuccess: null,
             message: '',
-            messageAboutHours: {
+            messageResponses: {
                 error: "The total number of hours must be between 0 and 24",
                 success: "Form was submitted",
                 cannotFind: "Entry was not found. Double check your input",
@@ -146,7 +146,7 @@ export default {
             if (!this.validateDate())
             {
                 this.isSuccess = false;
-                this.message = this.messageAboutHours.invaliddate;
+                this.message = this.messageResponses.invaliddate;
             }
             else
             {
@@ -171,10 +171,10 @@ export default {
             return ValidateDate(this.date);
         },
         async canPostToday() {  //DELETE THIS WILL NOT BE NEEDED HERE (i think)
-            var latest_entry_date = this.$store.getters.getDates[0];
-            var todays_date =       new Date().toISOString().slice(0, 10);
+            var latestEntryDate = this.$store.getters.getDates[0];
+            var todaysDate = GetSQLDateFormat(new Date().toLocaleString());
 
-            if (latest_entry_date !== todays_date)  await this.isTotalHoursValid(); 
+            if (latestEntryDate !== todaysDate)  await this.isTotalHoursValid(); 
             else                                    this.isSuccess=false;  this.message = "Already posted for today, wait until tomorrow";
         },
         async isTotalHoursValid() {
@@ -184,7 +184,7 @@ export default {
             // If the total number of hours is not between [0, 24]
             if (this.total > 24 || this.total < 0)  { 
                 this.isSuccess = false;
-                this.message =   this.messageAboutHours.error;
+                this.message =   this.messageResponses.error;
                 throw new Error("Hours don't make sense");
             }
 

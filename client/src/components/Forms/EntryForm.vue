@@ -101,6 +101,7 @@
 <script>
 // @ is an alias to /src
 import Services from '../../services/services';
+const { GetSQLDateFormat } = require('../../utils/utils');
 
 export default {
     name: 'FormTimeSpent',
@@ -116,7 +117,7 @@ export default {
             total: 0,
             isSuccess: null,
             message: '',
-            messageAboutHours: {
+            messageResponses: {
                 error: "The total number of hours must be between 0 and 24",
                 success: "Form was submitted"
             }
@@ -129,11 +130,10 @@ export default {
     },
     methods: {
         async canPostToday() {
-            var latest_entry_date = this.$store.getters.getDates[0];
-            console.log(`new date: ${new Date().toISOString()}`);
-            var todays_date =       new Date().toISOString().slice(0, 10);
+            var latestEntryDate = this.$store.getters.getDates[0];
+            var todaysDate =      GetSQLDateFormat(new Date().toLocaleString());
 
-            if (latest_entry_date !== todays_date)  await this.isTotalHoursValid(); 
+            if (latestEntryDate !== todaysDate)  await this.isTotalHoursValid(); 
             else                                    this.isSuccess=false;  this.message = "Already posted for today, wait until tomorrow";
         },
         async isTotalHoursValid() {
@@ -143,7 +143,7 @@ export default {
             // If the total number of hours is not between [0, 24]
             if (this.total > 24 || this.total < 0)  { 
                 this.isSuccess = false;
-                this.message =   this.messageAboutHours.error;
+                this.message =   this.messageResponses.error;
                 throw new Error("Hours don't make sense");
             }
 
