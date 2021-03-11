@@ -118,7 +118,7 @@ export default {
             isSuccess: null,
             message: '',
             messageResponses: {
-                error: "The total number of hours must be between 0 and 24",
+                invalidHours: "The total number of hours must be between 0 and 24",
                 success: "Form was submitted",
                 alreadyPosted: "Already posted for today, wait until tomorrow",
             }
@@ -144,7 +144,7 @@ export default {
             // If the total number of hours is not between [0, 24]
             if (this.total > 24 || this.total < 0)  { 
                 this.isSuccess = false;
-                this.message =   this.messageResponses.error;
+                this.message =   this.messageResponses.invalidHours;
                 throw new Error("Hours don't make sense");
             }
 

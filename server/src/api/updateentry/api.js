@@ -10,7 +10,6 @@ const router = express.Router();
 router.patch('/date', (req, res, next) => {
 
     const { date, updatedForm } = req.body;
-    console.log(`date: ${date}`);
 
     const { sleep, travel, exercise, games, on_phone, on_computer, somethingelse } = updatedForm;
 
@@ -18,11 +17,11 @@ router.patch('/date', (req, res, next) => {
 
     controller.updateEntry(form)
         .then( (response) => {
-            res.status(200).send(response);
+            console.log(response);
+            res.status(201).json("Entry was updated");
         })
         .catch( (error) => {
             console.log(error);
-            console.log("HElloo from eror");
             next(error);
         });
 

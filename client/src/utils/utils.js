@@ -281,6 +281,9 @@ function GetSQLDateFormat(unformattedDate) {
     // Gets the year    
     monthdayyear.push(temp);
 
+    if (monthdayyear[0].length == 1)  monthdayyear[0] = '0' + monthdayyear[0];
+    if (monthdayyear[1].length == 1)  monthdayyear[1] = '0' + monthdayyear[1];
+
     var formattedDate = `${monthdayyear[2]}-${monthdayyear[0]}-${monthdayyear[1]}`;
     return formattedDate;
 }

@@ -48,7 +48,7 @@ export default {
     name: 'FormTimeSpent',
     data () {
         return {
-            items: ["Pie Chart", "Forms"], 
+            items: ["Overview", "Forms"], 
             tab: null,           
             isDataLoaded: false,
             cur_index: 100,

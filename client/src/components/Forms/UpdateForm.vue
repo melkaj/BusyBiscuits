@@ -129,7 +129,7 @@ export default {
             isSuccess: null,
             message: '',
             messageResponses: {
-                error: "The total number of hours must be between 0 and 24",
+                invalidHours: "The total number of hours must be between 0 and 24",
                 success: "Form was submitted",
                 entryNotFound: "Entry was not found. Double check your input",
                 invaliddate: "Date entered was invalid",
@@ -155,12 +155,12 @@ export default {
                 this.isSuccess = true;  this.message = null;
                 const entryForm = await Services.getEntryBasedOnDate({ date: this.date });
     
-                this.sleep = entryForm.data.sleep;
-                this.travel = entryForm.data.travel;
-                this.exercise = entryForm.data.exercise;
-                this.on_phone = entryForm.data.on_phone;
+                this.sleep =       entryForm.data.sleep;
+                this.travel =      entryForm.data.travel;
+                this.exercise =    entryForm.data.exercise;
+                this.on_phone =    entryForm.data.on_phone;
                 this.on_computer = entryForm.data.on_computer;
-                this.games = entryForm.data.games;
+                this.games =       entryForm.data.games;
 
                 this.formerEntry = entryForm.data;
             }
@@ -173,7 +173,6 @@ export default {
             var formerEntry =  [this.formerEntry.sleep, this.formerEntry.travel, this.formerEntry.exercise, this.formerEntry.on_phone, this.formerEntry.on_computer, this.formerEntry.games];
                         
             var isEqual = formerEntry.every( (elem, index) => elem === currentEntry[index] );
-            console.log(`isEqual Bool: ${isEqual}`);
 
             if (!isEqual)  { this.isSuccess=true; this.message=null; await this.isTotalHoursValid(); }
             else           { this.isSuccess=false;  this.message = this.messageResponses.dataNotModified; }
@@ -185,7 +184,7 @@ export default {
             // If the total number of hours is not between [0, 24]
             if (this.total > 24 || this.total < 0)  { 
                 this.isSuccess = false;
-                this.message =   this.messageResponses.error;
+                this.message =   this.messageResponses.invalidHours;
                 throw new Error("Hours don't make sense");
             }
 
@@ -196,9 +195,6 @@ export default {
             .then( res => {
                 this.isSuccess = true;
                 this.message =   res.data;
-                
-                // Redirect back to dashboard
-                // this.$router.push('home');
             })
             .catch( error => {
                 this.isSuccess = false;
@@ -208,12 +204,12 @@ export default {
         async updateEntry() {
             // Getting data ready to send
             const form = {
-                sleep: this.sleep,
-                travel: this.travel,
-                exercise: this.exercise,
-                on_phone: this.on_phone,
-                on_computer: this.on_computer,
-                games: this.games,
+                sleep:         this.sleep,
+                travel:        this.travel,
+                exercise:      this.exercise,
+                on_phone:      this.on_phone,
+                on_computer:   this.on_computer,
+                games:         this.games,
                 somethingelse: this.somethingelse
             }
             
