@@ -97,7 +97,7 @@
                         color="primary"
                         style="background: white;"
                         class="mx-5 my-2"
-                        @click="canPostToday">
+                        @click="isDataModified">
                             Update Entry
                         </v-btn>
                     </v-col>
@@ -110,7 +110,7 @@
 <script>
 // @ is an alias to /src
 import Services from '../../services/services';
-const { ValidateDate, GetSQLDateFormat } = require('../../utils/utils');
+const { ValidateDate } = require('../../utils/utils');
 
 export default {
     name: 'FormTimeSpent',
@@ -131,8 +131,10 @@ export default {
             messageResponses: {
                 error: "The total number of hours must be between 0 and 24",
                 success: "Form was submitted",
-                cannotFind: "Entry was not found. Double check your input",
+                entryNotFound: "Entry was not found. Double check your input",
                 invaliddate: "Date entered was invalid",
+                alreadyPosted: "Already posted for today, wait until tomorrow",
+                dataNotModified: "Entry is unchanged",
             }
         }
     },
@@ -151,9 +153,7 @@ export default {
             else
             {
                 this.isSuccess = true;  this.message = null;
-                const entryForm = await Services.getEntryBasedOnDate( this.date );
-                console.log(`entryFormtype: ${typeof(entryForm.data)}`);
-                console.log(`entryFormOBJ: ${Object.keys(entryForm.data)}`);
+                const entryForm = await Services.getEntryBasedOnDate({ date: this.date });
     
                 this.sleep = entryForm.data.sleep;
                 this.travel = entryForm.data.travel;
@@ -163,19 +163,20 @@ export default {
                 this.games = entryForm.data.games;
 
                 this.formerEntry = entryForm.data;
-    
-                console.log(`entryFormOBJ: ${Object.keys(entryForm.data)}`);
             }
         },
         validateDate() {
             return ValidateDate(this.date);
         },
-        async canPostToday() {  //DELETE THIS WILL NOT BE NEEDED HERE (i think)
-            var latestEntryDate = this.$store.getters.getDates[0];
-            var todaysDate = GetSQLDateFormat(new Date().toLocaleString());
+        async isDataModified() {  
+            var currentEntry = [this.sleep, this.travel, this.exercise, this.on_phone, this.on_computer, this.games ];
+            var formerEntry =  [this.formerEntry.sleep, this.formerEntry.travel, this.formerEntry.exercise, this.formerEntry.on_phone, this.formerEntry.on_computer, this.formerEntry.games];
+                        
+            var isEqual = formerEntry.every( (elem, index) => elem === currentEntry[index] );
+            console.log(`isEqual Bool: ${isEqual}`);
 
-            if (latestEntryDate !== todaysDate)  await this.isTotalHoursValid(); 
-            else                                    this.isSuccess=false;  this.message = "Already posted for today, wait until tomorrow";
+            if (!isEqual)  { this.isSuccess=true; this.message=null; await this.isTotalHoursValid(); }
+            else           { this.isSuccess=false;  this.message = this.messageResponses.dataNotModified; }
         },
         async isTotalHoursValid() {
             this.total = Number(this.sleep) + Number(this.travel) + Number(this.exercise) 
@@ -191,7 +192,7 @@ export default {
             // Placing unallocated hours into one category
             this.somethingelse = 24 - this.total; 
 
-            this.sendTimeSpentForm()
+            this.updateEntry()
             .then( res => {
                 this.isSuccess = true;
                 this.message =   res.data;
@@ -204,7 +205,7 @@ export default {
                 this.message =   error.response.data;
             });
         },
-        async sendTimeSpentForm() {
+        async updateEntry() {
             // Getting data ready to send
             const form = {
                 sleep: this.sleep,
@@ -217,11 +218,11 @@ export default {
             }
             
             // Adding the form to the store
-            var date = new Date().toISOString().slice(0, 10);
+            var date = this.date; 
             this.$store.dispatch('addNewTimeSpentEntryToFront', { date: date, data: form });
 
             // Pushing the form data to the database
-            return await Services.sendTimeSpentForm(form);
+            return await Services.updateEntry({ date: date, updatedForm: form });
         },
     },
 }

@@ -11,7 +11,7 @@ router.post('/', (req, res, next) => {
 
     const { sleep, travel, exercise, games, on_phone, on_computer, somethingelse } = req.body;
 
-    const today = utils.GetTodaysDate();
+    const today = utils.GetSQLDateFormat(new Date().toLocaleString());
 
     const form = [today, 1, sleep, travel, exercise, on_phone, on_computer, games, somethingelse, 0];
 

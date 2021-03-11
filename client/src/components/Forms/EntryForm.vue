@@ -119,7 +119,8 @@ export default {
             message: '',
             messageResponses: {
                 error: "The total number of hours must be between 0 and 24",
-                success: "Form was submitted"
+                success: "Form was submitted",
+                alreadyPosted: "Already posted for today, wait until tomorrow",
             }
         }
     },
@@ -134,7 +135,7 @@ export default {
             var todaysDate =      GetSQLDateFormat(new Date().toLocaleString());
 
             if (latestEntryDate !== todaysDate)  await this.isTotalHoursValid(); 
-            else                                    this.isSuccess=false;  this.message = "Already posted for today, wait until tomorrow";
+            else                                 this.isSuccess=false;  this.message = this.messageResponses.alreadyPosted;
         },
         async isTotalHoursValid() {
             this.total = Number(this.sleep) + Number(this.travel) + Number(this.exercise) 

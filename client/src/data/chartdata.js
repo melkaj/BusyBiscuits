@@ -31,7 +31,7 @@ export default {
         // If the date is not cached, need to see if its in the database
         else
         {
-            const requestedData = await Services.getEntryBasedOnDate(flag);
+            const requestedData = await Services.getEntryBasedOnDate({ date: flag });
             data = requestedData.data;        
         }
 
