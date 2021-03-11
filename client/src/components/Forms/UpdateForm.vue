@@ -22,7 +22,7 @@
                         ></v-text-field>
 
                         <v-text-field
-                            v-model.number="travelTime"
+                            v-model.number="travel"
                             label="traveling?"
                             :counter=2
                             type="number"
@@ -38,7 +38,7 @@
                         ></v-text-field>
 
                         <v-text-field
-                            v-model.number="onPhone"
+                            v-model.number="on_phone"
                             label="on the phone?"
                             :counter=2     
                             type="number"                           
@@ -66,7 +66,7 @@
                         ></v-text-field>
                         
                         <v-text-field
-                            v-model.number="onComputer"
+                            v-model.number="on_computer"
                             label="on the computer?"
                             :counter=2    
                             type="number"                            
@@ -110,6 +110,7 @@
 <script>
 // @ is an alias to /src
 import Services from '../../services/services';
+const { ValidateDate } = require('../../utils/utils');
 
 export default {
     name: 'FormTimeSpent',
@@ -117,13 +118,14 @@ export default {
         return {
             date: null,
             sleep: null,
-            travelTime: null,
+            travel: null,
             exercise: null,
-            onPhone: null,
-            onComputer: null,
+            on_phone: null,
+            on_computer: null,
             games: null,
             somethingelse: 0,
             total: 0,
+            formerEntry: {},
             isSuccess: null,
             message: '',
             messageAboutHours: {
@@ -154,25 +156,19 @@ export default {
                 console.log(`entryFormOBJ: ${Object.keys(entryForm.data)}`);
     
                 this.sleep = entryForm.data.sleep;
-                this.travelTime = entryForm.data.travel;
+                this.travel = entryForm.data.travel;
                 this.exercise = entryForm.data.exercise;
-                this.onPhone = entryForm.data.on_phone;
-                this.onComputer = entryForm.data.on_computer;
+                this.on_phone = entryForm.data.on_phone;
+                this.on_computer = entryForm.data.on_computer;
                 this.games = entryForm.data.games;
+
+                this.formerEntry = entryForm.data;
     
-                // console.log(`entryForm.sleep: ${entryForm.sleep}`);
+                console.log(`entryFormOBJ: ${Object.keys(entryForm.data)}`);
             }
         },
         validateDate() {
-            if (this.date.length > 10)  return false;
-
-            for (let i = 0; i < 4; i++)
-            {
-                console.log(this.date[i]);
-                console.log(this.date.charCodeAt(i));
-                if (this.date.charCodeAt(i) < 48 || this.date.charCodeAt(i) > 57)  return false;
-            }
-            return true;
+            return ValidateDate(this.date);
         },
         async canPostToday() {  //DELETE THIS WILL NOT BE NEEDED HERE (i think)
             var latest_entry_date = this.$store.getters.getDates[0];
@@ -182,8 +178,8 @@ export default {
             else                                    this.isSuccess=false;  this.message = "Already posted for today, wait until tomorrow";
         },
         async isTotalHoursValid() {
-            this.total = Number(this.sleep) + Number(this.travelTime) + Number(this.exercise) 
-                        + Number(this.onPhone) + Number(this.onComputer) + Number(this.games);
+            this.total = Number(this.sleep) + Number(this.travel) + Number(this.exercise) 
+                        + Number(this.on_phone) + Number(this.on_computer) + Number(this.games);
 
             // If the total number of hours is not between [0, 24]
             if (this.total > 24 || this.total < 0)  { 
@@ -212,10 +208,10 @@ export default {
             // Getting data ready to send
             const form = {
                 sleep: this.sleep,
-                travel: this.travelTime,
+                travel: this.travel,
                 exercise: this.exercise,
-                on_phone: this.onPhone,
-                on_computer: this.onComputer,
+                on_phone: this.on_phone,
+                on_computer: this.on_computer,
                 games: this.games,
                 somethingelse: this.somethingelse
             }

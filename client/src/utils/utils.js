@@ -216,6 +216,46 @@ function getBorderColors(chartType) {
 
 
 
+/**
+ * Returns boolean depending on if the input is valid or not
+ *      Valid input if string is in 'YYYY-MM-DD' format
+ * @param {String} date - Input from the user
+ */
+function ValidateDate(date) {
+    if (date.length > 10 || date.length < 8)               return false;
+
+    var yearmonthday = date.split('-');
+
+    // Making input was all integers
+    for (let i = 0; i < yearmonthday.length; i++) {
+        for (let j = 0; j < yearmonthday[i].length; j++) {
+            if (yearmonthday[i].charCodeAt(j) < 48 || yearmonthday[i].charCodeAt(j) > 57)  return false;
+        }
+    }
+
+    var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+
+    if (yearmonthday.length != 3)                          return false;
+    if (yearmonthday[0] < 2020 || yearmonthday[0] > 2021)  return false;
+    if (yearmonthday[1] < 1 || yearmonthday[1] > 12)       return false;
+    
+    var month;
+    // If month has 2 digits but the first is zero
+    if (yearmonthday[1][0] == '0')                                 month = parseInt(yearmonthday[1][1]);
+    
+    // If month has 2 digits but the first is greater than zero
+    if (yearmonthday[1][0] != '0' && yearmonthday[1].length > 1)   month = 10 + parseInt(yearmonthday[1][1]); 
+    
+    // If month has only one digit
+    if (yearmonthday[1][0] != '0' && yearmonthday[1].length == 1)  month = 10 + parseInt(yearmonthday[1][0]); 
+
+    // Checking if date is valid
+    if (yearmonthday[2] > ListofDays[month-1] || yearmonthday[2] < 1)  return false; 
+
+    return true;
+}
+
+
 module.exports = {
     getBackgroundColors,
     getBorderColors,
@@ -224,5 +264,6 @@ module.exports = {
     extractLineChartData,
     convertDataToChartData,
     getLineGraphDropDownSelections,
-    getPieChartDropDownSelections
+    getPieChartDropDownSelections,
+    ValidateDate,
 }

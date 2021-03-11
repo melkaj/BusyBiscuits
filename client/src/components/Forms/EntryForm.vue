@@ -20,7 +20,7 @@
                     
                     <v-col cols="8" md="5">
                         <v-text-field
-                            v-model.number="travelTime"
+                            v-model.number="travel"
                             label="traveling?"
                             :counter=2
                             type="number"
@@ -36,7 +36,7 @@
                         ></v-text-field>
 
                         <v-text-field
-                            v-model.number="onPhone"
+                            v-model.number="on_phone"
                             label="on the phone?"
                             :counter=2     
                             type="number"                           
@@ -54,7 +54,7 @@
                         ></v-text-field>
                         
                         <v-text-field
-                            v-model.number="onComputer"
+                            v-model.number="on_computer"
                             label="on the computer?"
                             :counter=2    
                             type="number"                            
@@ -107,10 +107,10 @@ export default {
     data () {
         return {
             sleep: null,
-            travelTime: null,
+            travel: null,
             exercise: null,
-            onPhone: null,
-            onComputer: null,
+            on_phone: null,
+            on_computer: null,
             games: null,
             somethingelse: 0,
             total: 0,
@@ -130,14 +130,15 @@ export default {
     methods: {
         async canPostToday() {
             var latest_entry_date = this.$store.getters.getDates[0];
+            console.log(`new date: ${new Date().toISOString()}`);
             var todays_date =       new Date().toISOString().slice(0, 10);
 
             if (latest_entry_date !== todays_date)  await this.isTotalHoursValid(); 
             else                                    this.isSuccess=false;  this.message = "Already posted for today, wait until tomorrow";
         },
         async isTotalHoursValid() {
-            this.total = Number(this.sleep) + Number(this.travelTime) + Number(this.exercise) 
-                        + Number(this.onPhone) + Number(this.onComputer) + Number(this.games);
+            this.total = Number(this.sleep) + Number(this.travel) + Number(this.exercise) 
+                        + Number(this.on_phone) + Number(this.on_computer) + Number(this.games);
 
             // If the total number of hours is not between [0, 24]
             if (this.total > 24 || this.total < 0)  { 
@@ -166,10 +167,10 @@ export default {
             // Getting data ready to send
             const form = {
                 sleep: this.sleep,
-                travel: this.travelTime,
+                travel: this.travel,
                 exercise: this.exercise,
-                on_phone: this.onPhone,
-                on_computer: this.onComputer,
+                on_phone: this.on_phone,
+                on_computer: this.on_computer,
                 games: this.games,
                 somethingelse: this.somethingelse
             }

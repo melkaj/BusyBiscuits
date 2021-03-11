@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 router.get('/', (req, res, next) => {
-    const form = [today, 1, sleep, travel, exercise, onPhone, onComputer, games, somethingelse, 0];
+    const form = [today, 1, sleep, travel, exercise, on_phone, on_computer, games, somethingelse, 0];
 
     let numberOfRowsToEnter = 7; 
     let data = [];
@@ -28,12 +28,12 @@ router.get('/', (req, res, next) => {
         row.append(exercise);
 
         // 1 - 6
-        let onPhone = Math.floor((Math.random() * 6) + 1);
-        row.append(onPhone);
+        let on_phone = Math.floor((Math.random() * 6) + 1);
+        row.append(on_phone);
 
         // 1 - 6
-        let onComputer = Math.floor((Math.random() * 6) + 1);
-        row.append(onPhone);
+        let on_computer = Math.floor((Math.random() * 6) + 1);
+        row.append(on_computer);
 
 
     }
