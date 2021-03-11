@@ -18,7 +18,7 @@
                 <v-row align="center" justify="center">
 
                     
-                    <v-col cols="8" md="5">
+                    <v-col cols="8" md="4">
                         <v-text-field
                             v-model.number="travel"
                             label="traveling?"
@@ -44,7 +44,7 @@
                         ></v-text-field>
                     </v-col>
 
-                    <v-col cols="8" md="5">
+                    <v-col cols="8" md="4">
                         <v-text-field
                             v-model.number="sleep"
                             label="sleeping?"

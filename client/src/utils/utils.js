@@ -222,7 +222,8 @@ function getBorderColors(chartType) {
  * @param {String} date - Input from the user
  */
 function ValidateDate(date) {
-    if (date.length > 10 || date.length < 8)               return false;
+
+    if (date === null || date.length > 10 || date.length < 8) return false;
 
     var yearmonthday = date.split('-');
 

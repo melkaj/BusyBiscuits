@@ -12,7 +12,7 @@
             <v-form ref="form">
 
                 <v-row align="center" justify="center">
-                    <v-col cols="8" md="5">
+                    <v-col cols="8" md="4">
                         <v-text-field
                             v-model="date"
                             label="YYYY-MM-DD"
@@ -20,7 +20,22 @@
                             type="string"
                             required
                         ></v-text-field>
+                    </v-col>
+                    <v-col cols="8" md="4">
+                        <v-btn 
+                        text
+                        depressed
+                        color="primary"
+                        style="background: white;"
+                        class="mx-5 my-2"
+                        @click="getEntryFormBasedOnDate">
+                            Find Entry
+                        </v-btn>
+                    </v-col>
+                </v-row>
 
+                <v-row align="center" justify="center">
+                    <v-col cols="8" md="4">
                         <v-text-field
                             v-model.number="travel"
                             label="traveling?"
@@ -46,17 +61,7 @@
                         ></v-text-field>
                     </v-col>
 
-                    <v-col cols="8" md="5" align="end">
-                        <v-btn 
-                        text
-                        depressed
-                        color="primary"
-                        style="background: white;"
-                        class="mx-5 my-2"
-                        @click="getEntryFormBasedOnDate">
-                            Find Entry
-                        </v-btn>
-
+                    <v-col cols="8" md="4" align="end">
                         <v-text-field
                             v-model.number="sleep"
                             label="sleeping?"
@@ -134,7 +139,7 @@ export default {
                 entryNotFound: "Entry was not found. Double check your input",
                 invaliddate: "Date entered was invalid",
                 alreadyPosted: "Already posted for today, wait until tomorrow",
-                dataNotModified: "Entry is unchanged",
+                dataNotModified: "Entry is unchanged or invalid",
             }
         }
     },
@@ -168,14 +173,17 @@ export default {
         validateDate() {
             return ValidateDate(this.date);
         },
-        async isDataModified() {  
-            var currentEntry = [this.sleep, this.travel, this.exercise, this.on_phone, this.on_computer, this.games ];
+        async isDataModified() {    
+            // Validating date again so that if the user removes the date, they cannot add sql inject code
+            var isDateValid = ValidateDate(this.date);
+            var currentInput = [this.sleep, this.travel, this.exercise, this.on_phone, this.on_computer, this.games ];
             var formerEntry =  [this.formerEntry.sleep, this.formerEntry.travel, this.formerEntry.exercise, this.formerEntry.on_phone, this.formerEntry.on_computer, this.formerEntry.games];
-                        
-            var isEqual = formerEntry.every( (elem, index) => elem === currentEntry[index] );
 
-            if (!isEqual)  { this.isSuccess=true; this.message=null; await this.isTotalHoursValid(); }
-            else           { this.isSuccess=false;  this.message = this.messageResponses.dataNotModified; }
+            // Checking if the new input is the same as the current existing entry and if the input is null or not
+            var isEqual = formerEntry.every( (elem, index) => (elem === currentInput[index] || currentInput[index] === null) );
+
+            if (!isEqual && isDateValid)  { this.isSuccess=true; this.message=null; await this.isTotalHoursValid(); }
+            else                          { this.isSuccess=false;  this.message = this.messageResponses.dataNotModified; }
         },
         async isTotalHoursValid() {
             this.total = Number(this.sleep) + Number(this.travel) + Number(this.exercise) 
