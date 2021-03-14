@@ -10,9 +10,30 @@
             </v-card-subtitle>
 
             <v-form ref="form">
-                <v-row align="center" justify="center">
 
-                    
+                <v-row align="center" justify="center">
+                    <v-col cols="8" md="3">
+                        <v-checkbox
+                            v-model="isTodayCheckbox"
+                            label="Today"
+                        ></v-checkbox>
+                    </v-col>
+
+                    <v-col cols="8" md="3">
+                        <v-expand-x-transition>
+                            <v-text-field
+                                v-if='!isTodayCheckbox'
+                                v-model="date"
+                                label="YYYY-MM-DD"
+                                :counter=10
+                                type="string"
+                                required
+                            ></v-text-field>
+                        </v-expand-x-transition>
+                    </v-col>
+                </v-row>
+
+                <v-row align="center" justify="center">
                     <v-col cols="8" md="3">
                         <v-text-field
                             v-model.number="travel"
@@ -102,6 +123,7 @@ export default {
     name: 'FormTimeSpent',
     data () {
         return {
+            column: null,
             sleep: null,
             travel: null,
             exercise: null,
@@ -109,6 +131,8 @@ export default {
             on_computer: null,
             games: null,
             somethingelse: 0,
+            isTodayCheckbox: true,
+            date: null,
             total: 0,
             isSuccess: null,
             message: '',
@@ -126,10 +150,13 @@ export default {
     },
     methods: {
         async canPostToday() {
-            var latestEntryDate = this.$store.getters.getDates[0];
-            var todaysDate =      GetSQLDateFormat(new Date().toLocaleString());
-
-            if (latestEntryDate !== todaysDate)  await this.isTotalHoursValid(); 
+            if (this.isTodayCheckbox)
+            {
+                var latestEntryDate = this.$store.getters.getDates[0];
+                this.date =           GetSQLDateFormat(new Date().toLocaleString());    
+            }
+            console.log(`this.date: ${this.date}`);
+            if (latestEntryDate !== this.date)  await this.isTotalHoursValid(); 
             else                                 this.isSuccess=false;  this.message = this.messageResponses.alreadyPosted;
         },
         async isTotalHoursValid() {
@@ -168,12 +195,15 @@ export default {
                 on_phone: this.on_phone,
                 on_computer: this.on_computer,
                 games: this.games,
-                somethingelse: this.somethingelse
+                somethingelse: this.somethingelse,
             }
             
             // Adding the form to the store
-            var date = new Date().toISOString().slice(0, 10);
-            this.$store.dispatch('addNewTimeSpentEntryToFront', { date: date, data: form });
+            if (this.isTodayCheckbox)  this.date = GetSQLDateFormat(new Date().toLocaleString()); 
+            this.$store.dispatch('addNewTimeSpentEntryToFront', { date: this.date, data: form });
+            
+            // Adding date to the form
+            form.date = this.date;
 
             // Pushing the form data to the database
             return await Services.sendTimeSpentForm(form);

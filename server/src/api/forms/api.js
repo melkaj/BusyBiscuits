@@ -1,6 +1,5 @@
 const express = require('express');
 const controller = require('./controller');
-const utils = require('../../utils/utils');
 
 const router = express.Router();
 
@@ -9,11 +8,9 @@ const router = express.Router();
  */
 router.post('/', (req, res, next) => {
 
-    const { sleep, travel, exercise, games, on_phone, on_computer, somethingelse } = req.body;
+    const { sleep, travel, exercise, games, on_phone, on_computer, somethingelse, date } = req.body;
 
-    const today = utils.GetSQLDateFormat(new Date().toLocaleString());
-
-    const form = [today, 1, sleep, travel, exercise, on_phone, on_computer, games, somethingelse, 0];
+    const form = [date, 1, sleep, travel, exercise, on_phone, on_computer, games, somethingelse, 0];
 
     controller.submitForm(form)
         .then( (response) => {

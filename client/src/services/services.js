@@ -76,7 +76,6 @@ export default {
      * @param {Object} date
      */
     removeEntry(date) {
-        console.log(`INSIDE SERVICES: ${date}`);
         return Api().delete(`remove-entry/${date}`)
     }
 

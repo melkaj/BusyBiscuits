@@ -34,59 +34,61 @@
                     </v-col>
                 </v-row>
 
-                <v-row align="center" justify="center">
-                    <v-col cols="8" md="3">
-                        <v-text-field
-                            v-model.number="travel"
-                            label="traveling?"
-                            :counter=2
-                            type="number"
-                            required
-                        ></v-text-field>
+                <v-expand-transition>
+                    <v-row v-if='isEntryLoaded' align="center" justify="center">
+                        <v-col cols="8" md="3">
+                            <v-text-field
+                                v-model.number="travel"
+                                label="traveling?"
+                                :counter=2
+                                type="number"
+                                required
+                            ></v-text-field>
 
-                        <v-text-field
-                            v-model.number="exercise"
-                            label="exercising?"
-                            :counter=2
-                            type="number"
-                            required
-                        ></v-text-field>
+                            <v-text-field
+                                v-model.number="exercise"
+                                label="exercising?"
+                                :counter=2
+                                type="number"
+                                required
+                            ></v-text-field>
 
-                        <v-text-field
-                            v-model.number="on_phone"
-                            label="on the phone?"
-                            :counter=2     
-                            type="number"                           
-                            required
-                        ></v-text-field>
-                    </v-col>
+                            <v-text-field
+                                v-model.number="on_phone"
+                                label="on the phone?"
+                                :counter=2     
+                                type="number"                           
+                                required
+                            ></v-text-field>
+                        </v-col>
 
-                    <v-col cols="8" md="3" align="end">
-                        <v-text-field
-                            v-model.number="sleep"
-                            label="sleeping?"
-                            :counter=2   
-                            type="number"                             
-                            required
-                        ></v-text-field>
-                        
-                        <v-text-field
-                            v-model.number="on_computer"
-                            label="on the computer?"
-                            :counter=2    
-                            type="number"                            
-                            required
-                        ></v-text-field>
+                        <v-col cols="8" md="3" align="end">
+                            <v-text-field
+                                v-model.number="sleep"
+                                label="sleeping?"
+                                :counter=2   
+                                type="number"                             
+                                required
+                            ></v-text-field>
+                            
+                            <v-text-field
+                                v-model.number="on_computer"
+                                label="on the computer?"
+                                :counter=2    
+                                type="number"                            
+                                required
+                            ></v-text-field>
 
-                        <v-text-field
-                            v-model.number="games"
-                            label="playing games?"
-                            :counter=2    
-                            type="number"                            
-                            required
-                        ></v-text-field>
-                    </v-col>
-                </v-row>
+                            <v-text-field
+                                v-model.number="games"
+                                label="playing games?"
+                                :counter=2    
+                                type="number"                            
+                                required
+                            ></v-text-field>
+                        </v-col>
+                    </v-row>
+                </v-expand-transition>
 
                 <v-row align="center" justify="center">
                     <v-col cols="8" sm="8">
@@ -95,7 +97,7 @@
                         </v-card-text>
                     </v-col>
                     
-                    <v-col cols="8" sm="4">
+                    <v-col v-if='isEntryLoaded' cols="8" sm="4">
                         <v-btn 
                         text
                         depressed
@@ -132,6 +134,7 @@ export default {
             total: 0,
             formerEntry: {},
             isSuccess: null,
+            isEntryLoaded: false,
             message: '',
             messageResponses: {
                 invalidHours: "The total number of hours must be between 0 and 24",
@@ -154,12 +157,18 @@ export default {
             {
                 this.isSuccess = false;
                 this.message = this.messageResponses.invaliddate;
+
+                this.isEntryLoaded = false;
             }
             else
             {
                 this.isSuccess = true;  this.message = null;
                 const entryForm = await Services.getEntryBasedOnDate({ date: this.date });
-    
+
+                // Displaying the rest of the form if the response is valid
+                if (typeof(entryForm.data.sleep) == 'number')  this.isEntryLoaded = true;
+                else                                           this.isEntryLoaded = false;
+
                 this.sleep =       entryForm.data.sleep;
                 this.travel =      entryForm.data.travel;
                 this.exercise =    entryForm.data.exercise;

@@ -40,18 +40,6 @@
                             {{message}}
                         </v-card-text>
                     </v-col>
-                    
-                    <!-- <v-col cols="8" sm="4">
-                        <v-btn 
-                        text
-                        depressed
-                        color="primary"
-                        style="background: white;"
-                        class="mx-5 my-2"
-                        @click="isDataModified">
-                            Update Entry
-                        </v-btn>
-                    </v-col> -->
                 </v-row>
 
             </v-form>

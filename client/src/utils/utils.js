@@ -227,7 +227,7 @@ function ValidateDate(date) {
 
     var yearmonthday = date.split('-');
 
-    // Making input was all integers
+    // Checking input was all integers
     for (let i = 0; i < yearmonthday.length; i++) {
         for (let j = 0; j < yearmonthday[i].length; j++) {
             if (yearmonthday[i].charCodeAt(j) < 48 || yearmonthday[i].charCodeAt(j) > 57)  return false;
@@ -253,8 +253,7 @@ function ValidateDate(date) {
 
     // Checking if date is valid
     if (yearmonthday[2] > ListofDays[month-1] || yearmonthday[2] < 1)  return false; 
-    console.log(`yearmonthday[2]: ${yearmonthday[2]}`);
-    console.log(`ListofDays[month-1]: ${ListofDays[month-1]}`);
+
     return true;
 }
 
