@@ -32,6 +32,7 @@ app.use('/forms', require('./src/api/forms/api'));
 
 app.use('/update-entry', require('./src/api/updateentry/api'));
 
+app.use('/remove-entry', require('./src/api/removeentry/api'));
 
 
 /**

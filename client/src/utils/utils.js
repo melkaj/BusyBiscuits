@@ -239,6 +239,7 @@ function ValidateDate(date) {
     if (yearmonthday.length != 3)                          return false;
     if (yearmonthday[0] < 2020 || yearmonthday[0] > 2021)  return false;
     if (yearmonthday[1] < 1 || yearmonthday[1] > 12)       return false;
+    if (yearmonthday[2] < 1 || yearmonthday[2] > 31)       return false;
     
     var month;
     // If month has 2 digits but the first is zero
@@ -252,7 +253,8 @@ function ValidateDate(date) {
 
     // Checking if date is valid
     if (yearmonthday[2] > ListofDays[month-1] || yearmonthday[2] < 1)  return false; 
-
+    console.log(`yearmonthday[2]: ${yearmonthday[2]}`);
+    console.log(`ListofDays[month-1]: ${ListofDays[month-1]}`);
     return true;
 }
 

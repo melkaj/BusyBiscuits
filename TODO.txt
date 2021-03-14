@@ -19,3 +19,9 @@ WORKING ON UPDATEFORM. ADDED LABEL AND FIND ENTRY BUTTON. WORK ON FUNCTIONALITY 
 3/11 - 10:53
  - WORKING ON UPDATE-ENTRY ENDPOINT. dID THE QUERY JJUST NEED TO WORK ON SETTING UP FUCNTION IN
      UPDATEFORM. ALSO NEED TO USE POSTMAN TO TEST IT. 
+
+
+
+3/12 - 8:34
+- Added the delete form. Just neeed to implement the delete function now in the form and in the 
+     api as well

@@ -4,7 +4,7 @@
                 Update an entry:
             </v-card-title>
             <v-card-subtitle class="form-card-subheading">
-                (Give instructions)<br/>(Give some more instructions)
+                (Enter the desired date whose entry you want to update. Then click on 'FIND ENTRY')<br/>(Change whichever values you want then hit 'UPDATE ENTRY')
             </v-card-subtitle>
 
             <!-- <v-divider></v-divider> -->
@@ -12,7 +12,7 @@
             <v-form ref="form">
 
                 <v-row align="center" justify="center">
-                    <v-col cols="8" md="4">
+                    <v-col cols="8" md="3">
                         <v-text-field
                             v-model="date"
                             label="YYYY-MM-DD"
@@ -21,7 +21,7 @@
                             required
                         ></v-text-field>
                     </v-col>
-                    <v-col cols="8" md="4">
+                    <v-col cols="8" md="3">
                         <v-btn 
                         text
                         depressed
@@ -35,7 +35,7 @@
                 </v-row>
 
                 <v-row align="center" justify="center">
-                    <v-col cols="8" md="4">
+                    <v-col cols="8" md="3">
                         <v-text-field
                             v-model.number="travel"
                             label="traveling?"
@@ -61,7 +61,7 @@
                         ></v-text-field>
                     </v-col>
 
-                    <v-col cols="8" md="4" align="end">
+                    <v-col cols="8" md="3" align="end">
                         <v-text-field
                             v-model.number="sleep"
                             label="sleeping?"

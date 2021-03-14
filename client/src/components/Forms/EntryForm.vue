@@ -8,17 +8,12 @@
             <v-card-subtitle class="form-card-subheading">
                 (Enter in the amount in hours, i.e. enter 2 for two hours)<br/>(Also make sure you enter whole numbers)
             </v-card-subtitle>
-            <!-- <v-card-subtitle class="form-card-subheading">
-                (Also make sure you enter whole numbers)
-            </v-card-subtitle> -->
-
-            <!-- <v-divider></v-divider> -->
 
             <v-form ref="form">
                 <v-row align="center" justify="center">
 
                     
-                    <v-col cols="8" md="4">
+                    <v-col cols="8" md="3">
                         <v-text-field
                             v-model.number="travel"
                             label="traveling?"
@@ -44,7 +39,7 @@
                         ></v-text-field>
                     </v-col>
 
-                    <v-col cols="8" md="4">
+                    <v-col cols="8" md="3">
                         <v-text-field
                             v-model.number="sleep"
                             label="sleeping?"
@@ -86,7 +81,7 @@
                         style="background: white;"
                         class="mx-5 my-2"
                         @click="canPostToday">
-                            Submit
+                            Submit Entry
                         </v-btn>
                     </v-col>
 

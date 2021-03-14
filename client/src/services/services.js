@@ -67,6 +67,18 @@ export default {
      */
     updateEntry(updatedEntryForm) {
         return Api().patch('update-entry/date', updatedEntryForm)
+    },
+
+
+
+    /**
+     * date is an object. { date: date }
+     * @param {Object} date
+     */
+    removeEntry(date) {
+        console.log(`INSIDE SERVICES: ${date}`);
+        return Api().delete(`remove-entry/${date}`)
     }
+
 }
 

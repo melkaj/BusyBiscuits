@@ -29,6 +29,8 @@
                 <v-card flat class="mb-14">
                     <EntryForm />
                     <UpdateForm />
+                    <!-- Place FindForm here; OR ;place FindForm on its own tab -->
+                    <DeleteForm />
                 </v-card>
             </v-tab-item>                            
 
@@ -43,6 +45,7 @@ import PieChart   from '../../components/PieGraphs/PieGraph.vue';
 import LineGraph  from '../../components/LineGraphs/LineGraph.vue';
 import EntryForm  from '../../components/Forms/EntryForm.vue';
 import UpdateForm from '../../components/Forms/UpdateForm.vue';
+import DeleteForm from '../../components/Forms/DeleteForm.vue';
 
 export default {
     name: 'FormTimeSpent',
@@ -59,6 +62,7 @@ export default {
         LineGraph,
         EntryForm,
         UpdateForm,
+        DeleteForm,
     },
     async created() {
         await this.$store.dispatch('setDataFromLastSevenDays'); 
