@@ -29,8 +29,14 @@
                 <v-card flat class="mb-14">
                     <EntryForm />
                     <UpdateForm />
-                    <!-- Place FindForm here; OR ;place FindForm on its own tab -->
                     <DeleteForm />
+                </v-card>
+            </v-tab-item>                            
+
+            <!-- Put component that will allow for more robust graph searching -->
+            <v-tab-item>
+                <v-card flat class="mb-14">
+                    <Detailed />
                 </v-card>
             </v-tab-item>                            
 
@@ -46,12 +52,13 @@ import LineGraph  from '../../components/LineGraphs/LineGraph.vue';
 import EntryForm  from '../../components/Forms/EntryForm.vue';
 import UpdateForm from '../../components/Forms/UpdateForm.vue';
 import DeleteForm from '../../components/Forms/DeleteForm.vue';
+import Detailed   from '../../components/Detailed/Detailed.vue';
 
 export default {
     name: 'FormTimeSpent',
     data () {
         return {
-            items: ["Overview", "Forms"], 
+            items: ["Overview", "Forms", "Detailed"], 
             tab: null,           
             isDataLoaded: false,
             cur_index: 100,
@@ -63,14 +70,12 @@ export default {
         EntryForm,
         UpdateForm,
         DeleteForm,
+        Detailed,
     },
     async created() {
         await this.$store.dispatch('setDataFromLastSevenDays'); 
         this.isDataLoaded = true;
     }, 
-    mounted() {
-        // call function
-    },
 }
 </script>
 
