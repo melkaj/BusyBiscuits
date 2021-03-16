@@ -163,7 +163,7 @@ export default {
             else
             {
                 this.isSuccess = true;  this.message = null;
-                const entryForm = await Services.getEntryBasedOnDate({ date: this.date });
+                const entryForm = await Services.getEntryByDate({ date: this.date });
 
                 // Displaying the rest of the form if the response is valid
                 if (typeof(entryForm.data.sleep) == 'number')  this.isEntryLoaded = true;

@@ -23,6 +23,7 @@ router.get('/last-seven-days', (req, res, next) => {
 
 });
 
+
 /**
  * Gets TODAYS time-spent entry
  */
@@ -41,6 +42,7 @@ router.get('/today', (req, res, next) => {
 
 });
 
+
 /**
  * Get data by date
  */
@@ -57,6 +59,29 @@ router.post('/date', (req, res, next) => {
             next(error);
         });
 
+});
+
+
+/**
+ * 
+ */
+router.post('/range', (req, res, next) => {
+
+    console.log(req.body);
+    console.log(Object.keys(req.body));
+    const beginning = req.body.dates[0]; 
+    const ending    = req.body.dates[1]; 
+
+    controller.getDataByRange( [beginning, ending] )
+        .then( (response) => {
+            res.status(200).send(response);
+        })
+        .catch( (error) => {
+            console.log(error);
+            next(error);
+        })
+
 })
+
 
 module.exports = router;

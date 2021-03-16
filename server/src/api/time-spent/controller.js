@@ -6,7 +6,7 @@ const db = require('../../db/db');
  * (Up to last seven, if there are only a 3 entries, then only 3 entries will pop up)
  * Returns an array of objects
  */
- async function getDataFromLastSevenDays() {
+async function getDataFromLastSevenDays() {
 
     const conn = await db.getConnection();
     
@@ -21,6 +21,30 @@ const db = require('../../db/db');
     }
 
 }
+
+
+
+/**
+ * Returns result of query to get data between certain ranges
+ * @param {Array} range 
+ */
+async function getDataByRange(range) {
+
+    const conn = await await db.getConnection();
+
+    try {
+
+        const q = "SELECT date_created,sleep,travel,exercise,on_phone,on_computer,games,somethingelse FROM time_spent WHERE (date_created>=? AND date_created<=?)";//ORDER BY date_created DESC LIMIT 7"
+        return await db.runQuery(conn, q, range);
+
+    }
+    finally {
+        conn.release();
+    }
+}
+
+
+
 
 /**
  * Executes a MySql query and returns its results 
@@ -60,6 +84,7 @@ async function getDataByDate(date) {
 
 
 module.exports = {
-    getDataByDate,
     getDataFromLastSevenDays,
+    getDataByRange,
+    getDataByDate,
 }

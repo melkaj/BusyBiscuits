@@ -3,9 +3,10 @@
 
         <v-tabs
             v-model="tab"
-            backgroud-color="transparent"
+            color="#123456"
             grow
         >      
+            <!-- backgroud-color="transparent" -->
             <v-tab
                 v-for="item in items"
                 :key="item"
@@ -93,7 +94,7 @@ export default {
     font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: lighter;
 }
-.test-back{
-    height: 100%;
+.tab-colors {
+    background-color: #80c0ff;
 }
 </style>

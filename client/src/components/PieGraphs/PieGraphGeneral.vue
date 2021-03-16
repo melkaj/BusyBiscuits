@@ -5,12 +5,6 @@
         <v-row no-gutters>
             <v-col sm="7" class="ma-auto py-3">
                 <v-card flat>
-                    <v-card-title class="justify-center chart-title mb-2">
-                        {{ title }}
-                    </v-card-title>
-                    <v-card-subtitle>
-                        {{ subTitle }}
-                    </v-card-subtitle>
                     <canvas :class='graphName'></canvas>
                 </v-card>
             </v-col>
@@ -42,15 +36,16 @@ const { getPieChartDropDownSelections } = require('../../utils/utils');
 export default {
     data() {
         return {
-            subTitle:                 "Choose a date or see the average over the past week",
-            pieGraphItems:            [],
-            defaultDropdownSelection: null,
-            pieChart:                 null,
+            pieChart:   null,
         }
     },
     props: {
         graphName: { type: String },
-        title:     { type: String },
+        title:     { type: Array  },
+        dates:     { type: Array  },
+    },
+    watch: {
+        graphName: function() { console.log(this.title); } 
     },
     methods: {
         createPieChart(canvasId, chartData) {
@@ -67,13 +62,14 @@ export default {
 
             if (newDate == "7-Day Average")
             {
-                const thisWeeksPieChartData = await ChartManager.GetThisWeeksPieChartOptions("Average");
+                const thisWeeksPieChartData = ChartManager.GetPieChartOptionsByAverage();
                 this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
             }
             else
             {
                 // Generating new pie chart data based on the selected date
-                const PieChartDataByDate = await ChartManager.GetThisWeeksPieChartOptions(newDate);
+                // const PieChartDataByDate = await ChartManager.GetThisWeeksPieChartOptions(newDate);
+                const PieChartDataByDate = await ChartManager.GetPieChartOptionsByDate(newDate);
                 this.pieChart = this.createPieChart(this.graphName, PieChartDataByDate);
             }
         },
@@ -89,11 +85,11 @@ export default {
             return items;
         },
     },
-    async mounted() {
+    mounted() {
         // Getting the data from the database and caching it to the store
         this.pieGraphItems = this.getDateItems();
 
-        const thisWeeksPieChartData = await ChartManager.GetThisWeeksPieChartOptions("Average");
+        const thisWeeksPieChartData = ChartManager.GetPieChartOptionsByAverage();
         this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
     },  
 }

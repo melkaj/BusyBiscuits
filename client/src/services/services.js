@@ -53,9 +53,21 @@ export default {
      * date is an object with the key 'date' which holds a string
      * @param {Object} date 
      */
-    getEntryBasedOnDate(date) {
+    getEntryByDate(date) {
         // Maybe make this a param in the url
         return Api().post('/time-spent/date', date);
+    },
+
+
+
+    /**
+     * Dates is an array (should be of length two)
+     *      Returns the query of the table trying to get entries
+     *      between certain dates
+     * @param {Array} dates 
+     */
+    getEntriesByRange(dates) {
+        return Api().post('/time-spent/range', dates);
     },
 
 

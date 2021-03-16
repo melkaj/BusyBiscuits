@@ -6,6 +6,129 @@ const { getBackgroundColors, getBorderColors, convertDataToChartData, getCorrect
 const chartLabels = store.getters.getCategories;
 
 export default {
+
+
+    /**
+     * Gets the most recent week of data from the store and makes the 
+     *      pie chart options out of it
+     * @returns {Object}
+     * 
+     */
+    GetPieChartOptionsByAverage() {
+        // The data for the last seven days will be an ARRAY OF OBJECTS
+        const thisWeeksData = store.getters.getDataFromLastSevenDays;        
+
+        // Converts thisWeeksData to one object that can be used for the pie chart
+        var data = convertDataToChartData(thisWeeksData);
+        
+        return this.GetPieChartOptions(data);
+    },
+
+
+
+    /**
+     * Checks if the entry is cached in the store. If not, then we query 
+     *      the database for it. Returns the pie chart options to create 
+     *      the graph 
+     * @param   {String} date
+     * @returns {Object}
+     * 
+     */
+    async GetPieChartOptionsByDate(date) {
+        var data;
+
+        // If the argument is a "date" that is in the cached array of dates
+        if (store.getters.getDates.includes(date))
+        {
+            const index = store.getters.getDates.indexOf(date);
+            data = store.getters.getDataFromLastSevenDays[index];
+        }
+        // If the date is not cached, need to see if its in the database
+        else
+        {
+            const requestedData = await Services.getEntryByDate({ date: date });
+            data = requestedData.data;        
+        }
+        console.log(`data: ${data}`);
+        console.log(`dataOBJ: ${Object.keys(data)}`);
+
+        return this.GetPieChartOptions(data);
+    },
+
+
+
+    /**
+     * Calls Axios request to endpoint to query the database to get
+     *      entries between a certain range. Then creates the options
+     *      needed to make the pie chart
+     * @param   {Array} data
+     * @returns {Object}  
+     * 
+     */
+    async GetPieChartOptionsByRange(range) {  
+        console.log(`range: ${range}`);
+        // TODO: create services and endpoint to get range 
+        const rangeOfData = await Services.getEntriesByRange({ dates: range })
+
+        console.log(`rangeOfData: ${rangeOfData}`);
+        console.log(`rangeOfDataOBJ: ${Object.keys(rangeOfData.data)}`);
+
+        var data = convertDataToChartData(rangeOfData.data);
+
+        return this.GetPieChartOptions(data);
+    },
+
+
+
+    /**
+     * Returns the options used to create the graph
+     * @param   {Object} data
+     * @returns {Object} 
+     * 
+     */
+    GetPieChartOptions(data) {
+        // Colors used for the pie chart
+        const backgroundColors = getBackgroundColors();
+        const borderColors = getBorderColors("pie");
+
+        return {
+            type: 'doughnut',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Just some numbers',
+                    data: [data.sleep, data.travel, data.exercise, data.on_phone, data.on_computer, data.games, data.somethingelse],
+                    backgroundColor: [
+                        backgroundColors.sleep,
+                        backgroundColors.travel,
+                        backgroundColors.exercise,
+                        backgroundColors.on_phone,
+                        backgroundColors.on_computer,
+                        backgroundColors.games,
+                        backgroundColors.somethingelse
+                    ],
+                    borderColor: [
+                        borderColors.sleep,
+                        borderColors.travel,
+                        borderColors.exercise,
+                        borderColors.on_phone,
+                        borderColors.on_computer,
+                        borderColors.games,
+                        borderColors.somethingelse
+                    ], 
+                    borderWidth: 2
+                }],
+            },
+            options: {
+                responsive: true,
+                legend: { display: false },
+            }
+        }
+    },
+
+
+
+
     /**
      * Returns an object that can used to create a pie chart 
      * @param {String} flag
@@ -31,7 +154,7 @@ export default {
         // If the date is not cached, need to see if its in the database
         else
         {
-            const requestedData = await Services.getEntryBasedOnDate({ date: flag });
+            const requestedData = await Services.getEntryByDate({ date: flag });
             data = requestedData.data;        
         }
 
