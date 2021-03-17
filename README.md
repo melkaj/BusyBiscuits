@@ -1,4 +1,4 @@
-# BusyBiscuits - Time Tracking Web Application (BACK IN PRODUCTION, WORKING ON 'Possible future additions right now so there may be some changes to the content of the readme)
+# BusyBiscuits - Time Tracking Web Application (BACK TO DEVELOPMENT, WORKING ON 'Possible future additions right now so there may be some changes to the content of the readme)
 
 ## Table of contents
 1. [Techstack](#stack)

@@ -1,11 +1,57 @@
 <template>
         <v-card class="fill-height justify-center">
-            <v-card-title class="form-card-heading">
+            <v-row justify="start" align="start" no-gutters>
+                <v-card-title class="form-card-heading">
+                    Delete an entry:
+                </v-card-title>
+                <v-btn
+                    style="background:white;"                    
+                    text
+                    icon
+                    depressed
+                    color="primary"
+                    @click.stop="dialog=true"
+                >
+                    ?
+                </v-btn>
+
+            </v-row>
+
+<!-- POPUP TO EXPLAIN WHAT THE SECTION OF THE FORM DOES -->
+            <v-dialog
+                v-model="dialog"
+                max-width="400"
+            >
+                <v-card>
+                    <v-card-title>
+                    How do I delete an entry?
+                    </v-card-title>
+
+                    <v-card-text>
+                    To delete an entry, enter a date in the YYYY-MM-DD format and then hit the 'DELETE ENTRY' button
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            text
+                            color="primary"
+                            style="background:white;"
+                            @click="dialog=false"
+                        >
+                            Close
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+
+            <!-- <v-card-title class="form-card-heading">
                 Delete an entry:
-            </v-card-title>
-            <v-card-subtitle class="form-card-subheading">
+            </v-card-title> -->
+            <!-- <v-card-subtitle class="form-card-subheading">
                 (Instructions)<br/>(More Instructions)
-            </v-card-subtitle>
+            </v-card-subtitle> -->
 
             <!-- <v-divider></v-divider> -->
 
@@ -58,6 +104,7 @@ export default {
             date: null,
             formerEntry: {},
             isSuccess: null,
+            dialog: false,
             message: '',
             messageResponses: {
                 success: "Entry was deleted",

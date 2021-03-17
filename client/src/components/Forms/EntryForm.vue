@@ -2,16 +2,54 @@
     <!-- <v-container class="fill-height justify-center" fluid> -->
 
         <v-card class="fill-height justify-center">
-            <v-card-title class="form-card-heading">
-                Add an entry:
-            </v-card-title>
-            <v-card-subtitle class="form-card-subheading">
-                (Enter in the amount in hours, i.e. enter 2 for two hours)<br/>(Also make sure you enter whole numbers)
-            </v-card-subtitle>
+            <v-row justify="start" align="start" no-gutters>
+                <v-card-title class="form-card-heading">
+                    Add an entry
+                </v-card-title>
+                <v-btn
+                    style="background:white;"                    
+                    text
+                    icon
+                    depressed
+                    color="primary"
+                    @click.stop="dialog=true"
+                >
+                    ?
+                </v-btn>
+
+            </v-row>
+
+            <v-dialog
+                v-model="dialog"
+                max-width="300"
+            >
+                <v-card>
+                    <v-card-title>
+                    What to do?
+                    </v-card-title>
+
+                    <v-card-text>
+                    Enter in the amount in hours, i.e. enter 2 for two hours. Also make sure you enter whole numbers
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            text
+                            color="primary"
+                            style="background:white;"
+                            @click="dialog=false"
+                        >
+                            Close
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <!-- <EntryFormHeader :heading="formHeading" :infoText="formInfoText" v-bind:dialog.sync="dialog"/> -->
 
             <v-form ref="form">
 
-                <v-row align="center" justify="center">
+                <v-row align="center" justify="center" no-gutters>
                     <v-col cols="8" md="3">
                         <v-checkbox
                             v-model="isTodayCheckbox"
@@ -99,7 +137,7 @@
                         text
                         depressed
                         color="primary"
-                        style="background: white;"
+                        style="background:white;"
                         class="mx-5 my-2"
                         @click="canPostToday">
                             Submit Entry
@@ -116,6 +154,7 @@
 
 <script>
 // @ is an alias to /src
+// import EntryFormHeader from './SubFormHeaders/EntryFormHeader.vue';
 import Services from '../../services/services';
 const { GetSQLDateFormat } = require('../../utils/utils');
 
@@ -123,25 +162,31 @@ export default {
     name: 'FormTimeSpent',
     data () {
         return {
-            column: null,
-            sleep: null,
-            travel: null,
-            exercise: null,
-            on_phone: null,
-            on_computer: null,
-            games: null,
-            somethingelse: 0,
-            isTodayCheckbox: true,
-            date: null,
-            total: 0,
-            isSuccess: null,
-            message: '',
+            column:            null,
+            sleep:             null,
+            travel:            null,
+            exercise:          null,
+            on_phone:          null,
+            on_computer:       null,
+            games:             null,
+            somethingelse:     0,
+            isTodayCheckbox:   true,
+            date:              null,
+            total:             0,
+            isSuccess:         null,
+            dialog:            false,
+            message:           '',
             messageResponses: {
-                invalidHours: "The total number of hours must be between 0 and 24",
-                success: "Form was submitted",
+                invalidHours:  "The total number of hours must be between 0 and 24",
+                success:       "Form was submitted",
                 alreadyPosted: "Already posted for today, wait until tomorrow",
-            }
+            },
+            formHeading: "Add an entry",
+            formInfoText: "Enter in the amount in hours, i.e. enter 2 for two hours. Also make sure you enter whole numbers"
         }
+    },
+    components: {
+        // EntryFormHeader,
     },
     computed: {
         setMessageColor() {
@@ -231,5 +276,9 @@ export default {
     border-left: 2px solid #116466; 
     border-bottom: 2px solid #116466; 
     border-right: 2px solid #116466;
+}
+.form-into-button {
+    position: relative;
+    left: 0;
 }
 </style>
