@@ -25,3 +25,9 @@ WORKING ON UPDATEFORM. ADDED LABEL AND FIND ENTRY BUTTON. WORK ON FUNCTIONALITY 
 3/12 - 8:34
 - Added the delete form. Just neeed to implement the delete function now in the form and in the 
      api as well
+
+
+
+3/16 - 10:37PM
+- DO THE AXIOS CALLS IN THE VUE FILE INSTEAD OF THE CHARTMANAHER SO THAT THE SAME DATA CAN BE PASSED IN THE  
+    LINE GRPAH FUNCTIONS

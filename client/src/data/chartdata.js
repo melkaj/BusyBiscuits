@@ -68,7 +68,7 @@ export default {
     async GetPieChartOptionsByRange(range) {  
         console.log(`range: ${range}`);
         // TODO: create services and endpoint to get range 
-        const rangeOfData = await Services.getEntriesByRange({ dates: range })
+        const rangeOfData = await Services.getEntriesByRange({ dates: range });
 
         console.log(`rangeOfData: ${rangeOfData}`);
         console.log(`rangeOfDataOBJ: ${Object.keys(rangeOfData.data)}`);
@@ -129,74 +129,73 @@ export default {
 
 
 
-    /**
-     * Returns an object that can used to create a pie chart 
-     * @param {String} flag
-     */
-    async GetThisWeeksPieChartOptions(flag) {
-        var data;
-        
-        // Gets averages of the past week of data 
-        if (flag == "Average")
-        {
-            // The data for the last seven days will be an ARRAY OF OBJECTS
-            const thisWeeksData = store.getters.getDataFromLastSevenDays;        
 
-            // Converts thisWeeksData to one object that can be used for the pie chart
-            data = convertDataToChartData(thisWeeksData);
-        }
-        // If the flag is a "date" that is in the cached array of dates
-        else if (store.getters.getDates.includes(flag))
-        {
-            const index = store.getters.getDates.indexOf(flag);
-            data = store.getters.getDataFromLastSevenDays[index];
-        }
-        // If the date is not cached, need to see if its in the database
-        else
-        {
-            const requestedData = await Services.getEntryByDate({ date: flag });
-            data = requestedData.data;        
-        }
+
+
+
+
+
+
+
+
+
+    /**
+    * @param {Array of Objects} totalData
+    * @param {String}           category
+    * 
+    */
+    GetLineChartOptions(totalData, category) {
+        // Specifically getting the category needed
+        //      The labels come from most recent to oldest, so we make a deepcopy and
+        //      then reverse it to get it into chronological order
+        const dataBasedOnCategory = [...(totalData[category])];
+        const reversedData = dataBasedOnCategory.reverse();
+
+        // Getting the right phrasing for the labels
+        //      ex: category is 'on_phone', so the label should be "Hours of 'phone time'"
+        const categoryPhrasing = getCorrectPhrasingOfCategory(category);
+
+        // Getting the dates for the past week to be the labels for the x-axis
+        //      The labels come from most recent to oldest, so we make a deepcopy and
+        //      then reverse it to get it into chronological order
+        const lineChartLabelsReverseOrder = [...(store.getters.getDates)];
+        const lineChartLabels = lineChartLabelsReverseOrder.reverse();
 
         // Colors used for the pie chart
         const backgroundColors = getBackgroundColors();
-        const borderColors = getBorderColors("pie");
+        const borderColors = getBorderColors();
 
         return {
-            type: 'doughnut',
+            type: 'line',
             data: {
-                labels: chartLabels,
+                labels: lineChartLabels,
                 datasets: [{
-                    label: 'Just some numbers',
-                    data: [data.sleep, data.travel, data.exercise, data.on_phone, data.on_computer, data.games, data.somethingelse],
-                    backgroundColor: [
-                        backgroundColors.sleep,
-                        backgroundColors.travel,
-                        backgroundColors.exercise,
-                        backgroundColors.on_phone,
-                        backgroundColors.on_computer,
-                        backgroundColors.games,
-                        backgroundColors.somethingelse
-                    ],
+                    label: `Hours of ${categoryPhrasing}`,
+                    data: reversedData,
+                    fill: false,
+                    backgroundColor: 
+                        backgroundColors[category]
+                        ,
                     borderColor: [
-                        borderColors.sleep,
-                        borderColors.travel,
-                        borderColors.exercise,
-                        borderColors.on_phone,
-                        borderColors.on_computer,
-                        borderColors.games,
-                        borderColors.somethingelse
+                        borderColors[category]
                     ], 
                     borderWidth: 2
                 }],
             },
             options: {
                 responsive: true,
-                legend: { display: false },
             }
         }
-
     },
+
+
+
+
+
+
+
+
+
 
 
 

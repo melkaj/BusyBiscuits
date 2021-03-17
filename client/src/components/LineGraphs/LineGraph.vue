@@ -42,8 +42,8 @@ export default {
     data() {
         return {
             subTitle: "Choose a category to visualize",
-            lineGraphItems: [],
             lineGraph: null,
+            lineGraphItems: [],
             defaultDropdownSelection: null,
         }
     },
