@@ -42,55 +42,49 @@
                 <v-col sm="7" class="ma-auto py-3">
                     <!-- <PieGraphGeneral :dates="dates" :graphName="piechart" :title="dates" /> -->
                     <v-card flat>
-                        <v-card-title>
-                            Data from dates: {{ dates }}
+                        <v-card-title v-if="pieChart!=null" class="justify-center chart-title mb-2">
+                            {{ title }}
                         </v-card-title>
                         <!-- <canvas id="test"></canvas> -->
-                        <canvas :class="pieChartName" id="test"></canvas>
+                        <canvas :class="pieChartName"></canvas>
                     </v-card>
                 </v-col>
             </v-expand-x-transition>
         </v-row>        
         
         <!-- USED FOR THE LINE GRAPH - WILL ONLY DISPLAY WHEN THERE IS A RANGE OF DATES -->
-        <v-row align="center" justify="center">
-            <v-expand-x-transition>
-                
-                <v-col sm="7" class="ma-auto py-3">
-                    <v-card flat>
-                        <v-card-title class="justify-center chart-title mb-2">
-                            {{ title }}
-                        </v-card-title>
-                        <v-card-subtitle>
-                            {{ subTitle }}
-                        </v-card-subtitle>
-                        <canvas :class='graphName'></canvas>
-                    </v-card>
-                </v-col>
+        <v-expand-x-transition>
+            <v-row align="center" justify="center">
+                <!-- <v-card> -->
+                    <v-col sm="7" class="ma-auto py-3">
+                        <v-card flat>
+                            <canvas :class='lineGraphName'></canvas>
+                        </v-card>
+                    </v-col>
 
-                <v-divider inset vertical></v-divider>
+                    <v-divider inset vertical></v-divider>
 
-                <!-- Column two - Drop down to change the linegraph -->
-                <v-col sm="3" class="ma-auto">
-                    <v-select
-                    :items="lineGraphItems"
-                    item-value="id"
-                    item-text="category"
-                    v-model="defaultDropdownSelection"
-                    label="Choose Category"                
-                    chips
-                    @input='changeLineGraphBasedOnCategory'
-                    ></v-select>
-                </v-col>
-
+                    <!-- Column two - Drop down to change the linegraph -->
+                    <v-col sm="3" class="ma-auto">
+                        <v-select
+                        :items="lineGraphItems"
+                        item-value="id"
+                        item-text="category"
+                        v-model="defaultDropdownSelection"
+                        label="Choose Category"                
+                        chips
+                        @input='changeLineGraphBasedOnCategory'
+                        ></v-select>
+                    </v-col>
+                <!-- </v-card> -->
                                  
                 <!-- <v-col sm="7" class="ma-auto py-3">
                     <v-card flat>
                         <canvas :class="lineGraphName"></canvas>
                     </v-card>
                 </v-col> -->
-            </v-expand-x-transition>
-        </v-row>        
+            </v-row>        
+        </v-expand-x-transition>
     </v-container>
 </template>
 
@@ -105,6 +99,7 @@ export default {
     data() {
         return {
             dates:                    [],
+            title:                    `Graphs from dates: ${this.dates}`,
             
             pieChart:                 null,                     // The pie chart itself
             pieChartName:             "Pie-Chart-Detailed",     // The name of the pie chart
@@ -144,7 +139,7 @@ export default {
             }
             else if (this.dates.length == 2)
             {
-                this.dates.sort();                
+                this.dates.sort();          // Just in case the dates were chosen backwards             
 
                 // Generating new pie chart data based on the selected date
                 pieChartData =  await ChartManager.GetPieChartOptionsByRange(this.dates);
@@ -175,7 +170,7 @@ export default {
 
             // Creating new Line Graph
             const newLineChartData = ChartManager.CreateLineGraphData(newCategory);
-            this.lineGraph = this.createPieChart(this.lineGraphName, newLineChartData);
+            this.lineGraph = this.createGraph(this.lineGraphName, newLineChartData);
         },
 
     },
@@ -184,7 +179,7 @@ export default {
         this.defaultDropdownSelection = this.lineGraphItems[0].id;
 
         const lineChartData = ChartManager.CreateLineGraphData("sleep");
-        this.lineGraph = this.createPieChart(this.lineGraphName, lineChartData);
+        this.lineGraph = this.createGraph(this.lineGraphName, lineChartData);
     }
 }
 </script>
