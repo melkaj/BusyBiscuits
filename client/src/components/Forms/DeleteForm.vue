@@ -9,7 +9,7 @@
                     text
                     icon
                     depressed
-                    color="primary"
+                    color="#116466"
                     @click.stop="dialog=true"
                 >
                     ?
@@ -24,7 +24,7 @@
             >
                 <v-card>
                     <v-card-title>
-                    How do I delete an entry?
+                        What to do
                     </v-card-title>
 
                     <v-card-text>
@@ -35,7 +35,7 @@
                         <v-spacer></v-spacer>
                         <v-btn
                             text
-                            color="primary"
+                            color="#116466"
                             style="background:white;"
                             @click="dialog=false"
                         >
@@ -44,16 +44,6 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-
-
-            <!-- <v-card-title class="form-card-heading">
-                Delete an entry:
-            </v-card-title> -->
-            <!-- <v-card-subtitle class="form-card-subheading">
-                (Instructions)<br/>(More Instructions)
-            </v-card-subtitle> -->
-
-            <!-- <v-divider></v-divider> -->
 
             <v-form ref="form">
 
@@ -71,7 +61,7 @@
                         <v-btn 
                         text
                         depressed
-                        color="primary"
+                        color="#116466"
                         style="background: white;"
                         class="mx-5 my-2"
                         @click="validateDate">

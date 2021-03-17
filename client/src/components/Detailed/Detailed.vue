@@ -17,7 +17,7 @@
                 <v-btn 
                 text
                 depressed
-                color="primary"
+                color="#116466"
                 style="background: white;"
                 class="mx-5 my-2"
                 @click="setGraphs">
@@ -30,7 +30,7 @@
         <v-row align="center" justify="center">
             <v-col cols="12">
                 <v-card-text class="error-text">
-                    {{message}}
+                    {{ message }}
                 </v-card-text>
             </v-col>
         </v-row>

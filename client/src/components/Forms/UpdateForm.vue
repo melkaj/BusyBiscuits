@@ -1,13 +1,51 @@
 <template>
         <v-card class="fill-height justify-center">
-            <v-card-title class="form-card-heading">
-                Update an entry:
-            </v-card-title>
-            <v-card-subtitle class="form-card-subheading">
-                (Enter the desired date whose entry you want to update. Then click on 'FIND ENTRY')<br/>(Change whichever values you want then hit 'UPDATE ENTRY')
-            </v-card-subtitle>
+            
 
-            <!-- <v-divider></v-divider> -->
+            <v-row justify="start" align="start" no-gutters>
+                <v-card-title class="form-card-heading">
+                    Update an entry:
+                </v-card-title>
+                <v-btn
+                    style="background:white;"                    
+                    text
+                    icon
+                    depressed
+                    color="#116466"
+                    @click.stop="dialog=true"
+                >
+                    ?
+                </v-btn>
+
+            </v-row>
+
+            <v-dialog
+                v-model="dialog"
+                max-width="400"
+            >
+                <v-card class="dialog-font-color">
+                    <v-card-title>
+                        What to do?
+                    </v-card-title>
+
+                    <v-card-text>
+                        Enter the desired date whose entry you want to update. Then click on 'FIND ENTRY'. Change whichever values you want then hit 'UPDATE ENTRY'
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                            <!-- class="dialog-font-color" -->
+                        <v-btn
+                            text
+                            color="#116466"
+                            style="background:white;"
+                            @click="dialog=false"
+                        >
+                            Close
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
 
             <v-form ref="form">
 
@@ -25,7 +63,7 @@
                         <v-btn 
                         text
                         depressed
-                        color="primary"
+                        color="#116466"
                         style="background: white;"
                         class="mx-5 my-2"
                         @click="getEntryFormBasedOnDate">
@@ -101,7 +139,7 @@
                         <v-btn 
                         text
                         depressed
-                        color="primary"
+                        color="#116466"
                         style="background: white;"
                         class="mx-5 my-2"
                         @click="isDataModified">
@@ -123,25 +161,26 @@ export default {
     name: 'FormTimeSpent',
     data () {
         return {
-            date: null,
-            sleep: null,
-            travel: null,
-            exercise: null,
-            on_phone: null,
-            on_computer: null,
-            games: null,
-            somethingelse: 0,
-            total: 0,
-            formerEntry: {},
-            isSuccess: null,
-            isEntryLoaded: false,
-            message: '',
+            date:                null,
+            sleep:               null,
+            travel:              null,
+            exercise:            null,
+            on_phone:            null,
+            on_computer:         null,
+            games:               null,
+            somethingelse:       0,
+            total:               0,
+            formerEntry:         {},
+            isSuccess:           null,
+            isEntryLoaded:       false,
+            dialog:              false,
+            message:             '',
             messageResponses: {
-                invalidHours: "The total number of hours must be between 0 and 24",
-                success: "Form was submitted",
-                entryNotFound: "Entry was not found. Double check your input",
-                invaliddate: "Date entered was invalid",
-                alreadyPosted: "Already posted for today, wait until tomorrow",
+                invalidHours:    "The total number of hours must be between 0 and 24",
+                success:         "Form was submitted",
+                entryNotFound:   "Entry was not found. Double check your input",
+                invaliddate:     "Date entered was invalid",
+                alreadyPosted:   "Already posted for today, wait until tomorrow",
                 dataNotModified: "Entry is unchanged or invalid",
             }
         }
@@ -255,6 +294,9 @@ export default {
     color:#116466 !IMPORTANT;
     text-align: left;
     font-size: 1rem;
+}
+.dialog-font-color {
+    color:#116466 !IMPORTANT;
 }
 .form-border {
     border-left: 2px solid #116466; 

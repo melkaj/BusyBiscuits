@@ -11,7 +11,7 @@
                     text
                     icon
                     depressed
-                    color="primary"
+                    color="#116466"
                     @click.stop="dialog=true"
                 >
                     ?
@@ -36,7 +36,7 @@
                         <v-spacer></v-spacer>
                         <v-btn
                             text
-                            color="primary"
+                            color="#116466"
                             style="background:white;"
                             @click="dialog=false"
                         >
@@ -136,7 +136,7 @@
                         <v-btn 
                         text
                         depressed
-                        color="primary"
+                        color="#116466"
                         style="background:white;"
                         class="mx-5 my-2"
                         @click="canPostToday">
