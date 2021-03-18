@@ -44,7 +44,9 @@ app.use((req,res, next) => {
   
 app.use((err,req,res,next) => {
     console.log(`From error handling:\n${err.message}`);
-    res.status(err.status || 500).json('Something went wrong');
+    if (err.errno === 1062)                             res.status(err.status || 500).json('Entry with that date already exists');
+    else if (err.errno === 1366 || err.errno === 1048)  res.status(err.status || 500).json('Do not leave entry blank. You can only enter integers');
+    else                                                res.status(err.status || 500).json('Something went wrong');
 })
 
 

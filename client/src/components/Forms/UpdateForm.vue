@@ -203,19 +203,27 @@ export default {
             {
                 this.isSuccess = true;  this.message = null;
                 const entryForm = await Services.getEntryByDate({ date: this.date });
-
-                // Displaying the rest of the form if the response is valid
-                if (typeof(entryForm.data.sleep) == 'number')  this.isEntryLoaded = true;
-                else                                           this.isEntryLoaded = false;
-
-                this.sleep =       entryForm.data.sleep;
-                this.travel =      entryForm.data.travel;
-                this.exercise =    entryForm.data.exercise;
-                this.on_phone =    entryForm.data.on_phone;
-                this.on_computer = entryForm.data.on_computer;
-                this.games =       entryForm.data.games;
-
-                this.formerEntry = entryForm.data;
+                
+                // If nothing was returned back, then output a message
+                if (Object.keys(entryForm.data).length === 0)
+                {
+                    this.isSuccess=false;  
+                    this.isEntryLoaded = false;               
+                    this.message = this.messageResponses.entryNotFound; 
+                }
+                else
+                {
+                    // Displaying the rest of the form if the response is valid
+                    this.isEntryLoaded = true;    
+                    this.sleep =         entryForm.data.sleep;
+                    this.travel =        entryForm.data.travel;
+                    this.exercise =      entryForm.data.exercise;
+                    this.on_phone =      entryForm.data.on_phone;
+                    this.on_computer =   entryForm.data.on_computer;
+                    this.games =         entryForm.data.games;
+      
+                    this.formerEntry =   entryForm.data;
+                }
             }
         },
         validateDate() {
