@@ -45,7 +45,7 @@
             v-model="dialog"
             max-width="300"
         >
-            <v-card>
+            <v-card class="dialog-font-color">
                 <v-card-title>
                     What to do?
                 </v-card-title>
@@ -264,5 +264,8 @@ export default {
 <style scoped>
 .error-text {
     color: red;
+}
+.dialog-font-color {
+    color:#116466 !IMPORTANT;
 }
 </style>

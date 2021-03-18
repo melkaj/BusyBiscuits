@@ -23,7 +23,7 @@
                 v-model="dialog"
                 max-width="300"
             >
-                <v-card>
+                <v-card class="dialog-font-color">
                     <v-card-title>
                     What to do?
                     </v-card-title>
@@ -280,5 +280,8 @@ export default {
 .form-into-button {
     position: relative;
     left: 0;
+}
+.dialog-font-color {
+    color:#116466 !IMPORTANT;
 }
 </style>

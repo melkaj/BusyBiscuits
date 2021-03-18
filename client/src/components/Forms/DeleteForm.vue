@@ -22,7 +22,7 @@
                 v-model="dialog"
                 max-width="400"
             >
-                <v-card>
+                <v-card class="dialog-font-color">
                     <v-card-title>
                         What to do
                     </v-card-title>
@@ -148,5 +148,8 @@ export default {
     border-left: 2px solid #116466; 
     border-bottom: 2px solid #116466; 
     border-right: 2px solid #116466;
+}
+.dialog-font-color {
+    color:#116466 !IMPORTANT;
 }
 </style>
