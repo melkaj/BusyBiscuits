@@ -3,7 +3,7 @@
 
         <v-tabs
             v-model="tab"
-            color="#123456"
+            color="#116466"
             grow
         >      
             <!-- backgroud-color="transparent" -->

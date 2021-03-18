@@ -88,10 +88,12 @@ export default {
     /* font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif; */
     font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 36px;
+    color: #116466;
 }
 .chart-sub-title {
     font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: lighter;
     font-size: 28px;
+    color: #116466;
 }
 </style>
