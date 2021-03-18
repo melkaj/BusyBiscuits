@@ -27,6 +27,10 @@ function GetSQLDateFormat(unformattedDate) {
     return formattedDate;
 }
 
+function validateToken (token) {
+    // TODO: install JWT and implement token feature
+}
+
 module.exports = {
     GetSQLDateFormat,
 }
