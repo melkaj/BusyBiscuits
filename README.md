@@ -16,9 +16,7 @@
 This is a repo for a time tracking application. This web app allows the user to enter in time spent on specific things (i.e. sleep, traveling, etc.). Then that data is visualized through pie charts and line graphs giving the user a better understanding of how their time is spent.
 
 ## Inspiration <a name="inspiration"></a>
-I feel like my time management skills are at a good point at this moment in time. I am able to achieve a level of production that I am happy with. But, there is always improvement and I thought a good way to take it to the next level would be to visualize it and get a better understanding of how my time is spent. By visualizing my time, I would be able to see trends and maybe spot some weakpoints and adjust my habits to become more productive
-
-So, I figured why not kill 2 birds with one stone; create an application that I could for myself as well as getting more experience in creating fullstack application. This is not the end all be all time tracking application. But, I thought this would be a great project to work on. 
+I noticed the more I track where my times goes, the more productive I am. Plus, I wanted to get better with this techstack. So, I figured why not kill 2 birds with one stone; create an application that I could see myself using as well as getting more experience in creating fullstack applications. This is not the end all be all time tracking application. But, I thought this would be a great project to work on. 
 
 ## Possible future additions <a name="future"></a>
 When I first started this application, my MVP was to be able to input data and then visualize it. Fortunately, at this point in time, that has been achieved. I am able to fill out the form, submit it, and see the data visualized.

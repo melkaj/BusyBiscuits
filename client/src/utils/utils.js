@@ -311,6 +311,18 @@ function GetSQLDateFormat(unformattedDate) {
 }
 
 
+
+/**
+ * Returns a templated String with the given dates
+ * @param {Array} dates 
+ * 
+ */
+function getGraphTitle(dates) {
+    if (dates.length == 1)  return `Graph from ${dates[0]}`;
+    else                    return `Graphs from ${dates[0]} - ${dates[dates.length-1]}`;
+}
+
+
 module.exports = {
     getBackgroundColors,
     getBorderColors,
@@ -322,4 +334,5 @@ module.exports = {
     getPieChartDropDownSelections,
     ValidateDate,
     GetSQLDateFormat,
+    getGraphTitle,
 }

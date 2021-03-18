@@ -1,5 +1,7 @@
 <template>
     <v-container class="fill-height justify-center" fluid>
+        
+<!-- THE DATE PICKER -->
         <v-row align="center" justify="center">
             <v-col cols="8">
                 <v-date-picker
@@ -23,8 +25,48 @@
                 @click="setGraphs">
                     Reveal Graphs
                 </v-btn>
+
+                <!-- THE INFOMATION BUTTON -->
+                <v-btn
+                    style="background:white;"                    
+                    text
+                    icon
+                    depressed
+                    color="#116466"
+                    @click.stop="dialog=true"
+                >
+                    ?
+                </v-btn>
             </v-col>
         </v-row>
+
+        <!-- THE DIALOG FOR THE INFO BUTTON -->
+        <v-dialog
+            v-model="dialog"
+            max-width="300"
+        >
+            <v-card>
+                <v-card-title>
+                    What to do?
+                </v-card-title>
+
+                <v-card-text>
+                    Using the date picker above, choose a date (or a range of dates) to retrieve the entries and visualize them. From there you can interact with the graphs!
+                </v-card-text>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        text
+                        color="#116466"
+                        style="background:white;"
+                        @click="dialog=false"
+                    >
+                        Close
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
 
 <!-- WHERE THE ERRORS WILL SHOW -->
         <v-row align="center" justify="center">
@@ -36,9 +78,9 @@
         </v-row>
 
 
-        <!-- USED FOR THE PIE GRAPH -->
-        <v-row align="center" justify="center">
-            <v-expand-x-transition>
+<!-- USED FOR THE PIE GRAPH -->
+        <v-expand-x-transition>
+            <v-row align="center" justify="center">
                 <v-col sm="7" class="ma-auto py-3">
                     <!-- <PieGraphGeneral :dates="dates" :graphName="piechart" :title="dates" /> -->
                     <v-card flat>
@@ -49,14 +91,14 @@
                         <canvas :class="pieChartName"></canvas>
                     </v-card>
                 </v-col>
-            </v-expand-x-transition>
-        </v-row>        
+            </v-row>        
+        </v-expand-x-transition>
         
-        <!-- USED FOR THE LINE GRAPH - WILL ONLY DISPLAY WHEN THERE IS A RANGE OF DATES -->
+<!-- USED FOR THE LINE GRAPH - WILL ONLY DISPLAY WHEN THERE IS A RANGE OF DATES -->
         <v-expand-x-transition>
-            <v-row align="center" justify="center">
+            <v-row v-show="showLineGraph" align="center" justify="center">
                 <!-- <v-card> -->
-                    <v-col sm="7" class="ma-auto py-3">
+                    <v-col sm="8" class="ma-auto py-3">
                         <v-card flat>
                             <canvas :class='lineGraphName'></canvas>
                         </v-card>
@@ -65,7 +107,7 @@
                     <v-divider inset vertical></v-divider>
 
                     <!-- Column two - Drop down to change the linegraph -->
-                    <v-col sm="3" class="ma-auto">
+                    <v-col sm="2" class="ma-auto">
                         <v-select
                         :items="lineGraphItems"
                         item-value="id"
@@ -76,13 +118,6 @@
                         @input='changeLineGraphBasedOnCategory'
                         ></v-select>
                     </v-col>
-                <!-- </v-card> -->
-                                 
-                <!-- <v-col sm="7" class="ma-auto py-3">
-                    <v-card flat>
-                        <canvas :class="lineGraphName"></canvas>
-                    </v-card>
-                </v-col> -->
             </v-row>        
         </v-expand-x-transition>
     </v-container>
@@ -92,7 +127,10 @@
 // import PieGraphGeneral from '../PieGraphs/PieGraphGeneral.vue';
 import Chart        from 'chart.js';
 import ChartManager from '../../data/chartdata.js';
-const { getLineGraphDropDownSelections } = require('../../utils/utils');
+import Services     from '../../services/services.js';
+const { getLineGraphDropDownSelections, convertDataToChartData, 
+        extractDatesAndData, extractLineChartData, 
+        getGraphTitle } = require('../../utils/utils');
 
 
 export default {
@@ -100,18 +138,23 @@ export default {
         return {
             dates:                    [],
             title:                    `Graphs from dates: ${this.dates}`,
+            dialog:                   false,
             
             pieChart:                 null,                     // The pie chart itself
             pieChartName:             "Pie-Chart-Detailed",     // The name of the pie chart
 
             lineGraph:                null,                     // The line graph itself
             lineGraphName:            "Line-Graph-Detailed",    // The name of the line graph   
-            lineGraphItems:           [],                       // Available options for the line graph
+            lineGraphItems:           [],                       // Available options for the line graph drop down
+            lineGraphData:            [],                       // Entry data retrieved based on the user input
+            lineGraphDates:           [],
             defaultDropdownSelection: null,                     // Default drop down selection when graph is made
+            showLineGraph:            false,
             
             message:                  '',    
             messageResponses: {
                 error:                "Something went wrong",
+                nothingFound:         "No entries were found from those date(s)",
             }
         }
     },
@@ -125,36 +168,73 @@ export default {
             });
         },
         async setGraphs() {
-            if (this.pieChart !== null) this.pieChart.destroy();
+            if (this.pieChart !== null)  this.pieChart.destroy();
+            if (this.lineGraph !== null) this.lineGraph.destroy();
 
-            var pieChartData;
+            var data;
 
-            // TODO: MAYBE DO THE AXIOS CALL HERE INSTEAD OF THE FUNCTIONS THEMSELVES. THEN PASS
-            //      THE RESPONSE IN THOSE FUNCTIONS
-
-            if (this.dates.length == 1)
+            // Check how many dates were entered
+            //      If only date, check if the entry is cached in the store
+            //      If not, then query it against the database
+            //      If more than one date, then just run the query against
+            //          the database
+            if (this.dates.length == 1) 
             {
-                // Generating new pie chart data based on the selected date
-                pieChartData = await ChartManager.GetPieChartOptionsByDate(this.dates[0]);
-            }
-            else if (this.dates.length == 2)
-            {
-                this.dates.sort();          // Just in case the dates were chosen backwards             
-
-                // Generating new pie chart data based on the selected date
-                pieChartData =  await ChartManager.GetPieChartOptionsByRange(this.dates);
-
-                // lineChartData = await ChartManager.LINEGRAPH(this.$store.getters.getWeekOfData, "sleep");
-                // TODO: Create line graph stuff here
+                if (this.$store.getters.getDates.includes(this.dates[0]))
+                {
+                    const index = this.$store.getters.getDates.indexOf(this.dates[0]);
+                    data = this.$store.getters.getDataFromLastSevenDays[index];
+                }
+                // If the date is not cached, need to see if its in the database
+                else
+                {
+                    const requestedData = await Services.getEntryByDate({ date: this.dates[0] });
+                    data = requestedData.data;  
+                }    
             }
             else 
             {
-                // TODO: dont know what to do here
-                this.pieChart.destroy();
+                this.dates.sort();          // Just in case the dates were chosen backwards             
+                const rangeOfData = await Services.getEntriesByRange({ dates: this.dates });
+                data = rangeOfData.data;  
             }
 
-            this.pieChart = this.createGraph(this.pieChartName, pieChartData);
-        
+            // Checking what data was sent back and creating the necessary charts
+            //      If one entry was sent back, Create a pie chart
+            //      If more than one entry was sent back, then create pei and line graph
+            //      If nothing was sent back, then put error message and clear graphs
+            if (Object.keys(data)[0] == "sleep")      // Show only the Pie Chart 
+            {
+                this.title =          getGraphTitle(this.dates);
+                this.message =        null;
+                this.showLineGraph =  false;
+                var pieChartOptions = ChartManager.GetPieChartOptions(data);
+                this.pieChart =       this.createGraph(this.pieChartName, pieChartOptions);                    
+            }
+            else if (Object.keys(data)[0] == 0)       // Show both graphs 
+            {
+                this.message =        null;
+                this.title =          getGraphTitle(this.dates);
+
+                // Pie Chart
+                var averagedData =    convertDataToChartData(data);
+                pieChartOptions =     ChartManager.GetPieChartOptions(averagedData);
+                this.pieChart =       this.createGraph(this.pieChartName, pieChartOptions);
+
+                // Line Graph
+                this.showLineGraph =     true;
+                var dataAndDates =       extractDatesAndData(data);
+                this.lineGraphData =     extractLineChartData(dataAndDates.data);
+                this.lineGraphDates =    dataAndDates.dates;
+                const lineGraphOptions = ChartManager.GetLineChartOptions(this.lineGraphData , "sleep", this.lineGraphDates);
+                this.lineGraph =         this.createGraph(this.lineGraphName, lineGraphOptions);
+            }
+            else                                      // Clear the graphs
+            {
+                this.message =       this.messageResponses.nothingFound;
+                this.showLineGraph = false;
+                this.title =         null;
+            }
         },
 
         //============================================================
@@ -166,10 +246,10 @@ export default {
         },
         changeLineGraphBasedOnCategory(newCategory) {
             // Destroys the already created linechart as to avoid hover issues
-            this.lineGraph.destroy();
+            if (this.pieChart !== null)  this.lineGraph.destroy();
 
             // Creating new Line Graph
-            const newLineChartData = ChartManager.CreateLineGraphData(newCategory);
+            const newLineChartData = ChartManager.GetLineChartOptions(this.lineGraphData ,newCategory, this.lineGraphDates);
             this.lineGraph = this.createGraph(this.lineGraphName, newLineChartData);
         },
 
@@ -177,9 +257,6 @@ export default {
     mounted() {
         this.lineGraphItems = this.getLineGraphItems();
         this.defaultDropdownSelection = this.lineGraphItems[0].id;
-
-        const lineChartData = ChartManager.CreateLineGraphData("sleep");
-        this.lineGraph = this.createGraph(this.lineGraphName, lineChartData);
     }
 }
 </script>
