@@ -26,6 +26,14 @@ You can see gifs of the application towards the bottom. The app has three main t
 ```
 cd client
 npm install
+```
+- Github's dependabot complained about a couple of packages. Specifically 'ssri' and 'is-svg'. I tried to research how to update the package-lock.json to get the right versions of these packages that do no have the security issues but could not solve the issue. Both packages are required dependencies for @vue/cli-service. The best thing I did was to install the latest versions manually using the following commands:
+```
+npm install ssri@latest --save
+npm install is-svg@latest --save
+```
+- To run the server:
+```
 npm run serve
 ```
 - This will get the client side running. Then open a browser and go to
