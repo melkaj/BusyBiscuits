@@ -1,4 +1,4 @@
-# BusyBiscuits - Time Tracking Web Application 2.0
+# BusyBiscuits - PORTFOLIO BRANCH (IN DEVELOPMENT)
 
 ## Table of contents
 1. [Techstack](#stack)

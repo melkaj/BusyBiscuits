@@ -1,9 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Login from '../views/login/Login.vue';
-import Register from '../views/register/Register.vue';
-import FormTimeSpent from '../views/Forms/FormTimeSpent.vue';
-import HomePage from '../views/Home/Home.vue';
+import Login from '../projects/bbtt/views/login/Login.vue';
+import Register from '../projects/bbtt/views/register/Register.vue';
+import HomePage from '../projects/bbtt/views/Home/Home.vue';
 
 Vue.use(VueRouter);
 
@@ -17,11 +16,6 @@ const routes = [
       path: '/login',
       name: 'login',
       component: Login
-    },
-    {
-      path: '/time-spent-entry',
-      name: 'timespententry',
-      component: FormTimeSpent
     },
     {
       path: '/home',
