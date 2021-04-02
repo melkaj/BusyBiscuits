@@ -14,7 +14,6 @@
     "highlight.js": "^10.7.1",
     "is-svg": "^4.3.1",
     "material-design-icons-iconfont": "^6.1.0",
-    "node-sass": "^4.14.1",
     "ssri": "^8.0.1",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
@@ -28,8 +27,9 @@
     "@vue/cli-plugin-vuex": "~4.5.12",
     "@vue/cli-service": "^4.5.12",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.22.0",
+    "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.8.0",
+    "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.12"
   }
