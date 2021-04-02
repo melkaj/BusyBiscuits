@@ -104,7 +104,7 @@ export default {
     },
     methods: {
         goto() {
-            this.$router.push({name:"home"}).catch( err => { console.log(err); });
+            this.$router.push({name:"bbtt-home"}).catch( err => { console.log(err); });
         }
     }
 }

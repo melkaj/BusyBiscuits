@@ -74,7 +74,7 @@ export default {
         Detailed,
     },
     async created() {
-        await this.$store.dispatch('setDataFromLastSevenDays'); 
+        // await this.$store.dispatch('setDataFromLastSevenDays'); 
         this.isDataLoaded = true;
     }, 
 }
