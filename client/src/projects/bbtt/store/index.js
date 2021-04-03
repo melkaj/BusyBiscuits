@@ -44,8 +44,8 @@ const mutations = {
 }
 
 const actions = {
-  callIncrementbbtt(context) {
-    context.commit('commitIncrementbbtt');
+  incrementbbtt(context) {
+    context.commit('incrementbbtt');
   },
   // Function to get the 
   async setDataFromLastSevenDays(context) {

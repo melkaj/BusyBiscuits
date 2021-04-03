@@ -5,6 +5,8 @@
         <h2>{{ this.bbttVar }}</h2>
         <h2>{{ this.rootVar }}</h2>
 
+        <v-btn @click='inc'>Clickme</v-btn>
+
     </v-card>
 </template>
 
@@ -25,6 +27,12 @@ export default {
             this.bbttVar = this.$store.getters['bbtt/getbbtt'];
             this.rootVar = this.$store.getters['getRoot'];
         },
+        inc() {
+            this.$store.dispatch('bbtt/incrementbbtt');
+            this.$store.dispatch('incrementRoot');
+            this.bbttVar = this.$store.getters['bbtt/getbbtt'];
+            this.rootVar = this.$store.getters['getRoot'];
+        }
     },
     created() {
         this.setStoreValues();

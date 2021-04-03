@@ -13,12 +13,12 @@ export default new Vuex.Store({
 
   mutations: {
     incrementRoot(state) {
-      state.dataFromLastSevenDays++;
+      state.root++;
     },
   },
 
   actions: {
-    callIncrementRoot(context) {
+    incrementRoot(context) {
       context.commit('incrementRoot');
     }
   },
