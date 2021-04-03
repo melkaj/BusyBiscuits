@@ -9,24 +9,34 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     root: 24,
+    currentPath: null,
   },
 
   mutations: {
     incrementRoot(state) {
       state.root++;
     },
+    setCurrentPath(state) {
+      state.currentPath = this.$router.history.current.name;
+    }
   },
 
   actions: {
     incrementRoot(context) {
       context.commit('incrementRoot');
+    },
+    setCurrentPath(context) {
+      context.commit('setCurrentPath');
     }
   },
 
   getters: {
-    getRoot: state => {
+    getRoot(state) {
       return state.root;
     },
+    getCurrentPath(state) {
+      return state.currentPath;
+    }
   },
 
   modules: {

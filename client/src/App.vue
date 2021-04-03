@@ -3,7 +3,7 @@
     <v-app>
       
       <!-- TOOLBAR AT THE TOP OF EVERY PAGE -->
-      <PageHeader />
+      <PageHeader v-if='temp' />
 
       <!-- CONTENT OF THE PAGE (THE MIDDLE, INBETWEEN THE TOOLBAR AND THE FOOTER) -->
       <v-main>
@@ -18,10 +18,23 @@
 </template>
 
 <script>
-import PageHeader from './components/MandatoryComponents/Header';
-import PageFooter from './components/MandatoryComponents/Footer';
+import PageHeader from './projects/bbtt/components/MandatoryComponents/Header';
+import PageFooter from './projects/bbtt/components/MandatoryComponents/Footer';
 
 export default {
+  data() {
+    return {
+      isPathInPortfolio: true,
+    }
+  },
+  watch: {
+    $router: function() {
+      var path = (this.$router.history.current.name).split("-");
+      console.log(path);
+      if (path[0] === "bbtt")  this.isPathInPortfolio = false;
+      else                     this.isPathInPortfolio = true;
+    }
+  },
   components: {
     PageHeader,
     PageFooter

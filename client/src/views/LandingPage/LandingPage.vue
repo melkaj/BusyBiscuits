@@ -18,15 +18,11 @@ export default {
     data () {
         return {
             isDataLoaded: true,
-            bbttVar: 0,
-            rootVar: 0,
+            bbttVar: this.$store.getters['bbtt/getbbtt'],
+            rootVar: this.$store.getters['getRoot'],
         }
     },
     methods: {
-        setStoreValues() {
-            this.bbttVar = this.$store.getters['bbtt/getbbtt'];
-            this.rootVar = this.$store.getters['getRoot'];
-        },
         inc() {
             this.$store.dispatch('bbtt/incrementbbtt');
             this.$store.dispatch('incrementRoot');
@@ -34,9 +30,9 @@ export default {
             this.rootVar = this.$store.getters['getRoot'];
         }
     },
-    created() {
-        this.setStoreValues();
-    }, 
+    mounted() {
+        console.log(this.$router.history.current.name);
+    },
 }
 </script>
 
