@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Login from '../projects/bbtt/views/login/Login.vue';
 import Register from '../projects/bbtt/views/register/Register.vue';
 import HomePage from '../projects/bbtt/views/Home/Home.vue';
+import LandingPage from '../views/LandingPage/LandingPage.vue';
 
 Vue.use(VueRouter);
 
@@ -10,7 +11,7 @@ const routes = [
   {
     path: '/portfolio/home',
     name: 'port-home',
-    component: HomePage     // TODO: CREATE A HOME PAGE FOR THE PORTFOLIO PORTION OF THE WEBSITE
+    component: LandingPage     
   },
   {
     path: '/bbtt/register',
