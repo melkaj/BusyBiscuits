@@ -2,6 +2,8 @@
     <v-card v-if='isDataLoaded' flat class="fill-height">
 
         <h1>HELLO FROM LANDINGPAGE</h1>
+        <h2>{{ this.bbttVar }}</h2>
+        <h2>{{ this.rootVar }}</h2>
 
     </v-card>
 </template>
@@ -13,10 +15,19 @@ export default {
     name: 'LandingPage',
     data () {
         return {
-            isDataLoaded: true
+            isDataLoaded: true,
+            bbttVar: 0,
+            rootVar: 0,
         }
     },
-    async created() {
+    methods: {
+        setStoreValues() {
+            this.bbttVar = this.$store.getters['bbtt/getbbtt'];
+            this.rootVar = this.$store.getters['getRoot'];
+        },
+    },
+    created() {
+        this.setStoreValues();
     }, 
 }
 </script>
