@@ -8,11 +8,29 @@ import LandingPage from '../views/LandingPage/LandingPage.vue';
 Vue.use(VueRouter);
 
 const routes = [
+  /**
+   * BUSYBISCUITS PORTFOLIO
+   */
   {
     path: '/portfolio/home',
-    name: 'port-home',
+    name: 'port-home',  
     component: LandingPage     
   },
+  {
+    path: '/portfolio/register',
+    name: 'port-register',
+    component: Register
+  },
+  {
+    path: '/portfolio/login',
+    name: 'port-login',
+    component: Login
+  },
+
+
+  /**
+   * BUSYBISCUITS TIME TRACKER 
+   */
   {
     path: '/bbtt/register',
     name: 'bbtt-register',

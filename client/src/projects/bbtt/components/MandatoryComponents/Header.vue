@@ -92,19 +92,19 @@ export default {
             drawer: false,
             items: [
                 {
-                    title:"Overview",
+                    title:"Portfolio",
                     name:"Beep"
                 },
-                {
-                    title:"Forms",
-                    name:"Bop"
-                }
+                // {
+                //     title:"Forms",
+                //     name:"Bop"
+                // }
             ]
         }
     },
     methods: {
         goto() {
-            this.$router.push({name:"bbtt-home"}).catch( err => { console.log(err); });
+            this.$router.push({name:"port-home"}).catch( err => { console.log(err); });
         }
     }
 }

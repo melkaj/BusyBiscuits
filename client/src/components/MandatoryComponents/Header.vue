@@ -54,11 +54,11 @@
             <v-list-item>
                 <v-list-item-content>
                     <v-list-item-title class="title">
-                        BusyBiscuits
+                        {{ drawerHeader }}
                     </v-list-item-title>
-                    <v-list-item-subtitle>
+                    <!-- <v-list-item-subtitle>
                         Track your day!
-                    </v-list-item-subtitle>
+                    </v-list-item-subtitle> -->
                 </v-list-item-content>
             </v-list-item>
 
@@ -90,13 +90,14 @@ export default {
     data() {
         return {
             drawer: false,
+            drawerHeader: "BusyBiscuits",
             items: [
                 {
-                    title:"Overview",
+                    title:"Time Tracker",
                     name:"Beep"
                 },
                 {
-                    title:"Forms",
+                    title:"Database",
                     name:"Bop"
                 }
             ]

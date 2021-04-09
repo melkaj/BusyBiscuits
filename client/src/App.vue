@@ -3,7 +3,8 @@
     <v-app>
       
       <!-- TOOLBAR AT THE TOP OF EVERY PAGE -->
-      <PageHeader v-if='temp' />
+      <PortPageHeader v-if='isPathInPortfolio' />
+      <BBTTPageHeader v-else />
 
       <!-- CONTENT OF THE PAGE (THE MIDDLE, INBETWEEN THE TOOLBAR AND THE FOOTER) -->
       <v-main>
@@ -11,15 +12,17 @@
       </v-main>
 
       <!-- THE FOOTER -->
-      <PageFooter /> 
+      <BBTTPageFooter /> 
          
     </v-app>
   </div>
 </template>
 
 <script>
-import PageHeader from './projects/bbtt/components/MandatoryComponents/Header';
-import PageFooter from './projects/bbtt/components/MandatoryComponents/Footer';
+import PortPageHeader from './components/MandatoryComponents/Header';
+import BBTTPageHeader from './projects/bbtt/components/MandatoryComponents/Header';
+import BBTTPageFooter from './projects/bbtt/components/MandatoryComponents/Footer';
+// import PortPageFooter from './projects/bbtt/components/MandatoryComponents/Footer';
 
 export default {
   data() {
@@ -27,18 +30,37 @@ export default {
       isPathInPortfolio: true,
     }
   },
-  watch: {
-    $router: function() {
-      var path = (this.$router.history.current.name).split("-");
-      console.log(path);
-      if (path[0] === "bbtt")  this.isPathInPortfolio = false;
-      else                     this.isPathInPortfolio = true;
-    }
-  },
   components: {
-    PageHeader,
-    PageFooter
+    BBTTPageHeader,
+    PortPageHeader,
+    BBTTPageFooter
   },
+  updated() {
+    console.log(`this.$router.history.current.name: ${this.$router.history.current.name}`);
+    console.log(this.$router);
+    var path = (this.$router.history.current.name).split("-");
+    console.log(`path: ${path}`);
+    if (path[0] === "bbtt")  this.isPathInPortfolio = false;
+    else                     this.isPathInPortfolio = true;
+  },
+    // watch: {
+    //   '$router' (to, from) {
+    //     var path = (this.$router.history.current.name).split("-");
+    //     console.log(`this.$router.history.current.name: ${this.$router.history.current.name}`);
+    //     console.log(`path: ${path}`);
+    //     console.log(`to: ${to}`);
+    //     console.log(`from: ${from}`);
+    //     if (path[0] === "bbtt")  this.isPathInPortfolio = false;
+    //     else                     this.isPathInPortfolio = true;
+  
+    //   }
+    //   // $router: function() {
+    //   //   var path = (this.$router.history.current.name).split("-");
+    //   //   console.log(`path: ${path}`);
+    //   //   if (path[0] === "bbtt")  this.isPathInPortfolio = false;
+    //   //   else                     this.isPathInPortfolio = true;
+    //   // }
+    // },
 }
 </script>
 
