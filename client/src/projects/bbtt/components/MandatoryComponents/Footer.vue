@@ -6,7 +6,7 @@
             cols="12"
             style="color:white;"  
         >
-            {{ new Date().getFullYear() }} — <strong>Busy Biscuits Online</strong>
+            {{ new Date().getFullYear() }} — <strong>Busy Biscuits Time Tracker</strong>
         </v-col>
     </v-footer>
 </template>

@@ -56,9 +56,6 @@
                     <v-list-item-title class="title">
                         {{ drawerHeader }}
                     </v-list-item-title>
-                    <!-- <v-list-item-subtitle>
-                        Track your day!
-                    </v-list-item-subtitle> -->
                 </v-list-item-content>
             </v-list-item>
 

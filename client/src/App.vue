@@ -12,7 +12,8 @@
       </v-main>
 
       <!-- THE FOOTER -->
-      <BBTTPageFooter /> 
+      <PortPageFooter v-if='isPathInPortfolio' />
+      <BBTTPageFooter v-else /> 
          
     </v-app>
   </div>
@@ -20,9 +21,9 @@
 
 <script>
 import PortPageHeader from './components/MandatoryComponents/Header';
+import PortPageFooter from './components/MandatoryComponents/Footer';
 import BBTTPageHeader from './projects/bbtt/components/MandatoryComponents/Header';
 import BBTTPageFooter from './projects/bbtt/components/MandatoryComponents/Footer';
-// import PortPageFooter from './projects/bbtt/components/MandatoryComponents/Footer';
 
 export default {
   data() {
@@ -33,7 +34,8 @@ export default {
   components: {
     BBTTPageHeader,
     PortPageHeader,
-    BBTTPageFooter
+    BBTTPageFooter,
+    PortPageFooter,
   },
   updated() {
     console.log(`this.$router.history.current.name: ${this.$router.history.current.name}`);
