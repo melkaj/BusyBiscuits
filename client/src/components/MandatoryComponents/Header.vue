@@ -2,7 +2,7 @@
     <div>
 
         <!-- THE TOOLBAR ITSELF -->
-        <v-app-bar dense :color="color" app dark>
+        <v-app-bar flat dense :color="color" app dark>
             <!-- The side bar -->
             <v-app-bar-nav-icon @click="drawer = !drawer">BB</v-app-bar-nav-icon>
             

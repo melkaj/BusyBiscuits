@@ -1,11 +1,20 @@
 <template> 
-    <v-container v-if="isDataLoaded" class="fill-height" style="background:black;" fluid>
-        <v-row class="landing-intro">
+    <v-container v-if="isDataLoaded" fluid class="fill-height" style="background:black;">
+        <v-row justify="center" align="center" class="landing-intro">
             <h1>
-                HELLO
+                HELLO,<br/>
+                I'M MELDIN!
             </h1>
         </v-row>
 
+        <v-row justify="center" align="center" class="landing-background"> 
+            <h1>
+                HELLO,<br/>
+                I'M MELDIN!
+            </h1>
+        </v-row>
+        
+        
         <v-row style="background:red;">
             <v-col cols=12>
                 <v-card flat class="fill-height">
@@ -54,6 +63,13 @@ export default {
 
 <style scoped>
 .landing-intro {
+    height: 95vh;
+    color: white;
+    background: #116466;
+}
+.landing-background {
     height: 100vh;
+    color: white;
+    background: #B34400;
 }
 </style>
