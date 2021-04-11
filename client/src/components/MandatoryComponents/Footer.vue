@@ -1,6 +1,6 @@
 <template>
     <!-- THE FOOTER -->
-    <v-footer padless color="#116466">
+    <v-footer padless :color="color">
         <v-col
             class="text-center"
             cols="12"
@@ -12,16 +12,21 @@
 </template>
 
 <script>
-
 export default {
     date() {
         return {
-            padless: false,
+            padless: true,
+            color: null,
         }
+    },
+    created() {
+        this.color = this.$store.getters.getHeaderFooterColor;
+        console.log(this.color);
     }
 }
 </script>
 
 <!-- scoped makes sure no other vue comonent can see these styles -->
 <style scoped>
+/* #116466 */
 </style>

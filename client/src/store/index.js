@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     root: 24,
     currentPath: null,
+    headerFooterColor: "#300070"
   },
 
   mutations: {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     getCurrentPath(state) {
       return state.currentPath;
+    },
+    getHeaderFooterColor(state) {
+      return state.headerFooterColor;
     }
   },
 

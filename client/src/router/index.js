@@ -45,7 +45,20 @@ const routes = [
     path: '/bbtt/home',
     name: 'bbtt-home',
     component: HomePage
-  }
+  },
+
+
+
+  // {
+  //   path: '/bbtt/login',
+  //   name: 'bbtt-login',
+  //   component: Login
+  // },
+  // {
+  //   path: '/bbtt/home',
+  //   name: 'bbtt-home',
+  //   component: HomePage
+  // },
   // {
   //   path: '/about',
   //   name: 'About',

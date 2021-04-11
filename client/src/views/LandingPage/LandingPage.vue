@@ -1,13 +1,29 @@
-<template>        
-    <v-card v-if='isDataLoaded' flat class="fill-height">
+<template> 
+    <v-container v-if="isDataLoaded" class="fill-height" style="background:black;" fluid>
+        <v-row class="landing-intro">
+            <h1>
+                HELLO
+            </h1>
+        </v-row>
 
-        <h1>HELLO FROM LANDINGPAGE</h1>
-        <h2>{{ this.bbttVar }}</h2>
-        <h2>{{ this.rootVar }}</h2>
+        <v-row style="background:red;">
+            <v-col cols=12>
+                <v-card flat class="fill-height">
 
-        <v-btn @click='inc'>Clickme</v-btn>
+                    <h1>HELLO FROM LANDINGPAGE</h1>
+                    <h2>{{ this.bbttVar }}</h2>
+                    <h2>{{ this.rootVar }}</h2>
 
-    </v-card>
+                    <v-btn @click='inc'>Clickme</v-btn>
+
+                </v-card>
+            </v-col>
+        </v-row>   
+
+        <v-row style="background:blue;">
+            <h1>HELLO</h1>
+        </v-row>   
+    </v-container>
 </template>
 
 <script>
@@ -37,20 +53,7 @@ export default {
 </script>
 
 <style scoped>
-.form-card-heading {
-    background: #116466;
-    color:white !IMPORTANT;
-}
-.form-border {
-    border-left: 2px solid #116466; 
-    border-bottom: 2px solid #116466; 
-    border-right: 2px solid #116466;
-}
-.tab-font {
-    font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight: lighter;
-}
-.tab-colors {
-    background-color: #80c0ff;
+.landing-intro {
+    height: 100vh;
 }
 </style>

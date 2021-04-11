@@ -14,6 +14,12 @@
       <!-- THE FOOTER -->
       <PortPageFooter v-if='isPathInPortfolio' />
       <BBTTPageFooter v-else /> 
+      <!-- <div v-if='isPathInPortfolio' style="position:absolute; bottom:0;">
+        <PortPageFooter />
+      </div>
+      <div v-else>
+        <BBTTPageFooter /> 
+      </div> -->
          
     </v-app>
   </div>
@@ -37,32 +43,22 @@ export default {
     BBTTPageFooter,
     PortPageFooter,
   },
-  updated() {
-    console.log(`this.$router.history.current.name: ${this.$router.history.current.name}`);
-    console.log(this.$router);
-    var path = (this.$router.history.current.name).split("-");
-    console.log(`path: ${path}`);
-    if (path[0] === "bbtt")  this.isPathInPortfolio = false;
-    else                     this.isPathInPortfolio = true;
+  methods: {
+    checkPath() {
+      console.log(`this.$router.history.current.name: ${this.$router.history.current.name}`);
+      console.log(this.$router);
+      var path = (this.$router.history.current.name).split("-");
+      console.log(`path: ${path}`);
+      if (path[0] === "bbtt")  this.isPathInPortfolio = false;
+      else                     this.isPathInPortfolio = true;
+    }
   },
-    // watch: {
-    //   '$router' (to, from) {
-    //     var path = (this.$router.history.current.name).split("-");
-    //     console.log(`this.$router.history.current.name: ${this.$router.history.current.name}`);
-    //     console.log(`path: ${path}`);
-    //     console.log(`to: ${to}`);
-    //     console.log(`from: ${from}`);
-    //     if (path[0] === "bbtt")  this.isPathInPortfolio = false;
-    //     else                     this.isPathInPortfolio = true;
-  
-    //   }
-    //   // $router: function() {
-    //   //   var path = (this.$router.history.current.name).split("-");
-    //   //   console.log(`path: ${path}`);
-    //   //   if (path[0] === "bbtt")  this.isPathInPortfolio = false;
-    //   //   else                     this.isPathInPortfolio = true;
-    //   // }
-    // },
+  updated() {
+    this.checkPath();
+  },
+  mounted() {
+    this.checkPath();
+  }
 }
 </script>
 
@@ -75,5 +71,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #116466;
+  // position: relative;
 }
 </style>
