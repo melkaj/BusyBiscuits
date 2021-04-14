@@ -52,9 +52,8 @@
         <!-- THE DRAWER WITH OTHER LINKS -->
         <v-navigation-drawer
         v-model="drawer"
-        absolute
         temporary
-        app
+        app 
         >
             <!-- THE HEADER OF THE DRAWER -->
             <v-list-item>

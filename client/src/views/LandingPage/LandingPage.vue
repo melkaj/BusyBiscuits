@@ -1,21 +1,23 @@
 <template> 
-    <v-container v-if="isDataLoaded" fluid class="fill-height" style="background:black;">
-        <v-row justify="center" align="center" class="landing-intro">
-            <h1>
+    <v-container v-if="isDataLoaded" fluid class="fill-height whole-container">
+
+        <v-row justify="center" align="center" class="landing-intro clip-pos">
+            <h1 class="heading-font">
+                (STILL IN DEVELOPEMENT)<br/>
                 HELLO,<br/>
                 I'M MELDIN!
             </h1>
         </v-row>
 
-        <v-row justify="center" align="center" class="landing-background"> 
-            <h1>
-                HELLO,<br/>
-                I'M MELDIN!
+        <v-row justify="center" align="center" class="landing-intro clip-neg"> 
+            <h1 class="heading-font">
+                I am a recent graduate<br/> 
+                and an aspiring software engineer<br/>
             </h1>
         </v-row>
         
         
-        <v-row style="background:red;">
+        <!-- <v-row style="background:red;">
             <v-col cols=12>
                 <v-card flat class="fill-height">
 
@@ -27,11 +29,7 @@
 
                 </v-card>
             </v-col>
-        </v-row>   
-
-        <v-row style="background:blue;">
-            <h1>HELLO</h1>
-        </v-row>   
+        </v-row>    -->
     </v-container>
 </template>
 
@@ -62,14 +60,29 @@ export default {
 </script>
 
 <style scoped>
+.whole-container {
+    background: #333333;
+}
 .landing-intro {
     height: 95vh;
-    color: white;
-    background: #116466;
+    color: #333333;
+    background: #D5F1FC;
+    /* clip-path: polygon(0 5%, 100% 15%, 100% 85%, 0 95%); */
 }
-.landing-background {
+.clip-pos {
+    /* Top left going down || Top right going down || Bottom right going up || Bottom left going up */
+    clip-path: polygon(0 5%, 100% 15%, 100% 85%, 0 95%);
+}
+.clip-neg {
+    /* Top left going down || Top right going down || Bottom right going up || Bottom left going up */
+    clip-path: polygon(0 15%, 100% 5%, 100% 95%, 0 85%);
+}
+/* .landing-background {
     height: 100vh;
-    color: white;
-    background: #B34400;
+    color: #D5F1FC;
+} */
+.heading-font {
+    font-size: 3rem;
 }
+/* #116466 */
 </style>
