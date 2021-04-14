@@ -126,13 +126,13 @@
                 </v-row>
 
                 <v-row align="center" justify="center">
-                    <v-col cols="12" sm="8">
+                    <v-col cols="12" sm="8" class="center-element">
                         <v-card-text :class="setMessageColor">
                             {{message}}
                         </v-card-text>
                     </v-col>
                     
-                    <v-col cols="12" sm="4">
+                    <v-col cols="12" sm="4" class="center-element">
                         <v-btn 
                         text
                         depressed

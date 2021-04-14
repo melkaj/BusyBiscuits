@@ -3,7 +3,7 @@
         
 <!-- THE DATE PICKER -->
         <v-row align="center" justify="center">
-            <v-col cols="8">
+            <v-col cols="8" class="center-element">
                 <v-date-picker
                     v-model="dates"
                     color="#116466"
@@ -15,7 +15,7 @@
 
 <!-- BUTTON TO GET THE DATA AND CREATE THE GRAPHS -->
         <v-row align="center" justify="center">
-            <v-col cols="12">
+            <v-col cols="12" class="center-element">
                 <v-btn 
                 text
                 depressed

@@ -64,4 +64,8 @@ export default {
   color: #116466;
   // position: relative;
 }
+.center-element {
+    display: flex;
+    justify-content: center;
+}
 </style>

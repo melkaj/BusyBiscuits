@@ -50,7 +50,7 @@
             <v-form ref="form">
 
                 <v-row align="center" justify="center">
-                    <v-col cols="8" md="3">
+                    <v-col cols="8" md="3" class="center-element">
                         <v-text-field
                             v-model="date"
                             label="YYYY-MM-DD"
@@ -59,7 +59,7 @@
                             required
                         ></v-text-field>
                     </v-col>
-                    <v-col cols="8" md="3">
+                    <v-col cols="8" md="3" class="center-element">
                         <v-btn 
                         text
                         depressed
