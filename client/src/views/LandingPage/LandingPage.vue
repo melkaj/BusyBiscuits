@@ -82,7 +82,8 @@ export default {
     color: #D5F1FC;
 } */
 .heading-font {
-    font-size: 3rem;
+    font-size: 5.9vw;
+    margin: auto;
 }
 /* #116466 */
 </style>

@@ -130,7 +130,7 @@
 
                 <v-row align="center" justify="center">
                     <v-col cols="8" sm="8">
-                        <v-card-text :class="setMessageColor">
+                        <v-card-text :class="setMessageColor" class="center-element">
                             {{message}}
                         </v-card-text>
                     </v-col>
@@ -310,5 +310,9 @@ export default {
     border-left: 2px solid #116466; 
     border-bottom: 2px solid #116466; 
     border-right: 2px solid #116466;
+}
+.center-element {
+  display: flex;
+  justify-content: center;
 }
 </style>

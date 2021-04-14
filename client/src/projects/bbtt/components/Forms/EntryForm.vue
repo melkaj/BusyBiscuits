@@ -127,7 +127,7 @@
 
                 <v-row align="center" justify="center">
                     <v-col cols="12" sm="8" class="center-element">
-                        <v-card-text :class="setMessageColor">
+                        <v-card-text :class="setMessageColor" class="center-element">
                             {{message}}
                         </v-card-text>
                     </v-col>
@@ -283,5 +283,9 @@ export default {
 }
 .dialog-font-color {
     color:#116466 !IMPORTANT;
+}
+.center-element {
+  display: flex;
+  justify-content: center;
 }
 </style>

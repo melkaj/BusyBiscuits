@@ -3,12 +3,12 @@
 
         <!-- Pie Chart -->
         <v-row no-gutters>
-            <v-col sm="7" class="ma-auto py-3">
+            <v-col sm="7" class="ma-auto py-3 center-element">
                 <v-card flat>
                     <v-card-title class="justify-center chart-title mb-2">
                         {{ title }}
                     </v-card-title>
-                    <v-card-subtitle>
+                    <v-card-subtitle class="center-element">
                         {{ subTitle }}
                     </v-card-subtitle>
                     <canvas :class='graphName'></canvas>
@@ -110,5 +110,9 @@ export default {
     font-weight: lighter;
     font-size: 28px;
     color: #116466;
+}
+.center-element {
+  display: flex;
+  justify-content: center;
 }
 </style>

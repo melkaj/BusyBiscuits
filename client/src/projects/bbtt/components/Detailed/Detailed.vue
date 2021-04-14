@@ -71,7 +71,7 @@
 <!-- WHERE THE ERRORS WILL SHOW -->
         <v-row align="center" justify="center">
             <v-col cols="12">
-                <v-card-text class="error-text">
+                <v-card-text class="error-text center-element">
                     {{ message }}
                 </v-card-text>
             </v-col>
@@ -267,5 +267,9 @@ export default {
 }
 .dialog-font-color {
     color:#116466 !IMPORTANT;
+}
+.center-element {
+  display: flex;
+  justify-content: center;
 }
 </style>
