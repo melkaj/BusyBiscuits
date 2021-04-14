@@ -3,8 +3,8 @@
     <v-app>
       
       <!-- TOOLBAR AT THE TOP OF EVERY PAGE -->
-      <PortPageHeader v-if='isPathInPortfolio' />
-      <BBTTPageHeader v-else />
+      <BBTTPageHeader v-if='isPathInTimeTracker' />
+      <PortPageHeader v-else />
 
       <!-- CONTENT OF THE PAGE (THE MIDDLE, INBETWEEN THE TOOLBAR AND THE FOOTER) -->
       <v-main>
@@ -12,14 +12,8 @@
       </v-main>
 
       <!-- THE FOOTER -->
-      <PortPageFooter v-if='isPathInPortfolio' />
-      <BBTTPageFooter v-else /> 
-      <!-- <div v-if='isPathInPortfolio' style="position:absolute; bottom:0;">
-        <PortPageFooter />
-      </div>
-      <div v-else>
-        <BBTTPageFooter /> 
-      </div> -->
+      <BBTTPageFooter v-if='isPathInTimeTracker' /> 
+      <PortPageFooter v-else />
          
     </v-app>
   </div>
@@ -34,7 +28,7 @@ import BBTTPageFooter from './projects/bbtt/components/MandatoryComponents/Foote
 export default {
   data() {
     return {
-      isPathInPortfolio: true,
+      isPathInTimeTracker: true,
     }
   },
   components: {
@@ -45,12 +39,9 @@ export default {
   },
   methods: {
     checkPath() {
-      console.log(`this.$router.history.current.name: ${this.$router.history.current.name}`);
-      console.log(this.$router);
       var path = (this.$router.history.current.name).split("-");
-      console.log(`path: ${path}`);
-      if (path[0] === "bbtt")  this.isPathInPortfolio = false;
-      else                     this.isPathInPortfolio = true;
+      if (path[0] === "bbtt")  this.isPathInTimeTracker = true;
+      else                     this.isPathInTimeTracker = false;
     }
   },
   updated() {

@@ -21,7 +21,6 @@ export default {
     },
     created() {
         this.color = this.$store.getters.getHeaderFooterColor;
-        console.log(this.color);
     }
 }
 </script>

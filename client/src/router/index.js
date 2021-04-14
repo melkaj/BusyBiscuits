@@ -12,21 +12,12 @@ const routes = [
    * BUSYBISCUITS PORTFOLIO
    */
   {
-    path: '/portfolio/home',
+    path: '/',
     name: 'port-home',  
     component: LandingPage     
   },
-  {
-    path: '/portfolio/register',
-    name: 'port-register',
-    component: Register
-  },
-  {
-    path: '/portfolio/login',
-    name: 'port-login',
-    component: Login
-  },
 
+  
 
   /**
    * BUSYBISCUITS TIME TRACKER 
@@ -47,6 +38,26 @@ const routes = [
     component: HomePage
   },
 
+
+
+  //   /**
+  //  * BUSYBISCUITS PORTFOLIO
+  //  */
+  // {
+  //   path: '/portfolio/home',
+  //   name: 'port-home',  
+  //   component: LandingPage     
+  // },
+  // {
+  //   path: '/portfolio/register',
+  //   name: 'port-register',
+  //   component: Register
+  // },
+  // {
+  //   path: '/portfolio/login',
+  //   name: 'port-login',
+  //   component: Login
+  // },
 
 
   // {
