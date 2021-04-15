@@ -25,7 +25,8 @@
                 <h1 class="heading-font">
                     SOME PROJECTS I WORKED ON!
                 </h1>
-                <p>CARROSEL</p>
+                <!-- <p>CARROSEL</p> -->
+                <ProjectCards :projects="projects"/>
             </div>
         </v-row>
 
@@ -48,6 +49,7 @@
 
 <script>
 // @ is an alias to /src
+import ProjectCards from '../../components/LandingPageComponents/ProjectCards.vue';
 
 export default {
     name: 'LandingPage',
@@ -56,7 +58,33 @@ export default {
             isDataLoaded: true,
             bbttVar: this.$store.getters['bbtt/getbbtt'],
             rootVar: this.$store.getters['getRoot'],
+            projects: [
+                { 
+                    title: "BusyBiscuits Time Tracker", 
+                    content: `BBTT is a full stack application that tracks and 
+                            visualizes time spent throughout the day. The user can create an 
+                            entry based on how many hours were spent on various tasks (i.e. 
+                            traveling, sleeping, etc.). Then graphs are generated to give a visual 
+                            understanding of where their time is spent. I noticed I become far more
+                            productive when I plan my day by the hour. So, I thought it would be cool
+                            to create and application to take it one step further while also honing 
+                            my full-stack skills`
+                },
+                { 
+                    title: "BusyBiscuits Database", 
+                    content: `BBD is a budget database built in C++. Data is stored on a text file when the 
+                            application is not running. But during runtime, the data is offloaded into a 
+                            custom datastructure that allows the user to perform CRUD operations. The 
+                            datastructure is a hash table where each element is the root of a binary tree.
+                            I wanted to get a better lower level understanding of certain structures so 
+                            I created this project to do so. Also, it helped to develop a more robust 
+                            comprehension of C++ and OOP.` 
+                },
+            ]
         }
+    },
+    components: {
+        ProjectCards
     },
     methods: {
         inc() {
@@ -93,7 +121,8 @@ export default {
 .heading-font {
     font-family: "Montserrat-Bold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 3vw;
-    margin: 4vw;
+    margin: 2vw;
+    /* padding: 4vw; */
 }
 .text-margin {
     margin: 4vw;
