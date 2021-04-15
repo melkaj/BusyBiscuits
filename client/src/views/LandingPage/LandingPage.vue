@@ -2,21 +2,34 @@
     <v-container v-if="isDataLoaded" fluid class="fill-height whole-container">
 
         <v-row justify="center" align="center" class="landing-intro clip-pos">
-            <h1 class="heading-font">
-                (STILL IN DEVELOPEMENT)<br/>
-                HELLO,<br/>
-                I'M MELDIN!
-            </h1>
+            <div>
+                <h1 class="heading-font">
+                    HELLO,<br/>
+                    I'M MELDIN!
+                </h1>
+            </div>
         </v-row>
 
         <v-row justify="center" align="center" class="landing-intro clip-neg"> 
-            <h1 class="heading-font">
-                I am a recent graduate<br/> 
-                and an aspiring software engineer<br/>
-            </h1>
+            <div class="text-margin">
+                <h1 class="heading-font">
+                    I AM A RECENT GRADUATE<br/> 
+                    AND AN ASPIRING SOFTWARE ENGINEER<br/>
+                </h1>
+                <p>This is my portfolio website and would like to showcase some of my projects!</p>
+            </div>
         </v-row>
         
-        
+        <v-row justify="center" align="center" class="landing-intro clip-pos"> 
+            <div class="text-margin">
+                <h1 class="heading-font">
+                    SOME PROJECTS I WORKED ON!
+                </h1>
+                <p>CARROSEL</p>
+            </div>
+        </v-row>
+
+
         <!-- <v-row style="background:red;">
             <v-col cols=12>
                 <v-card flat class="fill-height">
@@ -77,13 +90,37 @@ export default {
     /* Top left going down || Top right going down || Bottom right going up || Bottom left going up */
     clip-path: polygon(0 15%, 100% 5%, 100% 95%, 0 85%);
 }
-/* .landing-background {
-    height: 100vh;
-    color: #D5F1FC;
-} */
 .heading-font {
-    font-size: 5.9vw;
-    margin: auto;
+    font-family: "Montserrat-Bold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 3vw;
+    margin: 4vw;
+}
+.text-margin {
+    margin: 4vw;
+}
+@media screen and (min-width: 701px) {                            /* LARGE */
+    .heading-font {
+        font-size: 2.5vw;
+    }
+    p {
+        font-size: 2vw;
+    }
+}
+@media screen and (min-width: 401px) and (max-width: 700px) {     /* MEDIUM */
+    .heading-font {
+        font-size: 4vw;
+    }
+    p {
+        font-size: 2.5vw;
+    }
+}
+@media screen and (max-width: 400px) {                            /* SMALL */
+    .heading-font {
+        font-size: 5vw;
+    }
+    p {
+        font-size: 3.5vw;
+    }
 }
 /* #116466 */
 </style>
