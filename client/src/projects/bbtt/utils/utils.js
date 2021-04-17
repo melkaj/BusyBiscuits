@@ -323,6 +323,7 @@ function getGraphTitle(dates) {
 }
 
 
+
 module.exports = {
     getBackgroundColors,
     getBorderColors,

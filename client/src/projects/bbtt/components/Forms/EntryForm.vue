@@ -157,6 +157,7 @@
 // import EntryFormHeader from './SubFormHeaders/EntryFormHeader.vue';
 import Services from '../../services/services';
 const { GetSQLDateFormat } = require('../../utils/utils');
+const { populateDatabase } = require('../../utils/databaseutils');
 
 export default {
     name: 'FormTimeSpent',
@@ -188,6 +189,9 @@ export default {
     components: {
         // EntryFormHeader,
     },
+    mounted() {
+        populateDatabase();
+    },
     computed: {
         setMessageColor() {
             return this.isSuccess ? 'form-success' : 'form-failed';
@@ -198,7 +202,7 @@ export default {
             if (this.isTodayCheckbox)
             {
                 var latestEntryDate = this.$store.getters.getDates[0];
-                this.date =           GetSQLDateFormat(new Date().toLocaleString());    
+                this.date =           GetSQLDateFormat(new Date().toLocaleString());
             }
             console.log(`this.date: ${this.date}`);
             if (latestEntryDate !== this.date)  await this.isTotalHoursValid(); 
@@ -244,7 +248,7 @@ export default {
             }
             
             // Adding the form to the store
-            if (this.isTodayCheckbox)  this.date = GetSQLDateFormat(new Date().toLocaleString()); 
+            if (this.isTodayCheckbox)  this.date = GetSQLDateFormat(new Date().toLocaleString());
             this.$store.dispatch('addNewTimeSpentEntryToFront', { date: this.date, data: form });
             
             // Adding date to the form

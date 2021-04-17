@@ -28,7 +28,7 @@ import BBTTPageFooter from './projects/bbtt/components/MandatoryComponents/Foote
 export default {
   data() {
     return {
-      isPathInTimeTracker: true,
+      isPathInTimeTracker: false,
     }
   },
   components: {

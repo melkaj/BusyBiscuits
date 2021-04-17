@@ -4,6 +4,7 @@ import Login from '../projects/bbtt/views/login/Login.vue';
 import Register from '../projects/bbtt/views/register/Register.vue';
 import HomePage from '../projects/bbtt/views/Home/Home.vue';
 import LandingPage from '../views/LandingPage/LandingPage.vue';
+import FourZeroFour from '../components/404/404.vue';
 
 Vue.use(VueRouter);
 
@@ -37,6 +38,13 @@ const routes = [
     name: 'bbtt-home',
     component: HomePage
   },
+
+
+  {
+    path: '*',
+    name: '404',
+    component: FourZeroFour,
+  }
 
 
 

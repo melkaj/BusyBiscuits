@@ -24,6 +24,7 @@ export default {
      * @param {Object} form 
      */
     sendTimeSpentForm(form) {
+        console.log(`form: ${form}`);
         return Api().post('/forms', form);
     },
 
