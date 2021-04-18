@@ -157,7 +157,7 @@
 // import EntryFormHeader from './SubFormHeaders/EntryFormHeader.vue';
 import Services from '../../services/services';
 const { GetSQLDateFormat } = require('../../utils/utils');
-const { populateDatabase } = require('../../utils/databaseutils');
+// const { populateDatabase } = require('../../utils/databaseutils');
 
 export default {
     name: 'FormTimeSpent',
@@ -190,7 +190,11 @@ export default {
         // EntryFormHeader,
     },
     mounted() {
-        populateDatabase();
+        // Initializing the mock database. 
+        this.$store.dispatch('bbttDatabase/initializeDatabase');      
+        let database = this.$store.getters['bbttDatabase/getDatabase'];
+        console.log(database)
+        console.log(Object.keys(database))
     },
     computed: {
         setMessageColor() {
@@ -202,7 +206,7 @@ export default {
             if (this.isTodayCheckbox)
             {
                 var latestEntryDate = this.$store.getters.getDates[0];
-                this.date =           GetSQLDateFormat(new Date().toLocaleString());
+                this.date           = GetSQLDateFormat(new Date().toLocaleString());
             }
             console.log(`this.date: ${this.date}`);
             if (latestEntryDate !== this.date)  await this.isTotalHoursValid(); 

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 const bbtt = require('../projects/bbtt/store');
+const bbttDatabase = require('../projects/bbtt/store/database.js');
 // import Services from '../services/services';
 // const { extractDatesAndData, extractLineChartData } = require('../utils/utils');
 
@@ -44,6 +45,7 @@ export default new Vuex.Store({
   },
 
   modules: {
-    bbtt: bbtt.default
+    bbtt: bbtt.default,
+    bbttDatabase: bbttDatabase.default,
   }
 })
