@@ -8,6 +8,9 @@ const mutations = {
     initializeDatabase(state, data){
         state.database = data;
     },
+    updateDatabase(state, database) {
+        state.database = database;
+    },
     insertEntryIntoDatabase(state, newEntry) {
         let key = Object.keys(newEntry)[0];
         state.database[key] = newEntry[key];
@@ -18,6 +21,9 @@ const actions = {
     initializeDatabase(context) {
         const data = populateDatabase();
         context.commit('initializeDatabase', data);
+    },
+    updateDatabase(context, payload) {
+        context.commit('updateDatabase', payload);
     },
     insertEntryIntoDatabase(context, payload) {
         context.commit('insertEntryIntoDatabase', payload);
@@ -31,7 +37,6 @@ const getters = {
     getLastSevenEntries(state) {
         return lastSevenEntries(state.database);
     },
-    // getEntryByDate(state)
 };
 
 export default {

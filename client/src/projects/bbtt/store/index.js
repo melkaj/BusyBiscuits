@@ -75,9 +75,11 @@ const actions = {
   },
 
   // Adding data to front of the data and date states
-  addNewTimeSpentEntryToFront(context, payload) {
-    context.commit('addDataToFront', payload.data);
-    context.commit('addDateToFrontOfDates', payload.date);
+  addNewTimeSpentEntryToFront({ commit, rootGetters }, payload) {
+    const dates = rootGetters['bbtt/getDates'];
+
+    if (!(dates.includes(payload.date)))  commit('addDateToFrontOfDates', payload.date);
+    commit('addDataToFront', payload.data);
   },
 
   //Getting line chart data for week of each category

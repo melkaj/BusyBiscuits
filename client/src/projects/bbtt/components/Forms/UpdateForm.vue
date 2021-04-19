@@ -154,8 +154,8 @@
 
 <script>
 // @ is an alias to /src
-import Services from '../../services/services';
-const { ValidateDate, getCorrectDateFromUser }   = require('../../utils/utils');
+// import Services from '../../services/services';
+const { ValidateDate, getCorrectDateFromUser, compareDates }   = require('../../utils/utils');
 // const { getEntryByDate } = require('../../utils/databaseutils.js');
 
 export default {
@@ -178,11 +178,12 @@ export default {
             message:             '',
             messageResponses: {
                 invalidHours:    "The total number of hours must be between 0 and 24",
-                success:         "Form was submitted",
+                success:         "Entry was updated",
                 entryNotFound:   "Entry was not found. Double check your input",
                 invaliddate:     "Date entered was invalid",
                 alreadyPosted:   "Already posted for today, wait until tomorrow",
                 dataNotModified: "Entry is unchanged or invalid",
+                error:           "Something went wrong"
             }
         }
     },
@@ -204,12 +205,12 @@ export default {
             {
                 this.isSuccess = true;  this.message = null;
 
-                const formattedDate = getCorrectDateFromUser(this.date);
-                const doesExist     = this.doesEntryExist(formattedDate);
+                this.date           = getCorrectDateFromUser(this.date);
+                const doesExist     = this.doesEntryExist(this.date);
                 
                 if (doesExist)
                 {
-                    const entryForm = this.$store.getters['bbttDatabase/getDatabase'][formattedDate];
+                    const entryForm = this.$store.getters['bbttDatabase/getDatabase'][this.date];
 
                     // Displaying the rest of the form if the response is valid
                     this.isEntryLoaded = true;    
@@ -261,12 +262,14 @@ export default {
 
             this.updateEntry()
             .then( res => {
+                console.log(res);
                 this.isSuccess = true;
-                this.message =   res.data;
+                this.message   = this.messageResponses.success;
             })
             .catch( error => {
+                console.log(error);
                 this.isSuccess = false;
-                this.message =   error.response.data;
+                this.message   = this.messageResponses.error;
             });
         },
         async updateEntry() {
@@ -283,10 +286,38 @@ export default {
             
             // Adding the form to the store
             var date = this.date; 
-            this.$store.dispatch('bbtt/addNewTimeSpentEntryToFront', { date: date, data: form });
+            let recentDates = this.$store.getters['bbtt/getDates'];
+            recentDates.sort();
 
             // Pushing the form data to the database
-            return await Services.updateEntry({ date: date, updatedForm: form });
+            // return await Services.updateEntry({ date: date, updatedForm: form });
+            const response = await this.updateDatabase(form);
+            
+            if (compareDates(recentDates[0], date)) 
+            {
+                this.$store.dispatch('bbtt/addNewTimeSpentEntryToFront', { date: date, data: form });
+                this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 
+            }
+
+            return response;
+
+        },
+        updateDatabase(newEntry) {
+            console.log(newEntry);
+            return new Promise( (resolve, reject) => {
+                try {
+                    let database = this.$store.getters['bbttDatabase/getDatabase'];
+                    
+                    database[this.date] = newEntry;
+
+                    this.$store.dispatch('bbttDatabase/updateDatabase', database);
+                    resolve(201);
+                }
+                catch(err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
         },
         doesEntryExist(date) {
             // return new Promise( (resolve, reject) => {
