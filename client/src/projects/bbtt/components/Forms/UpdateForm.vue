@@ -155,7 +155,8 @@
 <script>
 // @ is an alias to /src
 import Services from '../../services/services';
-const { ValidateDate } = require('../../utils/utils');
+const { ValidateDate, getCorrectDateFromUser }   = require('../../utils/utils');
+// const { getEntryByDate } = require('../../utils/databaseutils.js');
 
 export default {
     name: 'FormTimeSpent',
@@ -191,7 +192,7 @@ export default {
         },
     },
     methods: {
-        async getEntryFormBasedOnDate() {
+        getEntryFormBasedOnDate() {
             if (!this.validateDate())
             {
                 this.isSuccess = false;
@@ -202,27 +203,30 @@ export default {
             else
             {
                 this.isSuccess = true;  this.message = null;
-                const entryForm = await Services.getEntryByDate({ date: this.date });
+
+                const formattedDate = getCorrectDateFromUser(this.date);
+                const doesExist     = this.doesEntryExist(formattedDate);
                 
-                // If nothing was returned back, then output a message
-                if (Object.keys(entryForm.data).length === 0)
+                if (doesExist)
+                {
+                    const entryForm = this.$store.getters['bbttDatabase/getDatabase'][formattedDate];
+
+                    // Displaying the rest of the form if the response is valid
+                    this.isEntryLoaded = true;    
+                    this.sleep =         entryForm.sleep;
+                    this.travel =        entryForm.travel;
+                    this.exercise =      entryForm.exercise;
+                    this.on_phone =      entryForm.on_phone;
+                    this.on_computer =   entryForm.on_computer;
+                    this.games =         entryForm.games;
+      
+                    this.formerEntry =   entryForm;
+                }
+                else
                 {
                     this.isSuccess=false;  
                     this.isEntryLoaded = false;               
                     this.message = this.messageResponses.entryNotFound; 
-                }
-                else
-                {
-                    // Displaying the rest of the form if the response is valid
-                    this.isEntryLoaded = true;    
-                    this.sleep =         entryForm.data.sleep;
-                    this.travel =        entryForm.data.travel;
-                    this.exercise =      entryForm.data.exercise;
-                    this.on_phone =      entryForm.data.on_phone;
-                    this.on_computer =   entryForm.data.on_computer;
-                    this.games =         entryForm.data.games;
-      
-                    this.formerEntry =   entryForm.data;
                 }
             }
         },
@@ -284,6 +288,18 @@ export default {
             // Pushing the form data to the database
             return await Services.updateEntry({ date: date, updatedForm: form });
         },
+        doesEntryExist(date) {
+            // return new Promise( (resolve, reject) => {
+            const database = this.$store.getters['bbttDatabase/getDatabase'];
+            if (Object.prototype.hasOwnProperty.call(database, date)) 
+            {
+                console.log(database[date]);
+                return true;
+            }
+            console.log("404 ENTRY NOT FOUND");
+            return false;
+            // });
+        }
     },
 }
 </script>

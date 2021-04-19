@@ -156,7 +156,7 @@
 // @ is an alias to /src
 // import EntryFormHeader from './SubFormHeaders/EntryFormHeader.vue';
 // import Services from '../../services/services';
-const { GetSQLDateFormat, compareDates } = require('../../utils/utils');
+const { GetSQLDateFormat, getCorrectDateFromUser, compareDates } = require('../../utils/utils');
 // const { populateDatabase } = require('../../utils/databaseutils');
 
 export default {
@@ -208,6 +208,8 @@ export default {
                 var latestEntryDate = this.$store.getters['bbtt/getDates'][0];
                 this.date           = GetSQLDateFormat(new Date().toLocaleString());
             }
+            else  this.date = getCorrectDateFromUser(this.date);
+
             console.log(`latestEntryDate: ${latestEntryDate}`);
             console.log(`this.date: ${this.date}`);
             if (latestEntryDate !== this.date)  await this.isTotalHoursValid(); 
@@ -230,13 +232,13 @@ export default {
             this.sendTimeSpentForm()
             .then( res => {
                 this.isSuccess = true;
-                this.message =   res;
+                this.message   = res;
                 // Redirect back to dashboard
                 // this.$router.push('home');
             })
             .catch( error => {
                 this.isSuccess = false;
-                this.message =   error;
+                this.message   = error;
             });
         },
         sendTimeSpentForm() {

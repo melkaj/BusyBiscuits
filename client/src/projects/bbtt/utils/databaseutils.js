@@ -109,8 +109,18 @@ function lastSevenEntries(database) {
 
 
 
+/**
+ * 
+ */
+function getEntryByDate(date) {
+    console.log(date);
+}
+
+
+
 module.exports = {
     populateDatabase,
     getDatesForMockData,
     lastSevenEntries,
+    getEntryByDate,
 }

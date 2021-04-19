@@ -259,6 +259,24 @@ function ValidateDate(date) {
 
 
 /**
+ * 
+ * @param {*} unformattedDate 
+ */
+function getCorrectDateFromUser(unformattedDate){
+    let partitions = unformattedDate.split('-');
+    // let newMonth;
+    // let newDay;
+    console.log(partitions);
+    if (partitions[1].length === 1)  partitions[1] = '0' + partitions[1];
+    if (partitions[2].length === 1)  partitions[2] = '0' + partitions[2];
+    console.log(partitions);
+    
+    return `${partitions[0]}-${partitions[1]}-${partitions[2]}`
+}
+
+
+
+/**
  * Returns a date formatted properly for SQL insertion
  * @param {String} unformattedDate
  */
@@ -338,6 +356,7 @@ module.exports = {
     getLineGraphDropDownSelections,
     getPieChartDropDownSelections,
     ValidateDate,
+    getCorrectDateFromUser,
     GetSQLDateFormat,
     getGraphTitle,
     compareDates,

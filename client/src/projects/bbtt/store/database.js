@@ -30,7 +30,8 @@ const getters = {
     },
     getLastSevenEntries(state) {
         return lastSevenEntries(state.database);
-    }
+    },
+    // getEntryByDate(state)
 };
 
 export default {
