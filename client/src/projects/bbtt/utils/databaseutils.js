@@ -99,7 +99,7 @@ function lastSevenEntries(database) {
         recentEntries.push(database[dates[i]]);           
     }
 
-    return { dates: dates, data: recentEntries };
+    return { dates: dates.slice(0, len), data: recentEntries };
 
 }
 

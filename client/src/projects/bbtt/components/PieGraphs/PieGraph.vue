@@ -3,9 +3,9 @@
 
         <!-- Pie Chart -->
         <v-row no-gutters>
-            <v-col sm="7" class="ma-auto py-3 center-element">
+            <v-col sm="7" class="ma-auto py-3">
                 <v-card flat>
-                    <v-card-title class="justify-center chart-title mb-2">
+                    <v-card-title class="center-element chart-title mb-2">
                         {{ title }}
                     </v-card-title>
                     <v-card-subtitle class="center-element">

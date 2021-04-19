@@ -4,9 +4,11 @@
         <!-- Line Graph -->
         <v-row no-gutters>
 
-            <v-col sm="7" class="ma-auto py-3 center-element">
+            <!-- <v-col sm="7" class="ma-auto py-3 center-element"> -->
+            <v-col sm="7" class="ma-auto py-3">
                 <v-card flat>
-                    <v-card-title class="justify-center chart-title mb-2">
+                    <!-- <v-card-title class="justify-center chart-title mb-2 center-element"> -->
+                    <v-card-title class="chart-title mb-2 center-element">
                         {{ title }}
                     </v-card-title>
                     <v-card-subtitle class="center-element">
@@ -99,7 +101,7 @@ export default {
     color: #116466;
 }
 .center-element {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 </style>
