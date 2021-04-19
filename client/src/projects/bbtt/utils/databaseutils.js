@@ -91,9 +91,6 @@ function lastSevenEntries(database) {
     let dates = Object.keys(database);
     dates.sort().reverse();
 
-    console.log("lastsecenEntries");
-    console.log(dates);
-
     let len = dates.length < 7 ? dates.length : 7;
 
     let recentEntries = [];

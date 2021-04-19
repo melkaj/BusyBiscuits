@@ -18,11 +18,10 @@ const actions = {
 };
 
 const getters = {
-    getDatabase(state) {
+    getDatabase(state) {    
         return state.database;
     },
     getLastSevenEntries(state) {
-        // console.log(lastSevenEntries(state.database));
         return lastSevenEntries(state.database);
     }
 };

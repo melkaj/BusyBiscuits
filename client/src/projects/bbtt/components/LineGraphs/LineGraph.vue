@@ -64,7 +64,7 @@ export default {
         },
         getLineGraphItems() {
             // Getting the categories for the line graph
-            return getLineGraphDropDownSelections(this.$store.getters.getCategories);
+            return getLineGraphDropDownSelections(this.$store.getters['bbtt/getCategories']);
         },
         changeLineGraphBasedOnCategory(newCategory) {
             // Destroys the already created linechart as to avoid hover issues

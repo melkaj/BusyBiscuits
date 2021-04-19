@@ -81,9 +81,6 @@ export default {
             // Getting the items
             // var items = getPieChartDropDownSelections(this.$store.getters.getDates, "pie"); 
             var items = getPieChartDropDownSelections(this.$store.getters['bbtt/getDates'], "pie"); 
-            console.log("ITEMS");
-            console.log(this.$store.getters['bbtt/getDates']);
-            console.log(items);
             items.unshift({ id: "7-Day Average", date: "7-Day Average" });            
             
             // Setting the default item
@@ -96,8 +93,6 @@ export default {
     mounted() {
         // Getting the data from the database and caching it to the store
         this.pieGraphItems = this.getDateItems();
-        console.log("MOUNTED PIECHART");
-        console.log(this.pieGraphItems);
 
         const thisWeeksPieChartData = ChartManager.GetPieChartOptionsByAverage();
         this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);

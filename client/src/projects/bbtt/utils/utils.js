@@ -26,15 +26,6 @@ function convertDataToChartData(data) {
         chartDataObject.on_computer += data[i].on_computer;
         chartDataObject.games += data[i].games;
         chartDataObject.somethingelse += data[i].somethingelse;
-
-
-        // console.log(`From utils-For : ${data[i].sleep}`);
-        // console.log(`From utils-For : ${data[i].travel}`);
-        // console.log(`From utils-For : ${data[i].exercise}`);
-        // console.log(`From utils-For : ${data[i].on_phone}`);
-        // console.log(`From utils-For : ${data[i].on_computer}`);
-        // console.log(`From utils-For : ${data[i].games}`);
-        // console.log(`From utils-For : ${data[i].somethingelse}`);
     }
 
     chartDataObject.sleep = (chartDataObject.sleep / numberOfRows).toFixed(1); 
@@ -44,17 +35,6 @@ function convertDataToChartData(data) {
     chartDataObject.on_computer = (chartDataObject.on_computer / numberOfRows).toFixed(1); 
     chartDataObject.games = (chartDataObject.games / numberOfRows).toFixed(1); 
     chartDataObject.somethingelse = (chartDataObject.somethingelse / numberOfRows).toFixed(1); 
-
-
-    // console.log("\n\n");
-
-    // console.log(`From utils- : ${chartDataObject.sleep}`);
-    // console.log(`From utils- : ${chartDataObject.travel}`);
-    // console.log(`From utils- : ${chartDataObject.exercise}`);
-    // console.log(`From utils- : ${chartDataObject.on_phone}`);
-    // console.log(`From utils- : ${chartDataObject.on_computer}`);
-    // console.log(`From utils- : ${chartDataObject.games}`);
-    // console.log(`From utils- : ${chartDataObject.somethingelse}`);
 
     return chartDataObject;
 }
@@ -99,8 +79,6 @@ function extractLineChartData(lastSevenDays) {
  *                       Objects are the entries themselves without the date
  */
 function extractDatesAndData(arrayOfEntries) {
-    console.log("INSIDE EXTRACT UTILS");
-    console.log(arrayOfEntries);
     var dataColumns = [];
 
     for (let i = 0; i < arrayOfEntries.length; i++) {

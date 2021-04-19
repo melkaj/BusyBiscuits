@@ -1,5 +1,6 @@
 // import Services from '../services/services';
-const { extractDatesAndData, extractLineChartData } = require('../utils/utils');
+// const { extractDatesAndData, extractLineChartData } = require('../utils/utils');
+const { extractLineChartData } = require('../utils/utils');
 
 const state = () => ({
   // Test variable
@@ -50,39 +51,27 @@ const actions = {
     context.commit('incrementbbtt');
   },
   // Function to get the 
-  setDataFromLastSevenDays({ commit, getters, rootGetters }) {
+  setDataFromLastSevenDays({ commit, rootGetters }) {
     // Getting the last seven days of time-spent entries
     // const response = await Services.getLastSevenDays();
     // const response = getters['bbttDatabase/getLastSevenEntries'];
     const response = rootGetters['bbttDatabase/getLastSevenEntries'];
-    // const responseData = response.data;
-    console.log(response.dates);
-    console.log(response.data);
-    console.log("GETTING DATA/....");
 
     // objects with two elements
     // First will be array of dates and second will be array of objects with data
-    const data = extractDatesAndData(response);
-    console.log("GETTING DATA2/....");
+    // const data = extractDatesAndData(response);
 
     // Manipulating the data received from the database to be used for linecharts
-    const lineChartData = extractLineChartData(data.data);
-    console.log(lineChartData);
-    console.log("GETTING DATA3/....");
+    const lineChartData = extractLineChartData(response.data);
     
     // Commiting a mutation to change 'weekOfData'
     commit('setLineChartData', lineChartData);
-    console.log("GETTING DATA4/....");
     
     // Commiting a mutation to change 'dates' state
     commit('setDates', response.dates);
-    console.log(response.dates);
 
     // Commiting a mutation to change 'dataFromLastSevenDays' state
     commit('commitDataFromLastSevenDays', response.data);
-    console.log(response.data);
-    console.log(getters.getDataFromLastSevenDays);
-    console.log("GETTING DATA5/....");
   },
 
   // Adding data to front of the data and date states
@@ -94,8 +83,6 @@ const actions = {
   //Getting line chart data for week of each category
   setLineChartData({ commit, getters }) {
     const data = extractLineChartData(getters['bbtt/getDataFromLastSevenDays']);
-    console.log("getters['bbtt/getDataFromLastSevenDays']");
-    console.log(getters['bbtt/getDataFromLastSevenDays']);
 
     commit('setLineChartData', data);
   }

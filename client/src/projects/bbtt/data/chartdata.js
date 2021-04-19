@@ -17,10 +17,7 @@ export default {
      */
     GetPieChartOptionsByAverage() {
         // The data for the last seven days will be an ARRAY OF OBJECTS
-        // const thisWeeksData = store.getters.getDataFromLastSevenDays;        
         const thisWeeksData = store.getters['bbtt/getDataFromLastSevenDays'];        
-        console.log('INSIDE GetPieChartOptionsByAverage');
-        console.log(thisWeeksData);
         
         // Converts thisWeeksData to one object that can be used for the pie chart
         var data = convertDataToChartData(thisWeeksData);
@@ -58,8 +55,6 @@ export default {
             const requestedData = await Services.getEntryByDate({ date: date });
             data = requestedData.data;        
         }
-        console.log(`data: ${data}`);
-        console.log(`dataOBJ: ${Object.keys(data)}`);
 
         return this.GetPieChartOptions(data);
     },
@@ -78,9 +73,6 @@ export default {
         console.log(`range: ${range}`);
         // TODO: create services and endpoint to get range 
         const rangeOfData = await Services.getEntriesByRange({ dates: range });
-
-        console.log(`rangeOfData: ${rangeOfData}`);
-        console.log(`rangeOfDataOBJ: ${Object.keys(rangeOfData.data)}`);
 
         var data = convertDataToChartData(rangeOfData.data);
 
