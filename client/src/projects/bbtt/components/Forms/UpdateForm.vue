@@ -155,7 +155,7 @@
 <script>
 // @ is an alias to /src
 // import Services from '../../services/services';
-const { ValidateDate, getCorrectDateFromUser, compareDates }   = require('../../utils/utils');
+const { ValidateDate, getCorrectDateFromUser, isSmallerThan }   = require('../../utils/utils');
 // const { getEntryByDate } = require('../../utils/databaseutils.js');
 
 export default {
@@ -308,7 +308,7 @@ export default {
             // return await Services.updateEntry({ date: date, updatedForm: form });
             const response = await this.updateDatabase(form);
             
-            if (compareDates(recentDates[0], date)) 
+            if (isSmallerThan(recentDates[0], date)) 
             {
                 this.$store.dispatch('bbtt/addNewTimeSpentEntryToFront', { date: date, data: form });
                 this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 

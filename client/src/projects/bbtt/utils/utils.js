@@ -329,8 +329,8 @@ function getGraphTitle(dates) {
  * @param   { String } date1
  * @param   { String } date2
  * @returns { Boolean }
- */
-function compareDates(date1, date2) {
+ */      
+function isSmallerThan(date1, date2) {
     let date1Partitions = date1.split('-');
     let date2Partitions = date2.split('-');
 
@@ -359,5 +359,5 @@ module.exports = {
     getCorrectDateFromUser,
     GetSQLDateFormat,
     getGraphTitle,
-    compareDates,
+    isSmallerThan,
 }

@@ -92,6 +92,9 @@ export default {
             var items = getPieChartDropDownSelections(this.$store.getters['bbtt/getDates'], "pie");
             items.unshift({ id: "7-Day Average", date: "7-Day Average" });            
             
+            console.log("items");            
+            console.log(items);
+
             // Setting the default item
             this.defaultDropdownSelection = items[0].id;
 

@@ -156,7 +156,7 @@
 // @ is an alias to /src
 // import EntryFormHeader from './SubFormHeaders/EntryFormHeader.vue';
 // import Services from '../../services/services';
-const { GetSQLDateFormat, getCorrectDateFromUser, compareDates } = require('../../utils/utils');
+const { GetSQLDateFormat, getCorrectDateFromUser, isSmallerThan } = require('../../utils/utils');
 // const { populateDatabase } = require('../../utils/databaseutils');
 
 export default {
@@ -198,12 +198,14 @@ export default {
     methods: {
         async canPostToday() {
             // Checking if the text fields have values
-            if (this.sleep==null || this.travel==null || this.exercise==null || this.on_phone==null || this.on_computer==null || this.games==null) {
+            if (this.sleep==null || this.travel==null || this.exercise==null 
+                    || this.on_phone==null || this.on_computer==null || this.games==null
+                    || (this.date==null && !this.isTodayCheckbox)) {
                 this.isSuccess=false;  
                 this.message = this.messageResponses.invalidInputs;
                 return;
             }
-            
+
             if (this.isTodayCheckbox)
             {
                 var latestEntryDate = this.$store.getters['bbtt/getDates'][0];
@@ -265,7 +267,7 @@ export default {
                     let recentDates = this.$store.getters['bbtt/getDates'];
                     recentDates.sort();
 
-                    if (compareDates(recentDates[0], this.date)) 
+                    if (isSmallerThan(recentDates[0], this.date)) 
                     {
                         this.$store.dispatch('bbtt/addNewTimeSpentEntryToFront', { date: this.date, data: data });
                         this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 

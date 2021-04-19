@@ -103,6 +103,8 @@ function lastSevenEntries(database) {
         recentEntries.push(database[dates[i]]);           
     }
 
+    console.log({ dates: dates.slice(0, len), data: recentEntries });
+
     return { dates: dates.slice(0, len), data: recentEntries };
 
 }
