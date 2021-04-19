@@ -20,7 +20,7 @@ function getDatesForMockData() {
     let day   = date.getDate();           // Number
 
     // Getting the past 6 dates (excluding todays date)
-    for (let i = 0; i < 7; i++) 
+    for (let i = 0; i < 8; i++) 
     {
         let newDate = "";
         let newDay;
@@ -62,7 +62,8 @@ function populateDatabase() {
         { sleep: 7, travel: 2, exercise: 2, on_phone: 3, on_computer: 6, games: 0, somethingelse: 4 },
         { sleep: 8, travel: 1, exercise: 0, on_phone: 2, on_computer: 5, games: 3, somethingelse: 5 },
         { sleep: 8, travel: 2, exercise: 3, on_phone: 3, on_computer: 8, games: 0, somethingelse: 0 },
-        { sleep: 8, travel: 1, exercise: 3, on_phone: 1, on_computer: 6, games: 4, somethingelse: 1 }
+        { sleep: 8, travel: 1, exercise: 3, on_phone: 1, on_computer: 6, games: 4, somethingelse: 1 },
+        { sleep: 10, travel: 0, exercise: 2, on_phone: 1, on_computer: 4, games: 2, somethingelse: 5 },
     ];
 
 
@@ -77,7 +78,38 @@ function populateDatabase() {
 
 
 
+/**
+ * Returns the most recent seven entries
+ * 
+ * @param { Object } database - Object of Objects
+ *                              Keys are dates (String)
+ *                              Values are the data entries for that date (Object)
+ * @returns { Object } data   - data will hold the entries in an ARRAY
+ *                              dates will hold the dates for the respective entries in an ARRAY
+ */
+function lastSevenEntries(database) {
+    let dates = Object.keys(database);
+    dates.sort().reverse();
+
+    console.log("lastsecenEntries");
+    console.log(dates);
+
+    let len = dates.length < 7 ? dates.length : 7;
+
+    let recentEntries = [];
+    for (let i = 0; i < len; i++)
+    {
+        recentEntries.push(database[dates[i]]);           
+    }
+
+    return { dates: dates, data: recentEntries };
+
+}
+
+
+
 module.exports = {
     populateDatabase,
     getDatesForMockData,
+    lastSevenEntries,
 }

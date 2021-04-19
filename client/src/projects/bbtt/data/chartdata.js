@@ -1,9 +1,10 @@
-
-import store from '../store/index.js'
+// Importing main store
+import store from '../../../store/index';
 import Services from '../services/services';
 const { getBackgroundColors, getBorderColors, convertDataToChartData, getCorrectPhrasingOfCategory } = require('../utils/utils');
 
-const chartLabels = store.getters.getCategories;
+// const chartLabels = store.getters.getCategories;
+const chartLabels = store.getters['bbtt/getCategories'];
 
 export default {
 
@@ -16,8 +17,11 @@ export default {
      */
     GetPieChartOptionsByAverage() {
         // The data for the last seven days will be an ARRAY OF OBJECTS
-        const thisWeeksData = store.getters.getDataFromLastSevenDays;        
-
+        // const thisWeeksData = store.getters.getDataFromLastSevenDays;        
+        const thisWeeksData = store.getters['bbtt/getDataFromLastSevenDays'];        
+        console.log('INSIDE GetPieChartOptionsByAverage');
+        console.log(thisWeeksData);
+        
         // Converts thisWeeksData to one object that can be used for the pie chart
         var data = convertDataToChartData(thisWeeksData);
         
@@ -38,10 +42,15 @@ export default {
         var data;
 
         // If the argument is a "date" that is in the cached array of dates
-        if (store.getters.getDates.includes(date))
+        // if (store.getters.getDates.includes(date))
+        // {
+        //     const index = store.getters.getDates.indexOf(date);
+        //     data = store.getters.getDataFromLastSevenDays[index];
+        // }
+        if (store.getters['bbtt/getDates'].includes(date))
         {
-            const index = store.getters.getDates.indexOf(date);
-            data = store.getters.getDataFromLastSevenDays[index];
+            const index = store.getters['bbtt/getDates'].indexOf(date);
+            data = store.getters['bbtt/getDataFromLastSevenDays'][index];
         }
         // If the date is not cached, need to see if its in the database
         else
@@ -214,7 +223,8 @@ export default {
         // Getting the data for the line charts
         // Data will be an object of arrays
         //      Each element in the object will hold an array of data for the week
-        const allTheData = (store.getters.getWeekOfData);
+        // const allTheData = (store.getters.getWeekOfData);
+        const allTheData = (store.getters['bbtt/getWeekOfData']);
 
         // Specifically getting the category needed
         //      The labels come from most recent to oldest, so we make a deepcopy and
@@ -229,7 +239,8 @@ export default {
         // Getting the dates for the past week to be the labels for the x-axis
         //      The labels come from most recent to oldest, so we make a deepcopy and
         //      then reverse it to get it into chronological order
-        const lineChartLabelsReverseOrder = [...(store.getters.getDates)];
+        // const lineChartLabelsReverseOrder = [...(store.getters.getDates)];
+        const lineChartLabelsReverseOrder = [...(store.getters['bbtt/getDates'])];
         const lineChartLabels = lineChartLabelsReverseOrder.reverse();
 
         // Colors used for the pie chart

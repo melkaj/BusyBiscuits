@@ -16,7 +16,8 @@ export default {
      */
     GetPieChartOptionsByAverage() {
         // The data for the last seven days will be an ARRAY OF OBJECTS
-        const thisWeeksData = store.getters.getDataFromLastSevenDays;        
+        // const thisWeeksData = store.getters.getDataFromLastSevenDays;        
+        const thisWeeksData = store.getters['bbtt/getDataFromLastSevenDays'];        
 
         // Converts thisWeeksData to one object that can be used for the pie chart
         var data = convertDataToChartData(thisWeeksData);
@@ -214,7 +215,8 @@ export default {
         // Getting the data for the line charts
         // Data will be an object of arrays
         //      Each element in the object will hold an array of data for the week
-        const allTheData = (store.getters.getWeekOfData);
+        // const allTheData = (store.getters.getWeekOfData);
+        const allTheData = (store.getters['bbtt/getWeekOfData']);
 
         // Specifically getting the category needed
         //      The labels come from most recent to oldest, so we make a deepcopy and

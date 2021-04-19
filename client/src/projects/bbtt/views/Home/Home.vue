@@ -73,9 +73,26 @@ export default {
         DeleteForm,
         Detailed,
     },
+    methods: {
+        setDatabase() {
+            return new Promise( (resolve, reject) => {
+                try {
+                    this.$store.dispatch('bbttDatabase/initializeDatabase');
+                    this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 
+                    this.isDataLoaded = true;
+                    resolve();
+                } catch (err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
+        }
+    },
     async created() {
-        // await this.$store.dispatch('setDataFromLastSevenDays'); 
-        this.isDataLoaded = true;
+        await this.setDatabase();
+        // this.$store.dispatch('bbttDatabase/initializeDatabase');
+        // this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 
+        // this.isDataLoaded = true;
     }, 
 }
 </script>

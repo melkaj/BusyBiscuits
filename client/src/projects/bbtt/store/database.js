@@ -1,4 +1,4 @@
-const { populateDatabase } = require('../utils/databaseutils.js');
+const { populateDatabase, lastSevenEntries } = require('../utils/databaseutils.js');
 
 const state = () => ({
     database: {}
@@ -21,6 +21,10 @@ const getters = {
     getDatabase(state) {
         return state.database;
     },
+    getLastSevenEntries(state) {
+        // console.log(lastSevenEntries(state.database));
+        return lastSevenEntries(state.database);
+    }
 };
 
 export default {

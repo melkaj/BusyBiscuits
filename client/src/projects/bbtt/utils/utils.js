@@ -95,23 +95,20 @@ function extractLineChartData(lastSevenDays) {
  * Returning an object that holds two arrays
  *      First is an array holding dates
  *      Second is array of objects that will hold the rest of the data
- * @param {Array} data - array of objects
+ * @param {Array} data - Array of objects
+ *                       Objects are the entries themselves without the date
  */
-function extractDatesAndData(arrayOfObjects) {
-    var dates = [];
+function extractDatesAndData(arrayOfEntries) {
+    console.log("INSIDE EXTRACT UTILS");
+    console.log(arrayOfEntries);
     var dataColumns = [];
 
-    for (let i = 0; i < arrayOfObjects.length; i++) {
-        // Getting the date and placing it in its own array
-        //      Then deleting it from the original object
-        dates.push(arrayOfObjects[i].date_created);
-        delete arrayOfObjects[i].date_created;
-
+    for (let i = 0; i < arrayOfEntries.length; i++) {
         // Placing the rest of the data into its own array as well
-        dataColumns.push(arrayOfObjects[i]);
+        dataColumns.push(arrayOfEntries[i]);
     }
 
-    return { dates: dates, data: dataColumns };
+    return { data: dataColumns };
 }
 
 

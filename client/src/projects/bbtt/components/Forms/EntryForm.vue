@@ -191,10 +191,10 @@ export default {
     },
     mounted() {
         // Initializing the mock database. 
-        this.$store.dispatch('bbttDatabase/initializeDatabase');      
-        let database = this.$store.getters['bbttDatabase/getDatabase'];
-        console.log(database)
-        console.log(Object.keys(database))
+        // this.$store.dispatch('bbttDatabase/initializeDatabase');
+        // let database = this.$store.getters['bbttDatabase/getDatabase'];
+        // console.log(database);
+        // console.log(Object.keys(database));
     },
     computed: {
         setMessageColor() {
@@ -210,7 +210,7 @@ export default {
             }
             console.log(`this.date: ${this.date}`);
             if (latestEntryDate !== this.date)  await this.isTotalHoursValid(); 
-            else                                 this.isSuccess=false;  this.message = this.messageResponses.alreadyPosted;
+            else                                this.isSuccess=false;  this.message = this.messageResponses.alreadyPosted;
         },
         async isTotalHoursValid() {
             this.total = Number(this.sleep) + Number(this.travel) + Number(this.exercise) 
@@ -253,7 +253,7 @@ export default {
             
             // Adding the form to the store
             if (this.isTodayCheckbox)  this.date = GetSQLDateFormat(new Date().toLocaleString());
-            this.$store.dispatch('addNewTimeSpentEntryToFront', { date: this.date, data: form });
+            this.$store.dispatch('bbtt/addNewTimeSpentEntryToFront', { date: this.date, data: form });
             
             // Adding date to the form
             form.date = this.date;
