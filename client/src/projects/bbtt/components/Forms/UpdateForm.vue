@@ -183,7 +183,8 @@ export default {
                 invaliddate:     "Date entered was invalid",
                 alreadyPosted:   "Already posted for today, wait until tomorrow",
                 dataNotModified: "Entry is unchanged or invalid",
-                error:           "Something went wrong"
+                error:           "Something went wrong",
+                invalidInputs:   "Check that all fields have values",
             }
         }
     },
@@ -194,6 +195,13 @@ export default {
     },
     methods: {
         getEntryFormBasedOnDate() {
+            // Checking if the text fields have values
+            if (this.date == null) {
+                this.isSuccess=false;  
+                this.message = this.messageResponses.invalidInputs;
+                return;
+            }
+
             if (!this.validateDate())
             {
                 this.isSuccess = false;
@@ -234,7 +242,14 @@ export default {
         validateDate() {
             return ValidateDate(this.date);
         },
-        async isDataModified() {    
+        async isDataModified() {              
+            // Checking if the text fields have values
+            if (this.sleep.length<1 || this.travel.length<1 || this.exercise.length<1 || this.on_phone.length<1 || this.on_computer.length<1 || this.games.length<1) {
+                this.isSuccess=false;  
+                this.message = this.messageResponses.invalidInputs;
+                return;
+            }
+
             // Validating date again so that if the user removes the date, they cannot add sql inject code
             var isDateValid = ValidateDate(this.date);
             var currentInput = [this.sleep, this.travel, this.exercise, this.on_phone, this.on_computer, this.games ];

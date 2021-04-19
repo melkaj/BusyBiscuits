@@ -181,6 +181,7 @@ export default {
                 invalidHours:  "The total number of hours must be between 0 and 24",
                 success:       "Form was submitted successfully",
                 alreadyPosted: "Already posted for today, wait until tomorrow",
+                invalidInputs: "Check that all fields have values",
             },
             formHeading: "Add an entry",
             formInfoText: "Enter in the amount in hours, i.e. enter 2 for two hours. Also make sure you enter whole numbers"
@@ -189,13 +190,6 @@ export default {
     components: {
         // EntryFormHeader,
     },
-    mounted() {
-        // Initializing the mock database. 
-        // this.$store.dispatch('bbttDatabase/initializeDatabase');
-        // let database = this.$store.getters['bbttDatabase/getDatabase'];
-        // console.log(database);
-        // console.log(Object.keys(database));
-    },
     computed: {
         setMessageColor() {
             return this.isSuccess ? 'form-success' : 'form-failed';
@@ -203,6 +197,13 @@ export default {
     },
     methods: {
         async canPostToday() {
+            // Checking if the text fields have values
+            if (this.sleep==null || this.travel==null || this.exercise==null || this.on_phone==null || this.on_computer==null || this.games==null) {
+                this.isSuccess=false;  
+                this.message = this.messageResponses.invalidInputs;
+                return;
+            }
+            
             if (this.isTodayCheckbox)
             {
                 var latestEntryDate = this.$store.getters['bbtt/getDates'][0];
