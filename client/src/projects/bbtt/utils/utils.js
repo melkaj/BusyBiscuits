@@ -150,6 +150,10 @@ function getLineGraphDropDownSelections(items) {
  */
 function getPieChartDropDownSelections(items) {
     var dropDownSelections = [];
+    
+    // items may be unordered 
+    // Needs to be in descending order to display properly in dropdown
+    items.sort().reverse();
 
     for (let i = 0; i < items.length; i++) {
         let itemEntry = {};
@@ -299,6 +303,31 @@ function getGraphTitle(dates) {
 
 
 
+/**
+ * Returns True if the first date is smaller than the second
+ *  (i.e. if the first date is before the second)
+ *  False if otherwise
+ * 
+ * @param   { String } date1
+ * @param   { String } date2
+ * @returns { Boolean }
+ */
+function compareDates(date1, date2) {
+    let date1Partitions = date1.split('-');
+    let date2Partitions = date2.split('-');
+
+    if (date1Partitions.length < 3 || date2Partitions.length < 3)  return false;
+
+    if (parseInt(date1Partitions[0]) > parseInt(date2Partitions[0]))  return false;
+    if (parseInt(date1Partitions[1]) > parseInt(date2Partitions[1]))  return false;
+    if (parseInt(date1Partitions[2]) > parseInt(date2Partitions[2]))  return false;
+
+    return true;
+
+}
+
+
+
 module.exports = {
     getBackgroundColors,
     getBorderColors,
@@ -311,4 +340,5 @@ module.exports = {
     ValidateDate,
     GetSQLDateFormat,
     getGraphTitle,
+    compareDates,
 }

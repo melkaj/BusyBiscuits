@@ -7,6 +7,10 @@ const state = () => ({
 const mutations = {
     initializeDatabase(state, data){
         state.database = data;
+    },
+    insertEntryIntoDatabase(state, newEntry) {
+        let key = Object.keys(newEntry)[0];
+        state.database[key] = newEntry[key];
     }
 };
  
@@ -14,6 +18,9 @@ const actions = {
     initializeDatabase(context) {
         const data = populateDatabase();
         context.commit('initializeDatabase', data);
+    },
+    insertEntryIntoDatabase(context, payload) {
+        context.commit('insertEntryIntoDatabase', payload);
     }
 };
 

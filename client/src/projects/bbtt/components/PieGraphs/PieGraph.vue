@@ -52,6 +52,16 @@ export default {
         graphName: { type: String },
         title:     { type: String },
     },
+    computed: {
+        recentData() {
+            return this.$store.getters['bbtt/getDataFromLastSevenDays'];
+        }
+    },
+    watch: {
+        recentData() {
+            this.redoChart();
+        }
+    },
     methods: {
         createPieChart(canvasId, chartData) {
             var ctx = document.getElementsByClassName(canvasId);
@@ -79,8 +89,7 @@ export default {
         },
         getDateItems() {
             // Getting the items
-            // var items = getPieChartDropDownSelections(this.$store.getters.getDates, "pie"); 
-            var items = getPieChartDropDownSelections(this.$store.getters['bbtt/getDates'], "pie"); 
+            var items = getPieChartDropDownSelections(this.$store.getters['bbtt/getDates'], "pie");
             items.unshift({ id: "7-Day Average", date: "7-Day Average" });            
             
             // Setting the default item
@@ -89,6 +98,16 @@ export default {
             // Returning the full array of items
             return items;
         },
+        redoChart() {
+            // When the store changes, the pie chart will changed based off the new data    
+            this.pieChart.destroy();
+
+            // Getting the data from the database and caching it to the store
+            this.pieGraphItems = this.getDateItems();
+
+            const thisWeeksPieChartData = ChartManager.GetPieChartOptionsByAverage();
+            this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
+        }
     },
     mounted() {
         // Getting the data from the database and caching it to the store

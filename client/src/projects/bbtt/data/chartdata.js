@@ -21,7 +21,6 @@ export default {
         
         // Converts thisWeeksData to one object that can be used for the pie chart
         var data = convertDataToChartData(thisWeeksData);
-        
         return this.GetPieChartOptions(data);
     },
 
@@ -223,17 +222,17 @@ export default {
         //      then reverse it to get it into chronological order
         const dataBasedOnCategory = [...(allTheData[category])];
         const reversedData = dataBasedOnCategory.reverse();
-
+        
         // Getting the right phrasing for the labels
         //      ex: category is 'on_phone', so the label should be "Hours of 'phone time'"
         const categoryPhrasing = getCorrectPhrasingOfCategory(category);
-
+        
         // Getting the dates for the past week to be the labels for the x-axis
         //      The labels come from most recent to oldest, so we make a deepcopy and
         //      then reverse it to get it into chronological order
         // const lineChartLabelsReverseOrder = [...(store.getters.getDates)];
-        const lineChartLabelsReverseOrder = [...(store.getters['bbtt/getDates'])];
-        const lineChartLabels = lineChartLabelsReverseOrder.reverse();
+        const lineChartLabelsUnOrdered = [...(store.getters['bbtt/getDates'])];
+        const lineChartLabels = lineChartLabelsUnOrdered.sort();//.reverse();
 
         // Colors used for the pie chart
         const backgroundColors = getBackgroundColors();

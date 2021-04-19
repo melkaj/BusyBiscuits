@@ -4,10 +4,8 @@
         <!-- Line Graph -->
         <v-row no-gutters>
 
-            <!-- <v-col sm="7" class="ma-auto py-3 center-element"> -->
             <v-col sm="7" class="ma-auto py-3">
                 <v-card flat>
-                    <!-- <v-card-title class="justify-center chart-title mb-2 center-element"> -->
                     <v-card-title class="chart-title mb-2 center-element">
                         {{ title }}
                     </v-card-title>
@@ -55,6 +53,16 @@ export default {
         graphName: { type: String },
         title:     { type: String },
     },
+    computed: {
+        recentData() {
+            return this.$store.getters['bbtt/getDataFromLastSevenDays'];
+        }
+    },
+    watch: {
+        recentData() {
+            this.redoGraph();
+        }
+    },
     methods: {
         createPieChart(canvasId, chartData) {
             var ctx = document.getElementsByClassName(canvasId);
@@ -76,6 +84,13 @@ export default {
             const newLineChartData = ChartManager.CreateLineGraphData(newCategory);
             this.lineGraph = this.createPieChart(this.graphName, newLineChartData);
         },
+        redoGraph() {
+            // Destroys the already created linechart as to avoid hover issues
+            this.lineGraph.destroy();
+
+            const lineChartData = ChartManager.CreateLineGraphData("sleep");
+            this.lineGraph = this.createPieChart(this.graphName, lineChartData);
+        }
     },
     mounted() {
         this.lineGraphItems = this.getLineGraphItems();

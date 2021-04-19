@@ -155,8 +155,8 @@
 <script>
 // @ is an alias to /src
 // import EntryFormHeader from './SubFormHeaders/EntryFormHeader.vue';
-import Services from '../../services/services';
-const { GetSQLDateFormat } = require('../../utils/utils');
+// import Services from '../../services/services';
+const { GetSQLDateFormat, compareDates } = require('../../utils/utils');
 // const { populateDatabase } = require('../../utils/databaseutils');
 
 export default {
@@ -179,7 +179,7 @@ export default {
             message:           '',
             messageResponses: {
                 invalidHours:  "The total number of hours must be between 0 and 24",
-                success:       "Form was submitted",
+                success:       "Form was submitted successfully",
                 alreadyPosted: "Already posted for today, wait until tomorrow",
             },
             formHeading: "Add an entry",
@@ -205,12 +205,13 @@ export default {
         async canPostToday() {
             if (this.isTodayCheckbox)
             {
-                var latestEntryDate = this.$store.getters.getDates[0];
+                var latestEntryDate = this.$store.getters['bbtt/getDates'][0];
                 this.date           = GetSQLDateFormat(new Date().toLocaleString());
             }
+            console.log(`latestEntryDate: ${latestEntryDate}`);
             console.log(`this.date: ${this.date}`);
             if (latestEntryDate !== this.date)  await this.isTotalHoursValid(); 
-            else                                this.isSuccess=false;  this.message = this.messageResponses.alreadyPosted;
+            else                                { this.isSuccess=false;  this.message = this.messageResponses.alreadyPosted; }
         },
         async isTotalHoursValid() {
             this.total = Number(this.sleep) + Number(this.travel) + Number(this.exercise) 
@@ -229,37 +230,53 @@ export default {
             this.sendTimeSpentForm()
             .then( res => {
                 this.isSuccess = true;
-                this.message =   res.data;
-                
+                this.message =   res;
                 // Redirect back to dashboard
                 // this.$router.push('home');
             })
             .catch( error => {
                 this.isSuccess = false;
-                this.message =   error.response.data;
+                this.message =   error;
             });
         },
-        async sendTimeSpentForm() {
-            // Getting data ready to send
-            const form = {
-                sleep: this.sleep,
-                travel: this.travel,
-                exercise: this.exercise,
-                on_phone: this.on_phone,
-                on_computer: this.on_computer,
-                games: this.games,
-                somethingelse: this.somethingelse,
-            }
-            
-            // Adding the form to the store
-            if (this.isTodayCheckbox)  this.date = GetSQLDateFormat(new Date().toLocaleString());
-            this.$store.dispatch('bbtt/addNewTimeSpentEntryToFront', { date: this.date, data: form });
-            
-            // Adding date to the form
-            form.date = this.date;
+        sendTimeSpentForm() {
+            return new Promise( (resolve, reject) => {
+                try {
+                    // Getting data ready to send
+                    let form = {};
+                    const data = {
+                        sleep: this.sleep,
+                        travel: this.travel,
+                        exercise: this.exercise,
+                        on_phone: this.on_phone,
+                        on_computer: this.on_computer,
+                        games: this.games,
+                        somethingelse: this.somethingelse,
+                    }
+                    form[this.date] = data;
+        
+                    
+                    // Adding the form to the store
+                    if (this.isTodayCheckbox)  this.date = GetSQLDateFormat(new Date().toLocaleString());
 
-            // Pushing the form data to the database
-            return await Services.sendTimeSpentForm(form);
+                    let recentDates = this.$store.getters['bbtt/getDates'];
+                    recentDates.sort();
+
+                    if (compareDates(recentDates[0], this.date)) 
+                    {
+                        this.$store.dispatch('bbtt/addNewTimeSpentEntryToFront', { date: this.date, data: data });
+                        this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 
+                    }
+
+                    // Pushing the form data to the database
+                    this.$store.dispatch('bbttDatabase/insertEntryIntoDatabase', form);
+        
+                    resolve(this.messageResponses.success);
+                } 
+                catch(err) {
+                    reject("Cannot add new entry");
+                }
+            });
         },
     },
 }

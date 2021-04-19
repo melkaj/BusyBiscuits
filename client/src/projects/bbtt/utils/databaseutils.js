@@ -36,7 +36,11 @@ function getDatesForMockData() {
             else              { newDay = listofDays[11];      newMonth = 12;      newYear = year-1; }
         }
 
-        newDate = `${newYear}-${newMonth}-${newDay}`;
+        if      (newMonth.toString().length == 1 && newDay.toString().length == 1)  newDate = `${newYear}-0${newMonth}-0${newDay}`;
+        else if (newMonth.toString().length == 1)                                   newDate = `${newYear}-0${newMonth}-${newDay}`;
+        else if (newDay.toString().length == 1)                                     newDate = `${newYear}-${newMonth}-0${newDay}`;
+        else                                                                        newDate = `${newYear}-${newMonth}-${newDay}`;                       
+
         dates.push(newDate);
 
         day = newDay;  month = newMonth;  year = newYear;
