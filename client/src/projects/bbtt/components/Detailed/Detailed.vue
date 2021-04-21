@@ -125,12 +125,11 @@
 
 <script>
 // import PieGraphGeneral from '../PieGraphs/PieGraphGeneral.vue';
+// import Services     from '../../services/services.js';
 import Chart        from 'chart.js';
 import ChartManager from '../../data/chartdata.js';
-import Services     from '../../services/services.js';
 const { getLineGraphDropDownSelections, convertDataToChartData, 
-        extractDatesAndData, extractLineChartData, 
-        getGraphTitle } = require('../../utils/utils');
+        extractLineChartData, getGraphTitle } = require('../../utils/utils');
 
 
 export default {
@@ -172,6 +171,7 @@ export default {
             if (this.lineGraph !== null) this.lineGraph.destroy();
 
             var data;
+            var flag;
 
             // Check how many dates were entered
             //      If only date, check if the entry is cached in the store
@@ -180,30 +180,25 @@ export default {
             //          the database
             if (this.dates.length == 1) 
             {
-                if (this.$store.getters.getDates.includes(this.dates[0]))
-                {
-                    const index = this.$store.getters.getDates.indexOf(this.dates[0]);
-                    data = this.$store.getters.getDataFromLastSevenDays[index];
-                }
-                // If the date is not cached, need to see if its in the database
-                else
-                {
-                    const requestedData = await Services.getEntryByDate({ date: this.dates[0] });
-                    data = requestedData.data;  
-                }    
+                data = this.getEntryByDate(this.dates[0]);
+                
+                if (data === "empty")  flag = data;
+                else                   flag = "single";
             }
             else 
             {
                 this.dates.sort();          // Just in case the dates were chosen backwards             
-                const rangeOfData = await Services.getEntriesByRange({ dates: this.dates });
-                data = rangeOfData.data;  
+                data = this.getEntriesByRange(this.dates);
+
+                if (data.data.length === 0) flag = "empty";
+                else                        flag = "range";
             }
 
             // Checking what data was sent back and creating the necessary charts
             //      If one entry was sent back, Create a pie chart
             //      If more than one entry was sent back, then create pei and line graph
             //      If nothing was sent back, then put error message and clear graphs
-            if (Object.keys(data)[0] == "sleep")      // Show only the Pie Chart 
+            if (flag === "single")      // Show only the Pie Chart 
             {
                 this.title =          getGraphTitle(this.dates);
                 this.message =        null;
@@ -211,21 +206,25 @@ export default {
                 var pieChartOptions = ChartManager.GetPieChartOptions(data);
                 this.pieChart =       this.createGraph(this.pieChartName, pieChartOptions);                    
             }
-            else if (Object.keys(data)[0] == 0)       // Show both graphs 
+            else if (flag === "range")       // Show both graphs 
             {
                 this.message =        null;
                 this.title =          getGraphTitle(this.dates);
 
                 // Pie Chart
-                var averagedData =    convertDataToChartData(data);
+                var averagedData =    convertDataToChartData(data.data);
                 pieChartOptions =     ChartManager.GetPieChartOptions(averagedData);
                 this.pieChart =       this.createGraph(this.pieChartName, pieChartOptions);
 
                 // Line Graph
                 this.showLineGraph =     true;
-                var dataAndDates =       extractDatesAndData(data);
-                this.lineGraphData =     extractLineChartData(dataAndDates.data);
-                this.lineGraphDates =    dataAndDates.dates;
+                // var dataAndDates =       extractDatesAndData(data);
+                
+                this.lineGraphData =     extractLineChartData(data.data);
+
+                // this.lineGraphDates =    dataAndDates.dates;
+                this.lineGraphDates =    data.dates;
+                
                 const lineGraphOptions = ChartManager.GetLineChartOptions(this.lineGraphData , "sleep", this.lineGraphDates);
                 this.lineGraph =         this.createGraph(this.lineGraphName, lineGraphOptions);
             }
@@ -242,7 +241,7 @@ export default {
         //============================================================
         getLineGraphItems() {
             // Getting the categories for the line graph
-            return getLineGraphDropDownSelections(this.$store.getters.getCategories);
+            return getLineGraphDropDownSelections(this.$store.getters['bbtt/getCategories']);
         },
         changeLineGraphBasedOnCategory(newCategory) {
             // Destroys the already created linechart as to avoid hover issues
@@ -253,6 +252,37 @@ export default {
             this.lineGraph = this.createGraph(this.lineGraphName, newLineChartData);
         },
 
+        //============================================================
+        // METHODS USED FOR THE LINE GRAPH
+        //============================================================
+        getEntryByDate(date) {
+            const database = this.$store.getters['bbttDatabase/getDatabase'];
+            const dates = Object.keys(database);
+            if (dates.includes(date))
+            {
+                return database[date];
+            }
+            return "empty";
+        },
+        getEntriesByRange(dates) {
+            let desiredData      = [];
+            let datesWithinRange = [];
+            const database       = this.$store.getters['bbttDatabase/getDatabase'];
+            let databaseDates    = Object.keys(database);
+            databaseDates.sort().reverse();
+            // const datesSet      = new Set(databaseDates);
+
+            for(let i = 0; i < databaseDates.length; i++) 
+            {
+                if (databaseDates[i] >= dates[0] && databaseDates[i] <= dates[1])
+                {
+                    desiredData.push(database[databaseDates[i]]);
+                    datesWithinRange.push(databaseDates[i]);
+                }
+            }
+            
+            return { data: desiredData, dates: datesWithinRange };
+        },
     },
     mounted() {
         this.lineGraphItems = this.getLineGraphItems();

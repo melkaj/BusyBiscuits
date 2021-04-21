@@ -150,13 +150,9 @@ export default {
         // Specifically getting the category needed
         //      The labels come from most recent to oldest, so we make a deepcopy and
         //      then reverse it to get it into chronological order
-        const dataBasedOnCategory = [...(totalData[category])];
+        const dataBasedOnCategory = totalData[category];
         const reversedData = dataBasedOnCategory.reverse();
-
-        // const allTheData = (store.getters.getWeekOfData);
-        // const dataBasedOnCategory = [...(allTheData[category])];
-
-
+        
         // Getting the right phrasing for the labels
         //      ex: category is 'on_phone', so the label should be "Hours of 'phone time'"
         const categoryPhrasing = getCorrectPhrasingOfCategory(category);
@@ -164,8 +160,10 @@ export default {
         // Getting the dates for the past week to be the labels for the x-axis
         //      The labels come from most recent to oldest, so we make a deepcopy and
         //      then reverse it to get it into chronological order
-        const lineChartLabelsReverseOrder = [...(dates)];
+        // const lineChartLabelsReverseOrder = [...(dates)];
+        const lineChartLabelsReverseOrder = dates;
         var lineChartLabels;
+
         if (lineChartLabelsReverseOrder[0] > lineChartLabelsReverseOrder[1])  lineChartLabels = lineChartLabelsReverseOrder.reverse();
         else  lineChartLabels = lineChartLabelsReverseOrder;
         
