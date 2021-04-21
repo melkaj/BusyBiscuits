@@ -26,19 +26,25 @@
                 <v-divider vertical inset />
 
                 <v-btn
+                :href="githubURL"
                 color="#116466" 
-                depressed  
-                to="register">
-                    Sign Up
+                depressed>
+                <!-- to="login"> -->
+                    <v-icon>
+                        mdi-github-circle
+                    </v-icon>
                 </v-btn>
 
                 <v-divider vertical inset />
 
                 <v-btn 
+                :href="linkedinURL"
                 color="#116466" 
-                depressed 
-                to="login">
-                    Login
+                depressed>
+                <!-- to="register"> -->
+                    <v-icon>
+                        mdi-linkedin-box
+                    </v-icon>
                 </v-btn>
             </v-toolbar-items>
         </v-app-bar>
@@ -95,11 +101,9 @@ export default {
                     title:"Portfolio",
                     name:"Beep"
                 },
-                // {
-                //     title:"Forms",
-                //     name:"Bop"
-                // }
-            ]
+            ],
+            githubURL: "https://github.com/melkaj",
+            linkedinURL: "https://www.linkedin.com/in/melkaj",
         }
     },
     methods: {

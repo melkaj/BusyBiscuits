@@ -102,7 +102,7 @@ export default {
                 }
             ],
             githubURL: "https://github.com/melkaj",
-            linkedinURL: "https://www.google.com/",
+            linkedinURL: "https://www.linkedin.com/in/melkaj",
             color: null,
         }
     },
