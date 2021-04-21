@@ -150,7 +150,7 @@ export default {
         // Specifically getting the category needed
         //      The labels come from most recent to oldest, so we make a deepcopy and
         //      then reverse it to get it into chronological order
-        const dataBasedOnCategory = totalData[category];
+        const dataBasedOnCategory = [...totalData[category]];
         const reversedData = dataBasedOnCategory.reverse();
         
         // Getting the right phrasing for the labels
