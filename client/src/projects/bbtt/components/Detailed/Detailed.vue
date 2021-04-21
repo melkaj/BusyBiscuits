@@ -3,12 +3,12 @@
         
 <!-- THE DATE PICKER -->
         <v-row align="center" justify="center">
-            <v-col cols="8" class="center-element">
+            <v-col cols="12" sm="10" class="center-element">
                 <v-date-picker
                     v-model="dates"
                     color="#116466"
                     range
-                    width="60VH"
+                    width="75VW"
                 ></v-date-picker>
             </v-col>
         </v-row>
