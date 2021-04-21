@@ -53,14 +53,12 @@ export default {
         graphName: { type: String },
         title:     { type: String },
     },
-    computed: {
-        recentData() {
-            return this.$store.getters['bbtt/getDataFromLastSevenDays'];
-        }
-    },
     watch: {
-        recentData() {
-            this.redoGraph();
+        "$store.state.bbttDatabase.database": {
+            handler: function() {
+                this.redoGraph();
+            },
+            deep: true,
         }
     },
     methods: {
@@ -88,9 +86,14 @@ export default {
             // Destroys the already created linechart as to avoid hover issues
             this.lineGraph.destroy();
 
+            // this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 
+
+            this.lineGraphItems = this.getLineGraphItems();
+            this.defaultDropdownSelection = this.lineGraphItems[0].id;
+
             const lineChartData = ChartManager.CreateLineGraphData("sleep");
             this.lineGraph = this.createPieChart(this.graphName, lineChartData);
-        }
+        },
     },
     mounted() {
         this.lineGraphItems = this.getLineGraphItems();

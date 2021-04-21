@@ -60,14 +60,23 @@ function populateDatabase() {
     let data = {}
 
     const entries = [
+        // { sleep: 10, travel: 1, exercise: 2, on_phone: 3, on_computer: 5, games: 1, somethingelse: 2 },
+        // { sleep: 9, travel: 1, exercise: 1, on_phone: 2, on_computer: 6, games: 1, somethingelse: 4 },
+        // { sleep: 7, travel: 1, exercise: 1, on_phone: 1, on_computer: 7, games: 1, somethingelse: 6 },
+        // { sleep: 7, travel: 2, exercise: 2, on_phone: 3, on_computer: 6, games: 0, somethingelse: 4 },
+        // { sleep: 8, travel: 1, exercise: 0, on_phone: 2, on_computer: 5, games: 3, somethingelse: 5 },
+        // { sleep: 8, travel: 2, exercise: 3, on_phone: 3, on_computer: 8, games: 0, somethingelse: 0 },
+        // { sleep: 8, travel: 1, exercise: 3, on_phone: 1, on_computer: 6, games: 4, somethingelse: 1 },
+        // { sleep: 10, travel: 0, exercise: 2, on_phone: 1, on_computer: 4, games: 2, somethingelse: 5 },
+
         { sleep: 10, travel: 1, exercise: 2, on_phone: 3, on_computer: 5, games: 1, somethingelse: 2 },
         { sleep: 9, travel: 1, exercise: 1, on_phone: 2, on_computer: 6, games: 1, somethingelse: 4 },
-        { sleep: 7, travel: 1, exercise: 1, on_phone: 1, on_computer: 7, games: 1, somethingelse: 6 },
+        { sleep: 8, travel: 1, exercise: 1, on_phone: 1, on_computer: 7, games: 1, somethingelse: 6 },
         { sleep: 7, travel: 2, exercise: 2, on_phone: 3, on_computer: 6, games: 0, somethingelse: 4 },
-        { sleep: 8, travel: 1, exercise: 0, on_phone: 2, on_computer: 5, games: 3, somethingelse: 5 },
-        { sleep: 8, travel: 2, exercise: 3, on_phone: 3, on_computer: 8, games: 0, somethingelse: 0 },
-        { sleep: 8, travel: 1, exercise: 3, on_phone: 1, on_computer: 6, games: 4, somethingelse: 1 },
-        { sleep: 10, travel: 0, exercise: 2, on_phone: 1, on_computer: 4, games: 2, somethingelse: 5 },
+        { sleep: 6, travel: 1, exercise: 0, on_phone: 2, on_computer: 5, games: 3, somethingelse: 5 },
+        { sleep: 5, travel: 2, exercise: 3, on_phone: 3, on_computer: 8, games: 0, somethingelse: 0 },
+        { sleep: 4, travel: 1, exercise: 3, on_phone: 1, on_computer: 6, games: 4, somethingelse: 1 },
+        { sleep: 3, travel: 0, exercise: 2, on_phone: 1, on_computer: 4, games: 2, somethingelse: 5 },
     ];
 
 
@@ -103,8 +112,6 @@ function lastSevenEntries(database) {
         recentEntries.push(database[dates[i]]);           
     }
 
-    console.log({ dates: dates.slice(0, len), data: recentEntries });
-
     return { dates: dates.slice(0, len), data: recentEntries };
 
 }
@@ -112,7 +119,7 @@ function lastSevenEntries(database) {
 
 
 /**
- * 
+ * Might be used for details tab
  */
 function getEntryByDate(date) {
     console.log(date);

@@ -62,8 +62,6 @@ export default {
     methods: {
         invertDialog() {
             this.showDialog = !this.showDialog;
-            console.log(this.showDialog);
-            // this.$emit('update:dialog', this.showDialog);
         }
     },
     props: {

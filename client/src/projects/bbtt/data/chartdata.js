@@ -45,17 +45,16 @@ export default {
         // }
         if (store.getters['bbtt/getDates'].includes(date))
         {
-            // const index = store.getters['bbtt/getDates'].indexOf(date);
             data = store.getters['bbttDatabase/getDatabase'][date];
-            console.log('GETPIECHARTOPTIONSBYDATE');
-            console.log(data);
-            // data = store.getters['bbtt/getDataFromLastSevenDays'][index];
         }
         // If the date is not cached, need to see if its in the database
         else
         {
-            const requestedData = await Services.getEntryByDate({ date: date });
-            data = requestedData.data;        
+            const keys = Object.keys(store.getters['bbttDatabase/getDatabase']);
+            if (keys.includes(date))
+            {
+                data = store.getters['bbttDatabase/getDatabase'][date];
+            }
         }
 
         return this.GetPieChartOptions(data);

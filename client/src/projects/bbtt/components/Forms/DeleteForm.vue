@@ -84,8 +84,7 @@
 
 <script>
 // @ is an alias to /src
-import Services from '../../services/services';
-const { ValidateDate } = require('../../utils/utils');
+const { ValidateDate, getCorrectDateFromUser } = require('../../utils/utils');
 
 export default {
     name: 'FormTimeSpent',
@@ -97,9 +96,10 @@ export default {
             dialog: false,
             message: '',
             messageResponses: {
-                success: "Entry was deleted",
+                success:       "Entry was deleted",
                 entryNotFound: "Entry was not found. Double check your input",
-                invaliddate: "Date entered was invalid",
+                invaliddate:   "Date entered was invalid",
+                invalidInputs: "Check that all fields have values",
             }
         }
     },
@@ -109,22 +109,77 @@ export default {
         },
     },
     methods: {
-        async validateDate() {
+        validateDate() {
+            // Checking if the user input something
+            if (this.date==null || this.date.length<1) { this.isSuccess = false; this.message = this.messageResponses.invalidInputs; return; }
+
             const isDateValid = ValidateDate(this.date);
 
-            if (isDateValid)    { this.isSuccess = true;  this.message = null; await this.removeEntry(); }
+            if (isDateValid)    { this.isSuccess = true;  this.message = null; this.removeEntry(); }
             else                { this.isSuccess = false; this.message = this.messageResponses.invaliddate; }
         },
-        async removeEntry() {
+        removeEntry() {
             // Pushing the form data to the database
-            console.log(`this.date: ${this.date}`);
-            const response = await Services.removeEntry(this.date);
 
-            // Outputting message to user based on response
-            if      (response.data.affectedRows === 1) { this.isSuccess = true;  this.message = response.data.message; }
-            else if (response.data.affectedRows !== 1) { this.isSuccess = false; this.message = this.messageResponses.entryNotFound; }
-            else                                       { this.isSuccess = false; this.message = "Something went wrong"; }
+            this.date       = getCorrectDateFromUser(this.date);
+            const doesExist = this.doesEntryExist(this.date);
+
+            // Deleting entry and outputting message to user based on response
+            if (doesExist)
+            {
+                let database = this.$store.getters['bbttDatabase/getDatabase'];
+                delete database[this.date];
+                this.$store.dispatch('bbttDatabase/updateDatabase', database);
+
+                let dates         = this.$store.getters['bbtt/getDates'];
+                let lineGraphData = this.$store.getters['bbtt/getWeekOfData'];
+                
+                const index  = dates.indexOf(this.date);
+                dates.splice(index,1);
+                
+                // let newLineGraphData = lineGraphData.splice(index, 1);
+                const lineGraphDatalength = Object.keys(lineGraphData).length;
+
+                for(let i = 0; i < lineGraphDatalength; i++) 
+                {
+                    const j = Object.keys(lineGraphData)[i];
+                    lineGraphData[j].splice(index,1);
+                }
+
+                this.$store.dispatch('bbtt/setDates'           , dates);
+                this.$store.dispatch('bbtt/updateLineChartData', lineGraphData);
+                
+                // Detele maye
+                // this.$store.dispatch('bbtt/setDataFromLastSevenDays');
+                
+                this.isSuccess = true;  
+                this.message = this.messageResponses.success;
+
+                // Used to trigger the watch property on the pie and line graphs so that 
+                //  they will reload when something changes. Watch only works when something
+                //  changes, not when something gets deleted. Triggering it by incrementing 
+                //  a property then updating the database and then decrementing then updating again
+                database = this.$store.getters['bbttDatabase/getDatabase'];
+                database[Object.keys(database)[0]].sleep = database[Object.keys(database)[0]].sleep++;
+                this.$store.dispatch('bbttDatabase/updateDatabase', database);
+
+                database[Object.keys(database)[0]].sleep = database[Object.keys(database)[0]].sleep--;
+                this.$store.dispatch('bbttDatabase/updateDatabase', database);
+            }
+            else
+            {
+                this.isSuccess = false; this.message = this.messageResponses.entryNotFound;
+            }
+
         },
+        doesEntryExist(date) {
+            const database = this.$store.getters['bbttDatabase/getDatabase'];
+            if (Object.prototype.hasOwnProperty.call(database, date)) { return true; }
+            
+            console.log("404 ENTRY NOT FOUND");
+            return false;
+        }
+
     },
 }
 </script>

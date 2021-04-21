@@ -213,8 +213,6 @@ export default {
             }
             else  this.date = getCorrectDateFromUser(this.date);
 
-            console.log(`latestEntryDate: ${latestEntryDate}`);
-            console.log(`this.date: ${this.date}`);
             if (latestEntryDate !== this.date)  await this.isTotalHoursValid(); 
             else                                { this.isSuccess=false;  this.message = this.messageResponses.alreadyPosted; }
         },
@@ -270,7 +268,39 @@ export default {
                     if (isSmallerThan(recentDates[0], this.date)) 
                     {
                         this.$store.dispatch('bbtt/addNewTimeSpentEntryToFront', { date: this.date, data: data });
-                        this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 
+                        // this.$store.dispatch('bbtt/setDataFromLastSevenDays'); \
+
+                        if (!recentDates.includes(this.date))  recentDates.push(this.date); 
+
+                        recentDates.sort().reverse();
+                        // for(let i = 0; i < recentDates.length; i++) 
+                        // {
+                        //     if (recentDates[i] == this.date)  k = i;
+                        // }
+
+                        let lineGraphData = this.$store.getters['bbtt/getWeekOfData'];                        
+                        const index       = recentDates.indexOf(this.date);
+                        
+                        const lineGraphDatalength = Object.keys(lineGraphData).length;
+
+                        for(let i = 0; i < lineGraphDatalength; i++) 
+                        {
+                            const j = Object.keys(lineGraphData)[i];
+                            lineGraphData[j].splice(index,0,data[j]);
+                        }
+
+                        this.$store.dispatch('bbtt/updateLineChartData', lineGraphData);
+
+                        // Used to trigger the watch property on the pie and line graphs so that 
+                        //  they will reload when something changes. Watch only works when something
+                        //  changes, not when something gets deleted. Triggering it by incrementing 
+                        //  a property then updating the database and then decrementing then updating again
+                        let database = this.$store.getters['bbttDatabase/getDatabase'];
+                        database[Object.keys(database)[0]].sleep = database[Object.keys(database)[0]].sleep++;
+                        this.$store.dispatch('bbttDatabase/updateDatabase', database);
+
+                        database[Object.keys(database)[0]].sleep = database[Object.keys(database)[0]].sleep--;
+                        this.$store.dispatch('bbttDatabase/updateDatabase', database);
                     }
 
                     // Pushing the form data to the database

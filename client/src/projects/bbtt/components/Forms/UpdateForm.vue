@@ -222,14 +222,14 @@ export default {
 
                     // Displaying the rest of the form if the response is valid
                     this.isEntryLoaded = true;    
-                    this.sleep =         entryForm.sleep;
-                    this.travel =        entryForm.travel;
-                    this.exercise =      entryForm.exercise;
-                    this.on_phone =      entryForm.on_phone;
-                    this.on_computer =   entryForm.on_computer;
-                    this.games =         entryForm.games;
+                    this.sleep         = entryForm.sleep;
+                    this.travel        = entryForm.travel;
+                    this.exercise      = entryForm.exercise;
+                    this.on_phone      = entryForm.on_phone;
+                    this.on_computer   = entryForm.on_computer;
+                    this.games         = entryForm.games;
       
-                    this.formerEntry =   entryForm;
+                    this.formerEntry   = entryForm;
                 }
                 else
                 {
@@ -275,19 +275,30 @@ export default {
             // Placing unallocated hours into one category
             this.somethingelse = 24 - this.total; 
 
-            this.updateEntry()
-            .then( res => {
+            const res = this.updateEntry();
+            if (res == 201) 
+            {
                 console.log(res);
                 this.isSuccess = true;
                 this.message   = this.messageResponses.success;
-            })
-            .catch( error => {
-                console.log(error);
+            }
+            else
+            {
                 this.isSuccess = false;
                 this.message   = this.messageResponses.error;
-            });
+            }
+            // .then( res => {
+            //     console.log(res);
+            //     this.isSuccess = true;
+            //     this.message   = this.messageResponses.success;
+            // })
+            // .catch( error => {
+            //     console.log(error);
+            //     this.isSuccess = false;
+            //     this.message   = this.messageResponses.error;
+            // });
         },
-        async updateEntry() {
+        updateEntry() {
             // Getting data ready to send
             const form = {
                 sleep:         this.sleep,
@@ -302,49 +313,81 @@ export default {
             // Adding the form to the store
             var date = this.date; 
             let recentDates = this.$store.getters['bbtt/getDates'];
+            // recentDates.sort().reverse();
             recentDates.sort();
 
             // Pushing the form data to the database
             // return await Services.updateEntry({ date: date, updatedForm: form });
-            const response = await this.updateDatabase(form);
+            // const response = await this.updateDatabase(form);
+            const response = this.updateDatabase(form);
             
+            
+            // for(let i = 0; i < recentDates.length; i++) 
+            // {
+            //     console.log(recentDates[i]);
+            // }
+
             if (isSmallerThan(recentDates[0], date)) 
             {
+                recentDates.reverse();
                 this.$store.dispatch('bbtt/addNewTimeSpentEntryToFront', { date: date, data: form });
-                this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 
+                // this.$store.dispatch('bbtt/setDataFromLastSevenDays'); 
+
+                // recentDates.sort().reverse();
+                // for(let i = 0; i < recentDates.length; i++) 
+                // {
+                //     console.log(recentDates[i]);
+                // }
+
+
+                let lineGraphData = this.$store.getters['bbtt/getWeekOfData'];                        
+                const index       = recentDates.indexOf(this.date);
+                
+                const lineGraphDatalength = Object.keys(lineGraphData).length;
+
+                for(let i = 0; i < lineGraphDatalength; i++) 
+                {
+                    const j = Object.keys(lineGraphData)[i];
+                    lineGraphData[j][index] = form[j];
+                }
+
+                
+                // for(let i = 0; i < lineGraphDatalength; i++) 
+                // {
+                //     const j = Object.keys(lineGraphData)[i];
+                //     console.log(lineGraphData[j]);
+                // }
+                this.$store.dispatch('bbtt/updateLineChartData', lineGraphData);
             }
 
             return response;
 
         },
         updateDatabase(newEntry) {
-            console.log(newEntry);
-            return new Promise( (resolve, reject) => {
-                try {
-                    let database = this.$store.getters['bbttDatabase/getDatabase'];
-                    
-                    database[this.date] = newEntry;
+            // return new Promise( (resolve, reject) => {
+            try {
+                let database = this.$store.getters['bbttDatabase/getDatabase'];
+                
+                database[this.date] = newEntry;
 
-                    this.$store.dispatch('bbttDatabase/updateDatabase', database);
-                    resolve(201);
-                }
-                catch(err) {
-                    console.log(err);
-                    reject(err);
-                }
-            });
+                this.$store.dispatch('bbttDatabase/updateDatabase', database);
+                return 201;
+            }
+            catch(err) {
+                console.log(err);
+                return err;
+            }
+            // });
         },
         doesEntryExist(date) {
             // return new Promise( (resolve, reject) => {
             const database = this.$store.getters['bbttDatabase/getDatabase'];
             if (Object.prototype.hasOwnProperty.call(database, date)) 
             {
-                console.log(database[date]);
                 return true;
             }
             console.log("404 ENTRY NOT FOUND");
             return false;
-            // });
         }
     },
 }

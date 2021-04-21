@@ -53,7 +53,6 @@ const actions = {
   // Function to get the 
   setDataFromLastSevenDays({ commit, rootGetters }) {
     // Getting the last seven days of time-spent entries
-    // const response = await Services.getLastSevenDays();
     // const response = getters['bbttDatabase/getLastSevenEntries'];
     const response = rootGetters['bbttDatabase/getLastSevenEntries'];
 
@@ -83,10 +82,25 @@ const actions = {
   },
 
   //Getting line chart data for week of each category
-  setLineChartData({ commit, getters }) {
-    const data = extractLineChartData(getters['bbtt/getDataFromLastSevenDays']);
+  // setLineChartData({ commit, getters }) {
+  //   const data = extractLineChartData(getters['bbtt/getDataFromLastSevenDays']);
 
-    commit('setLineChartData', data);
+  //   commit('setLineChartData', data);
+  // },
+
+  //Updating the line graph data with specific data
+  updateLineChartData({ commit }, payload) {
+  // updateLineChartData(context, payload) {
+    commit('setLineChartData', payload);
+  },
+
+  // Setting the dates
+  setDates(context, payload) {
+    context.commit('setDates', payload);
+  },
+
+  updateDataFromLastSevenDays(context, payload) {
+    context.commit('commitDataFromLastSevenDays', payload);
   }
 }
 

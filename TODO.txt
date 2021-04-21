@@ -2,3 +2,14 @@
 - Worked on the Store and the modules. 
 - TODO: CREATE A MOCK DATABASE. WORK ON THE HEADER AND THE FOOTER DYNAMICALLY CHANGING. 
   WORK ON THE LANDING PAGE AND THE CONTENT OF THE PAGES
+
+
+
+4/19
+  - figure out why after deleting, the graph does not reset to the averages graph and why the dropselection 
+  does not change either
+
+
+
+
+  - UPDATE NEEDS WORK

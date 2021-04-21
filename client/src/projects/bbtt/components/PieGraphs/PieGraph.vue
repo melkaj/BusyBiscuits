@@ -52,14 +52,12 @@ export default {
         graphName: { type: String },
         title:     { type: String },
     },
-    computed: {
-        recentData() {
-            return this.$store.getters['bbtt/getDataFromLastSevenDays'];
-        }
-    },
     watch: {
-        recentData() {
-            this.redoChart();
+        "$store.state.bbttDatabase.database": {
+            handler: function() {
+                this.redoChart();
+            },
+            deep: true,
         }
     },
     methods: {
@@ -92,9 +90,6 @@ export default {
             var items = getPieChartDropDownSelections(this.$store.getters['bbtt/getDates'], "pie");
             items.unshift({ id: "7-Day Average", date: "7-Day Average" });            
             
-            console.log("items");            
-            console.log(items);
-
             // Setting the default item
             this.defaultDropdownSelection = items[0].id;
 
@@ -107,6 +102,7 @@ export default {
 
             // Getting the data from the database and caching it to the store
             this.pieGraphItems = this.getDateItems();
+            this.defaultDropdownSelection = this.pieGraphItems[0].id;
 
             const thisWeeksPieChartData = ChartManager.GetPieChartOptionsByAverage();
             this.pieChart = this.createPieChart(this.graphName, thisWeeksPieChartData);
