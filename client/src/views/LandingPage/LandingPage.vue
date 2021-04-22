@@ -1,6 +1,7 @@
 <template> 
     <v-container v-if="isDataLoaded" fluid class="fill-height whole-container">
 
+<!-- GREETING -->
         <v-row justify="center" align="center" class="landing-intro clip-pos">
             <div>
                 <h1 class="heading-font">
@@ -10,6 +11,7 @@
             </div>
         </v-row>
 
+<!-- BACKGROUND INFO -->
         <v-row justify="center" align="center" class="landing-intro clip-neg"> 
             <div class="text-margin">
                 <h1 class="heading-font">
@@ -20,30 +22,25 @@
             </div>
         </v-row>
         
+<!-- PROJECT DESCRIPTIONS -->
         <v-row justify="center" align="center" class="landing-intro clip-pos"> 
             <div class="text-margin">
                 <h1 class="heading-font">
-                    SOME PROJECTS I WORKED ON!
+                    SOME PROJECTS I CREATED:
                 </h1>
-                <!-- <p>CARROSEL</p> -->
                 <ProjectCards :projects="projects"/>
             </div>
         </v-row>
 
-
-        <!-- <v-row style="background:red;">
-            <v-col cols=12>
-                <v-card flat class="fill-height">
-
-                    <h1>HELLO FROM LANDINGPAGE</h1>
-                    <h2>{{ this.bbttVar }}</h2>
-                    <h2>{{ this.rootVar }}</h2>
-
-                    <v-btn @click='inc'>Clickme</v-btn>
-
-                </v-card>
-            </v-col>
-        </v-row>    -->
+<!-- EXPLORE BUTTONS TO LET USER MOVE TO THE PROJECT -->
+        <v-row justify="center" align="center" class="landing-intro clip-neg"> 
+            <div class="text-margin">
+                <h1 class="heading-font">
+                    EXPLORE THE PROJECTS
+                </h1>
+                <ProjectCards :projects="projects"/>
+            </div>
+        </v-row>
     </v-container>
 </template>
 
@@ -80,11 +77,15 @@ export default {
                             I created this project to do so. Also, it helped to develop a more robust 
                             comprehension of C++ and OOP.` 
                 },
+                { 
+                    title: "BusyBiscuits temp", 
+                    content: `LOREM IPSUM` 
+                },
             ]
         }
     },
     components: {
-        ProjectCards
+        ProjectCards,
     },
     methods: {
         inc() {

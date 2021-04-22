@@ -1,32 +1,28 @@
 <template>
     <v-sheet
-        height=50VH 
-        flat 
-        :color="colors"
-        max-width="100VW"
+    height=50VH
+    class="mx-auto"
+    max-width="100VW"
     >
         <v-slide-group
-        center-active
-        class="pa-4"
         v-model="model"
+        class="pa-4"
+        center-active
         show-arrows="always"
-        height="100%"
         >
             <v-slide-item
                 v-for="(proj, i) in projects"
                 :key="i"
                 v-slot="{ toggle }"
             >
-
-<!-- CARD TO HOLD THE DESCRIPTION OF THE PROJECTS -->
-                <v-card 
-                :color="colors" 
-                class="card" 
+                <v-card
+                color="#CCCCCC"
+                class="ma-4"
                 flat
-                height="100%"
-                width="60vw"
+                width="200"
                 @click="toggle"
                 >
+                <!-- height="200" -->
                     <div class="scroll">
                         <h1>
                             {{ proj.title }}
@@ -45,6 +41,7 @@
 export default {
     data() {
         return {
+            // colors: "#333333",
             colors: "#D5F1FC",
             model: null,
         }
@@ -52,37 +49,18 @@ export default {
     props: {
         projects: { type: Array }
     },
+    mounted() {
+        console.log(this.projects);
+    }
 }
 </script>
 
 <style scoped>
-.card {
-    margin: 1vh;
-    height: 25vh;
-}
 .scroll {
     color: black;
     padding: 1vh 1vw;
     height: 100%;
     overflow-y: scroll;
-}
-::-webkit-scrollbar {
-    width: 4px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 1px;
-    background: black; 
-}
-::-webkit-scrollbar-thumb:window-inactive {
-	background: #000000; 
 }
 p {
     margin-bottom: 0 !important;
