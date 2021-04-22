@@ -23,7 +23,7 @@
                 :color="colors" 
                 class="card" 
                 flat
-                height="100%"
+                height="85%"
                 width="60vw"
                 @click="toggle"
                 >
@@ -34,6 +34,15 @@
                         <p>
                             {{ proj.content }}
                         </p>
+                        <v-btn 
+                        text
+                        depressed
+                        class="btn"
+                        to="/bbtt/home">
+                            EXPLORE
+                        </v-btn>
+                        <!-- :color="btnColor" -->
+
                     </div>
                 </v-card>
             </v-slide-item>
@@ -46,6 +55,7 @@ export default {
     data() {
         return {
             colors: "#D5F1FC",
+            btnColor: "white",
             model: null,
         }
     },
@@ -56,6 +66,20 @@ export default {
 </script>
 
 <style scoped>
+.btn {
+    color: white;
+    background: #D5F1FC;
+    padding-top: 10px;
+    margin-top: 10px;
+    border: 2px solid black;
+}
+.btn:hover {
+    color: #333333;
+    background: #D5F1FC;
+    padding-top: 10px;
+    margin-top: 10px;
+    border: 2px solid black;
+}
 .card {
     margin: 1vh;
     height: 25vh;
@@ -67,19 +91,20 @@ export default {
     overflow-y: scroll;
 }
 ::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
     -webkit-border-radius: 10px;
     border-radius: 10px;
+    background: white;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 1px;
-    background: black; 
+    background: #333333; 
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: #000000; 

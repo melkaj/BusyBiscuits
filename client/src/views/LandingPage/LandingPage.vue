@@ -33,14 +33,14 @@
         </v-row>
 
 <!-- EXPLORE BUTTONS TO LET USER MOVE TO THE PROJECT -->
-        <v-row justify="center" align="center" class="landing-intro clip-neg"> 
+        <!-- <v-row justify="center" align="center" class="landing-intro clip-neg"> 
             <div class="text-margin">
                 <h1 class="heading-font">
                     EXPLORE THE PROJECTS
                 </h1>
                 <ProjectCards :projects="projects"/>
             </div>
-        </v-row>
+        </v-row> -->
     </v-container>
 </template>
 

@@ -13,7 +13,7 @@
                 <v-btn 
                 text
                 depressed
-                to="home">
+                to="/">
                     BusyBiscuits
                 </v-btn>
             </v-toolbar-title>
