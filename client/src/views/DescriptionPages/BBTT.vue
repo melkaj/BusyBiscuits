@@ -1,30 +1,39 @@
 <template>
     <v-container fluid class="fill-height whole-container">
         <v-row justify="center" align="center" class="landing-intro clip-pos"> 
-            <v-col cols="12">
+            <!-- <v-col cols="12"> -->
                 <div class="scroll">
                     <h1 class="heading-font">
                         BUSY BISCUITS TIME TRACKER
                     </h1>
                     <p>
-                        You are about to be sent to the mock version of the initial application I created. 
-                        When I first created this application, it was a true full stack application, meaning I 
-                        created it with a backend and a MySql database. But for the purposes of this portfolio
-                        website, I created a mock version of that app just to showcase what it can do. Everything
-                        works exactly like the full stack app that is local to my machine, just without the database
-                        and the backend. So, if you leave the page and re-enter, all the information you gave before will
-                        be gone since it was not saved anywhere. The code to the full-stack version can be found 
-                        <span><a :href="githubRepo" id="link">here on my github page.</a></span>
+                        You are about to be sent to the mock version of my BBTT application. The full version of the 
+                        app is a frontend that makes Axios calls to a Node backend which performs operations on a MySql 
+                        database. However, the full version is only local to my machine and not deployed. For showcasing 
+                        purposes, I made a mock version that is entirely VueJs and Javascript. So, when you exit the 
+                        page and re-enter, the web application will reset all the data entries you gave to the initial 
+                        mock version. 
                     </p>
+                    <p>
+                        There will be three primary tabs (Overview, Forms, Detailed) where all functionality will lie. 
+                        The 'Overview' tab shows graphs based on (mock) data from the past week. The 'Forms' tab is where 
+                        the user can create, update, and delete entries. The 'Detailed' tab is where the user can visualize 
+                        the data of their choosing (i.e., choosing specific dates from a calender) 
+                    </p>
+                    <p>
+                        <a :href="githubRepo" id="link">
+                            Click here to see the repo of the full version of the app
+                        </a>
+                    </p>
+                    <v-btn 
+                    text
+                    depressed
+                    class="btn"
+                    to="/bbtt/home">
+                        Continue to BBTT
+                    </v-btn>
                 </div>
-                <v-btn 
-                text
-                depressed
-                class="btn"
-                to="/bbtt/home">
-                    Continue
-                </v-btn>
-            </v-col>
+            <!-- </v-col> -->
         </v-row>
     </v-container>    
 </template>
@@ -45,6 +54,7 @@ export default {
     font-weight: bolder;
     font-style: italic;
     text-decoration: none;
+    width: auto;
 }
 .btn {
     color: white;
@@ -69,7 +79,7 @@ export default {
 .scroll {
     color: black;
     padding: 1vh 1vw;
-    height: 100%;
+    height: 60%;
     overflow-y: scroll;
 }
 ::-webkit-scrollbar {
