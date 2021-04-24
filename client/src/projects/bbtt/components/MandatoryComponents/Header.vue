@@ -57,7 +57,6 @@
         <!-- THE DRAWER WITH OTHER LINKS -->
         <v-navigation-drawer
         v-model="drawer"
-        absolute
         temporary
         app
         >

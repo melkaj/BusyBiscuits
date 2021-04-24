@@ -40,7 +40,7 @@
                         class="btn"
                         :to="proj.path">
                         <!-- to="/bbtt/home"> -->
-                            EXPLORE
+                            LEARN MORE
                         </v-btn>
 
                     </div>

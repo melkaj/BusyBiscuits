@@ -48,26 +48,24 @@ export default {
             projects: [
                 { 
                     title: "BusyBiscuits Time Tracker", 
-                    content: `BBTT is a full stack application that tracks and 
-                            visualizes time spent throughout the day. The user can create an 
-                            entry based on how many hours were spent on various tasks (i.e. 
-                            traveling, sleeping, etc.). Then graphs are generated to give a visual 
-                            understanding of where their time is spent. I noticed I become far more
-                            productive when I plan my day by the hour. So, I thought it would be cool
-                            to create and application to take it one step further while also honing 
-                            my full-stack skills. Click on the 'Explore' button below to learn more!`,
+                    content: `BBTT is a full-stack application that tracks and visualizes time spent throughout 
+                    the day. The user records how many hours were spent on various tasks (i.e., traveling, sleeping, 
+                    etc.). Then graphs are generated to give a visual understanding of where their time is spent. 
+                    I noticed I become far more productive when I plan my day. So, I thought it would be fun to create 
+                    an application that would help me become more productive while also honing my full-stack skills. 
+                    Click on the 'Explore' button below to learn more!`,
                     path: "/desc/bbtt",
                 },
                 { 
                     title: "BusyBiscuits Database", 
                     content: `BBD is a budget database built in C++. Data is stored on a text file when the 
                             application is not running. But during runtime, the data is offloaded into a 
-                            custom datastructure that allows the user to perform CRUD operations. The 
-                            datastructure is a hash table where each element is the root of a binary tree.
+                            custom data structure that allows the user to perform CRUD operations. The 
+                            data structure is a hash table where each element is the root of a binary tree.
                             I wanted to get a better lower level understanding of certain structures so 
                             I created this project to do so. Also, it helped to develop a more robust 
                             comprehension of C++ and OOP. Click on the 'Explore' button below to learn more!`,
-                    path: "/desc/bbtt",
+                    path: "/desc/bbd",
                 },
             ]
         }
@@ -116,6 +114,7 @@ export default {
 .text-margin {
     margin: 4vw;
 }
+
 @media screen and (min-width: 701px) {                            /* LARGE */
     .heading-font {
         font-size: 2.5vw;

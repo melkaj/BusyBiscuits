@@ -4,22 +4,38 @@
             <!-- <v-col cols="12"> -->
                 <div class="scroll">
                     <h1 class="heading-font">
-                        BUSY BISCUITS TIME TRACKER
+                        BUSY BISCUITS DATABASE
                     </h1>
                     <p>
-                        You are about to be sent to the mock version of my BBTT application. The full version of the 
-                        app is a frontend that makes Axios calls to a Node backend which performs operations on a MySql 
-                        database. However, the full version is only local to my machine and not deployed. For showcasing 
-                        purposes, I made a mock version that is entirely VueJs and Javascript. So, when you exit the 
-                        page and re-enter, the web application will reset all the data entries you gave to the initial 
-                        mock version. 
+                        <strong>(The C++ application is finished and can be found on my github. However, I am working on 
+                        getting the application ported to webassembly so it can be showcased here. When it 
+                        is finished, I will add it here. But for now, you can read about the project below and 
+                        go back to the main portfolio page)</strong>
                     </p>
                     <p>
-                        There will be three primary tabs (Overview, Forms, Detailed) where all functionality will lie. 
-                        The 'Overview' tab shows graphs based on (mock) data from the past week. The 'Forms' tab is where 
-                        the user can create, update, and delete entries. The 'Detailed' tab is where the user can visualize 
-                        the data of their choosing (i.e., choosing specific dates from a calender). Vuetify was heavily used 
-                        for the styling of the application and ChartsJS was used to generated the necessary graphs. 
+                        You are about to be sent to the mock version of my BBD application. The full version of the 
+                        app was made in a Linux environment using C++. I used CMake to help generate Make files that 
+                        helped build and compile the program. I wanted to showcase this app mainly because of all the 
+                        projects I've worked on, this has been one of the most fun. C++ was the first language I learned, 
+                        and I have not got the chance to use it after of my Algorithms course a few years back. Also, 
+                        programming inside a new environment like Linux and using CMake to help build the app instead 
+                        of an IDE added to the experience. It felt great to make something that was more low level than 
+                        anything else I worked on in the past. 
+                    </p>
+                    <p>
+                        This 'database' is a command-line program that can perform CRUD operations on data retrieved 
+                        from a text file. There is the main text file that stores all the entries. When the program 
+                        starts, the data loads into a custom data structure, and the user can interact with the 
+                        command line to manipulate the data structure. When the program ends, the data inside the 
+                        data structure is then offloaded into the text file, saving it for the future. So when the 
+                        program reloads, the data from before will be shown.        
+                    </p>
+                    <p>
+                        This C++ project can be showcased through the browser by the power of WebAssembly. However,
+                        due to WebAssembly, Javascript, and browsers, the save feature does not work. When the 
+                        program loads, data is loaded from the main text file, but there is no way to write to 
+                        the text file. The user can still interact with the application using all of the other features.
+                        The full version of the program, all features work especially the save function. 
                     </p>
                     <p>
                         <a :href="githubRepo" id="link" target="_blank" rel="noopener noreferrer">
@@ -30,8 +46,8 @@
                     text
                     depressed
                     class="btn"
-                    to="/bbtt/home">
-                        Continue to BBTT
+                    to="/">
+                        Back to Main Page
                     </v-btn>
                 </div>
             <!-- </v-col> -->
@@ -43,7 +59,7 @@
 export default {
     data() {
         return {
-            githubRepo: "https://github.com/melkaj/BusyBiscuits/tree/master"
+            githubRepo: "https://github.com/melkaj/BusyBiscuits_Database"
         }
     }
 }
@@ -111,7 +127,6 @@ p {
     flex-direction: column;
     /* Column | row */
 }
-
 
 
 @media screen and (min-width: 1100px) {                            /* LARGE */
