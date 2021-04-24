@@ -119,7 +119,7 @@ p {
 }
 
 /* EXTRA LARGE */
-@media screen and (min-width: 961px) {  
+@media screen and (min-width: 1101px) {  
     .card {
         margin: 1vh;
         height: 40vh;
@@ -132,25 +132,25 @@ p {
     }
 }
 /* LARGE */
-@media screen and (min-width: 701px) and (max-width: 960px) {       
+@media screen and (min-width: 701px) and (max-width: 1100px) {       
     h1 {
-        font-size: 2vw;
+        font-size: 2.5vw;
     }
     p {
-        font-size: 1.5vw;
+        font-size: 2vw;
     }
 } 
 /* MEDIUM */
-@media screen and (min-width: 401px) and (max-width: 700px) {     
+@media screen and (min-width: 501px) and (max-width: 700px) {     
     h1 {
-        font-size: 3vw;
+        font-size: 3.5vw;
     }
     p {
-        font-size: 2.5vw;
+        font-size: 3vw;
     }
 }
 /* SMALL */
-@media screen and (max-width: 400px) {                            
+@media screen and (max-width: 500px) {                            
     h1 {
         font-size: 5vw;
     }

@@ -81,7 +81,7 @@
 <!-- USED FOR THE PIE GRAPH -->
         <v-expand-x-transition>
             <v-row align="center" justify="center">
-                <v-col sm="7" class="ma-auto py-3">
+                <v-col cols="12" sm="7" class="ma-auto py-3">
                     <!-- <PieGraphGeneral :dates="dates" :graphName="piechart" :title="dates" /> -->
                     <v-card flat>
                         <v-card-title v-if="pieChart!=null" class="justify-center chart-title mb-2">
@@ -98,7 +98,7 @@
         <v-expand-x-transition>
             <v-row v-show="showLineGraph" align="center" justify="center">
                 <!-- <v-card> -->
-                    <v-col sm="8" class="ma-auto py-3">
+                    <v-col cols="12" sm="8" class="ma-auto py-3">
                         <v-card flat>
                             <canvas :class='lineGraphName'></canvas>
                         </v-card>
@@ -107,7 +107,7 @@
                     <v-divider inset vertical></v-divider>
 
                     <!-- Column two - Drop down to change the linegraph -->
-                    <v-col sm="2" class="ma-auto">
+                    <v-col cols="12" sm="2" class="ma-auto">
                         <v-select
                         :items="lineGraphItems"
                         item-value="id"

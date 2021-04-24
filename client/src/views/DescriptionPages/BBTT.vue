@@ -3,7 +3,7 @@
         <v-row justify="center" align="center" class="landing-intro clip-pos"> 
             <!-- <v-col cols="12"> -->
                 <div class="scroll">
-                    <h1 class="heading-font">
+                    <h1 class="heading-font center-element">
                         BUSY BISCUITS TIME TRACKER
                     </h1>
                     <p>
@@ -63,6 +63,8 @@ export default {
     padding-top: 10px;
     margin-top: 10px;
     border: 2px solid black;
+    display: flex;
+    justify-content: center;
 }
 .whole-container {
     background: #333333;
@@ -83,10 +85,14 @@ export default {
     height: 60%;
     overflow-y: scroll;
 }
+.center-element {
+    display: flex;
+    justify-content: center;
+}
+
 ::-webkit-scrollbar {
     width: 5px;
 }
-
 /* Track */
 ::-webkit-scrollbar-track {
     -webkit-border-radius: 10px;
@@ -113,21 +119,14 @@ p {
 }
 
 
-
-@media screen and (min-width: 1100px) {                            /* LARGE */
+/* LARGE */
+@media screen and (min-width: 1100px) {                           
     .scroll {
         width: 75%;
     }
 }
-@media screen and (min-width: 701px) {                            /* LARGE */
-    .heading-font {
-        font-size: 2.5vw;
-    }
-    p {
-        font-size: 1.5vw;
-    }
-}
-@media screen and (min-width: 401px) and (max-width: 700px) {     /* MEDIUM */
+/* LARGE */
+@media screen and (min-width: 901px) and (max-width: 1200px) {     
     .heading-font {
         font-size: 4vw;
     }
@@ -135,7 +134,17 @@ p {
         font-size: 2vw;
     }
 }
-@media screen and (max-width: 400px) {                            /* SMALL */
+/* MEDIUM */
+@media screen and (min-width: 551px) and (max-width: 900px) {     
+    .heading-font {
+        font-size: 4vw;
+    }
+    p {
+        font-size: 2vw;
+    }
+}
+/* SMALL */
+@media screen and (max-width: 550px) {                            
     .heading-font {
         font-size: 5vw;
     }

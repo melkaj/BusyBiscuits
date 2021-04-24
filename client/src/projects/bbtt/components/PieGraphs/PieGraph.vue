@@ -3,7 +3,7 @@
 
         <!-- Pie Chart -->
         <v-row no-gutters>
-            <v-col sm="7" class="ma-auto py-3">
+            <v-col cols="12" sm="7" class="ma-auto py-3">
                 <v-card flat>
                     <v-card-title class="center-element chart-title mb-2">
                         {{ title }}
@@ -18,7 +18,7 @@
             <v-divider inset vertical></v-divider>
 
             <!-- Column two - Dropdown to change the data in the pie chart -->
-            <v-col sm="3" class="ma-auto">
+            <v-col cols="12" sm="3" class="ma-auto">
                 <v-select
                 :items="pieGraphItems"
                 item-value="id"
@@ -123,6 +123,8 @@ export default {
     font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 36px;
     color: #116466;
+    padding: 20px;
+    word-break: normal;
 }
 .chart-sub-title {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

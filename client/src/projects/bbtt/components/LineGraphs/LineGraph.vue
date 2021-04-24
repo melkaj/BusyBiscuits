@@ -4,7 +4,7 @@
         <!-- Line Graph -->
         <v-row no-gutters>
 
-            <v-col sm="7" class="ma-auto py-3">
+            <v-col cols="12" sm="7" class="ma-auto py-3">
                 <v-card flat>
                     <v-card-title class="chart-title mb-2 center-element">
                         {{ title }}
@@ -19,7 +19,7 @@
             <v-divider inset vertical></v-divider>
 
             <!-- Column two - Drop down to change the linegraph -->
-            <v-col sm="3" class="ma-auto">
+            <v-col cols="12" sm="3" class="ma-auto">
                 <v-select
                 :items="lineGraphItems"
                 item-value="id"
@@ -111,6 +111,8 @@ export default {
     font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 36px;
     color: #116466;
+    word-break: normal;
+
 }
 .chart-sub-title {
     font-family: "Montserrat-SemiBold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
