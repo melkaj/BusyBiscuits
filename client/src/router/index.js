@@ -1,9 +1,10 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Login from '../projects/bbtt/views/login/Login.vue';
-import Register from '../projects/bbtt/views/register/Register.vue';
-import HomePage from '../projects/bbtt/views/Home/Home.vue';
-import LandingPage from '../views/LandingPage/LandingPage.vue';
+import Vue          from 'vue';
+import VueRouter    from 'vue-router';
+import Login        from '../projects/bbtt/views/login/Login.vue';
+import Register     from '../projects/bbtt/views/register/Register.vue';
+import HomePage     from '../projects/bbtt/views/Home/Home.vue';
+import LandingPage  from '../views/LandingPage/LandingPage.vue';
+import BBTT         from '../views/DescriptionPages/BBTT.vue';
 import FourZeroFour from '../components/404/404.vue';
 
 Vue.use(VueRouter);
@@ -16,6 +17,11 @@ const routes = [
     path: '/',
     name: 'port-home',  
     component: LandingPage     
+  },
+  {
+    path: '/desc/bbtt',
+    name: 'descr-bbtt',
+    component: BBTT
   },
 
   

@@ -31,16 +31,6 @@
                 <ProjectCards :projects="projects"/>
             </div>
         </v-row>
-
-<!-- EXPLORE BUTTONS TO LET USER MOVE TO THE PROJECT -->
-        <!-- <v-row justify="center" align="center" class="landing-intro clip-neg"> 
-            <div class="text-margin">
-                <h1 class="heading-font">
-                    EXPLORE THE PROJECTS
-                </h1>
-                <ProjectCards :projects="projects"/>
-            </div>
-        </v-row> -->
     </v-container>
 </template>
 
@@ -65,7 +55,8 @@ export default {
                             understanding of where their time is spent. I noticed I become far more
                             productive when I plan my day by the hour. So, I thought it would be cool
                             to create and application to take it one step further while also honing 
-                            my full-stack skills`
+                            my full-stack skills. Click on the 'Explore' button below to learn more!`,
+                    path: "/desc/bbtt",
                 },
                 { 
                     title: "BusyBiscuits Database", 
@@ -75,11 +66,8 @@ export default {
                             datastructure is a hash table where each element is the root of a binary tree.
                             I wanted to get a better lower level understanding of certain structures so 
                             I created this project to do so. Also, it helped to develop a more robust 
-                            comprehension of C++ and OOP.` 
-                },
-                { 
-                    title: "BusyBiscuits temp", 
-                    content: `LOREM IPSUM` 
+                            comprehension of C++ and OOP. Click on the 'Explore' button below to learn more!`,
+                    path: "/desc/bbtt",
                 },
             ]
         }

@@ -38,10 +38,10 @@
                         text
                         depressed
                         class="btn"
-                        to="/bbtt/home">
+                        :to="proj.path">
+                        <!-- to="/bbtt/home"> -->
                             EXPLORE
                         </v-btn>
-                        <!-- :color="btnColor" -->
 
                     </div>
                 </v-card>

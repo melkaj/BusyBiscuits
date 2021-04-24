@@ -4,11 +4,17 @@
         <!-- THE TOOLBAR ITSELF -->
         <v-app-bar flat dense :color="color" app dark>
             <!-- The side bar -->
-            <v-app-bar-nav-icon @click="drawer = !drawer">BB</v-app-bar-nav-icon>
+            <v-app-bar-nav-icon 
+            @click="drawer = !drawer">
+                <v-icon>
+                    mdi-apps
+                </v-icon>
+            <!-- || -->
+            </v-app-bar-nav-icon>
             
             <v-divider vertical inset />
             
-            <!-- Main Logo Button -->
+<!-- Main Logo Button -->
             <v-toolbar-title>        
                 <v-btn 
                 text
@@ -21,7 +27,7 @@
             <v-divider vertical inset />
             <v-spacer></v-spacer>
 
-            <!-- End of bar buttons -->
+<!-- End of bar buttons -->
             <v-toolbar-items>
                 <v-divider vertical inset />
 
@@ -49,13 +55,13 @@
             </v-toolbar-items>
         </v-app-bar>
 
-        <!-- THE DRAWER WITH OTHER LINKS -->
+<!-- THE DRAWER WITH OTHER LINKS -->
         <v-navigation-drawer
         v-model="drawer"
         temporary
         app 
         >
-            <!-- THE HEADER OF THE DRAWER -->
+<!-- THE HEADER OF THE DRAWER -->
             <v-list-item>
                 <v-list-item-content>
                     <v-list-item-title class="title">
