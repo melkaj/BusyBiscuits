@@ -6,10 +6,10 @@
                         BUSY BISCUITS DATABASE
                     </h1>
                     <p>
-                        <strong>(The C++ application is finished and can be found on my github. However, I am working on 
+                        <span class="bold-text">(The C++ application is finished and can be found on my github. However, I am working on 
                         getting the application ported to webassembly so it can be showcased here. When it 
-                        is finished, I will add it here. But for now, you can read about the project below and 
-                        go back to the main portfolio page)</strong>
+                        is finished, it will be added. But for now, you can read about the project below and 
+                        go back to the main portfolio page)</span>
                     </p>
                     <p>
                         You are about to be sent to the mock version of my BBD application. The full version of the 
@@ -75,6 +75,9 @@ export default {
 }
 .hei {
     height: 60%;
+}
+.bold-text {
+    font-family: "Montserrat-Bold";
 }
 
 p {

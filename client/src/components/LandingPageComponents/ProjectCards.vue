@@ -1,4 +1,4 @@
-<template>
+<template style="color:#333333">
     <v-sheet
         height=50VH 
         flat 

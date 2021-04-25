@@ -18,7 +18,8 @@
                     I AM A RECENT GRADUATE<br/> 
                     AND AN ASPIRING SOFTWARE ENGINEER<br/>
                 </h1>
-                <p>This is my portfolio website and would like to showcase some of my projects!</p>
+                <div class="desc-text"><span class="bold-text">BUSYBISCUITS</span> is my portfolio website that showcases some of the previous projects. 
+                    You can think of them as the BusyBiscuits suite of applications.</div>
             </div>
         </v-row>
         
@@ -90,6 +91,9 @@ export default {
 <style scoped>
 @import url('../../assets/general.css');
 
+.bold-text {
+    font-family: "Montserrat-Bold";
+}
 .heading-font {
     font-family: "Montserrat-Bold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 3vw;
@@ -98,11 +102,26 @@ export default {
 }
 .text-margin {
     margin: 4vw;
+
 }
 
-@media screen and (min-width: 701px) {                            /* LARGE */
+@media screen and (min-width: 1101px) {                            /* LARGE */
+    .heading-font {
+        font-size: 2vw;
+    }
+    .desc-text {
+        font-size: 1.4vw;
+    }
+    p {
+        font-size: 1.4vw;
+    }
+}
+@media screen and (min-width: 701px) and (max-width: 1100px) {                            /* LARGE */
     .heading-font {
         font-size: 2.5vw;
+    }
+    .desc-text {
+        font-size: 2vw;
     }
     p {
         font-size: 2vw;
@@ -112,6 +131,9 @@ export default {
     .heading-font {
         font-size: 4vw;
     }
+    .desc-text {
+        font-size: 2.5vw;
+    }
     p {
         font-size: 2.5vw;
     }
@@ -119,6 +141,9 @@ export default {
 @media screen and (max-width: 400px) {                            /* SMALL */
     .heading-font {
         font-size: 5vw;
+    }
+    .desc-text {
+        font-size: 3.5vw;        
     }
     p {
         font-size: 3.5vw;
