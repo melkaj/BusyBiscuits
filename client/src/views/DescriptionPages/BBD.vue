@@ -1,8 +1,7 @@
 <template>
     <v-container fluid class="fill-height whole-container">
         <v-row justify="center" align="center" class="landing-intro clip-pos"> 
-            <!-- <v-col cols="12"> -->
-                <div class="scroll">
+                <div class="scroll hei">
                     <h1 class="heading-font center-element">
                         BUSY BISCUITS DATABASE
                     </h1>
@@ -50,7 +49,6 @@
                         Back to Main Page
                     </v-btn>
                 </div>
-            <!-- </v-col> -->
         </v-row>
     </v-container>    
 </template>
@@ -66,6 +64,8 @@ export default {
 </script>
 
 <style scoped>
+@import url('../../assets/general.css');
+
 #link {
     color: black;
     font-weight: bolder;
@@ -73,57 +73,10 @@ export default {
     text-decoration: none;
     width: auto;
 }
-.btn {
-    color: white;
-    background: #D5F1FC;
-    padding-top: 10px;
-    margin-top: 10px;
-    border: 2px solid black;
-    display: flex;
-    justify-content: center;
-}
-.whole-container {
-    background: #333333;
-}
-.landing-intro {
-    height: 95vh;
-    color: #333333;
-    background: #D5F1FC;
-    /* clip-path: polygon(0 5%, 100% 15%, 100% 85%, 0 95%); */
-}
-.clip-pos {
-    /* Top left going down || Top right going down || Bottom right going up || Bottom left going up */
-    clip-path: polygon(0 5%, 100% 15%, 100% 85%, 0 95%);
-}
-.scroll {
-    color: black;
-    padding: 1vh 1vw;
+.hei {
     height: 60%;
-    overflow-y: scroll;
-}
-.center-element {
-    display: flex;
-    justify-content: center;
 }
 
-::-webkit-scrollbar {
-    width: 5px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: white;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 1px;
-    background: #333333; 
-}
-::-webkit-scrollbar-thumb:window-inactive {
-	background: #000000; 
-}
 p {
     padding: 12px;
     margin-bottom: 0 !important;
@@ -131,9 +84,7 @@ p {
     justify-content: center;
     align-content: center;
     flex-direction: column;
-    /* Column | row */
 }
-
 
 /* LARGE */
 @media screen and (min-width: 1100px) {                           

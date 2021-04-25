@@ -66,20 +66,8 @@ export default {
 </script>
 
 <style scoped>
-.btn {
-    color: white;
-    background: #D5F1FC;
-    padding-top: 10px;
-    margin-top: 10px;
-    border: 2px solid black;
-}
-.btn:hover {
-    color: #333333;
-    background: #D5F1FC;
-    padding-top: 10px;
-    margin-top: 10px;
-    border: 2px solid black;
-}
+@import url('../../assets/general.css');
+
 .card {
     margin: 1vh;
     height: 25vh;
@@ -90,33 +78,13 @@ export default {
     height: 100%;
     overflow-y: scroll;
 }
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    background: white;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 1px;
-    background: #333333; 
-}
-::-webkit-scrollbar-thumb:window-inactive {
-	background: #000000; 
-}
 p {
     margin-bottom: 0 !important;
     display: flex;
     justify-content: center;
     align-content: center;
     flex-direction: column;
-    /* Column | row */
-}
+} 
 
 /* EXTRA LARGE */
 @media screen and (min-width: 1101px) {  
@@ -128,7 +96,7 @@ p {
         font-size: 2.5vw;
     }
     p {
-        font-size: 1.5vw;
+        font-size: 1.3vw;
     }
 }
 /* LARGE */

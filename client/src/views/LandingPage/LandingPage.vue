@@ -53,7 +53,7 @@ export default {
                     etc.). Then graphs are generated to give a visual understanding of where their time is spent. 
                     I noticed I become far more productive when I plan my day. So, I thought it would be fun to create 
                     an application that would help me become more productive while also honing my full-stack skills. 
-                    Click on the 'Explore' button below to learn more!`,
+                    Click on the button below to learn more!`,
                     path: "/desc/bbtt",
                 },
                 { 
@@ -64,7 +64,7 @@ export default {
                             data structure is a hash table where each element is the root of a binary tree.
                             I wanted to get a better lower level understanding of certain structures so 
                             I created this project to do so. Also, it helped to develop a more robust 
-                            comprehension of C++ and OOP. Click on the 'Explore' button below to learn more!`,
+                            comprehension of C++ and OOP. Click on the button below to learn more!`,
                     path: "/desc/bbd",
                 },
             ]
@@ -88,23 +88,8 @@ export default {
 </script>
 
 <style scoped>
-.whole-container {
-    background: #333333;
-}
-.landing-intro {
-    height: 95vh;
-    color: #333333;
-    background: #D5F1FC;
-    /* clip-path: polygon(0 5%, 100% 15%, 100% 85%, 0 95%); */
-}
-.clip-pos {
-    /* Top left going down || Top right going down || Bottom right going up || Bottom left going up */
-    clip-path: polygon(0 5%, 100% 15%, 100% 85%, 0 95%);
-}
-.clip-neg {
-    /* Top left going down || Top right going down || Bottom right going up || Bottom left going up */
-    clip-path: polygon(0 15%, 100% 5%, 100% 95%, 0 85%);
-}
+@import url('../../assets/general.css');
+
 .heading-font {
     font-family: "Montserrat-Bold", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 3vw;

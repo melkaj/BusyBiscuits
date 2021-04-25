@@ -1,0 +1,83 @@
+.btn {
+    color: black;
+    background: #D5F1FC;
+    padding-top: 10px;
+    margin-top: 10px;
+    border: 2px solid black;
+    display: flex;
+    /* justify-content: center; */
+}
+.scroll {
+    color: black;
+    padding: 1vh 1vw;
+    height: 60%;
+    overflow-y: scroll;
+}
+.center-element {
+    display: flex;
+    justify-content: center;
+}
+.landing-intro {
+    height: 95vh;
+    color: #333333;
+    background: #D5F1FC;
+}
+.whole-container {
+    background: #333333;
+}
+.clip-pos {
+    /* Top left going down || Top right going down || Bottom right going up || Bottom left going up */
+    clip-path: polygon(0 5%, 100% 15%, 100% 85%, 0 95%);
+}
+.clip-neg {
+    /* Top left going down || Top right going down || Bottom right going up || Bottom left going up */
+    clip-path: polygon(0 15%, 100% 5%, 100% 95%, 0 85%);
+}
+
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: white;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 1px;
+    background: #333333; 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: #000000; 
+}
+
+::-moz-scrollbar {
+    width: 5px;
+}
+/* Track */
+::-moz-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: white;
+}
+/* Handle */
+::-moz-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 1px;
+    background: #333333; 
+}
+::-moz-scrollbar-thumb:window-inactive {
+	background: #000000; 
+}
+
+p {
+    margin-bottom: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    /* Column | row */
+}
