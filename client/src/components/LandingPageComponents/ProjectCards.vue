@@ -1,6 +1,6 @@
 <template style="color:#333333">
     <v-sheet
-        height=50VH 
+        max-height=70VH 
         flat 
         :color="colors"
         max-width="100VW"
@@ -9,8 +9,8 @@
         center-active
         class="pa-4"
         v-model="model"
-        show-arrows="always"
         height="100%"
+        show-arrows="always"
         >
             <v-slide-item
                 v-for="(proj, i) in projects"
@@ -73,10 +73,10 @@ export default {
     height: 25vh;
 }
 .scroll {
-    color: black;
+    color: #333333;
     padding: 1vh 1vw;
-    height: 100%;
-    overflow-y: scroll;
+    height: 80%;
+    overflow-y: auto;
 }
 p {
     margin-bottom: 0 !important;

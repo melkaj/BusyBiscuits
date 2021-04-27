@@ -8,10 +8,12 @@
     justify-content: center; */
 }
 .scroll {
-    color: black;
+    color: #333333;
     padding: 1vh 1vw;
-    height: 60%;
-    overflow-y: scroll;
+    /* height: 60%; */
+    overflow-y: auto;
+    scrollbar-color: #333333 white;
+    scrollbar-width: thin;
 }
 .center-element {
     display: flex;
@@ -21,6 +23,7 @@
     height: 95vh;
     color: #333333;
     background: #D5F1FC;
+    padding: 100px 0;
 }
 .whole-container {
     background: #333333;
@@ -54,16 +57,17 @@
 	background: #000000; 
 }
 
-::-moz-scrollbar {
+/* ::-moz-scrollbar {
     width: 5px;
 }
-/* Track */
+::-moz-scrollbars-horizontal {
+    width: 5px;
+}
 ::-moz-scrollbar-track {
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: white;
 }
-/* Handle */
 ::-moz-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 1px;
@@ -71,7 +75,7 @@
 }
 ::-moz-scrollbar-thumb:window-inactive {
 	background: #000000; 
-}
+} */
 
 p {
     margin-bottom: 0 !important;

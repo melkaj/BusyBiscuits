@@ -90,7 +90,7 @@ p {
 }
 
 /* LARGE */
-@media screen and (min-width: 1100px) {                           
+@media screen and (min-width: 1100px) {
     .scroll {
         width: 75%;
     }
